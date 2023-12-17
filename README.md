@@ -1,0 +1,2 @@
+# SuperMarketManagementSystem
+PrjectCodingOnly
