@@ -11,7 +11,8 @@ export default {
     extend: {
       fontFamily:{
         tangerine:['Tangerine'],
-        cinzel:['Cinzel']
+        cinzel:['Cinzel'],
+        Lavish:['sans-serif'],
       }
     },
   },

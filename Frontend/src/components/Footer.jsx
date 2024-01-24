@@ -38,7 +38,7 @@ export default function Footer() {
 
             <div className="">
                 <h6 className="self-center whitespace-nowrap text-4xl 4xl:text-xl font-semibold dark:text-white font-tangerine">
-                 <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via purple-500 to-pink-700  text-white rounded-lg  size-10/12" >Flora</span>Shop
+                 <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via purple-500 to-pink-500  text-white rounded-lg  size-10/12" >Flora</span>Shop
                 </h6>
                 <p>
                 
