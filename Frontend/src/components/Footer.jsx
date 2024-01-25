@@ -19,14 +19,14 @@ export default function Footer() {
                     <box-icon type='logo' name='meta' color='blue'></box-icon>
                 </a>
                 <a href="#!" className="mr-6 text-neutral-600 dark:text-neutral-200">
-                    <box-icon name='instagram' type='logo' color='red'></box-icon>
+                    <box-icon  type='logo' name='instagram'  color='red'></box-icon>
                 </a>
                 
                 <a href="#!" className="mr-6 text-neutral-600 dark:text-neutral-200">
-                    <box-icon name='twitter' type='logo' color='lightblue'></box-icon>
+                    <box-icon  type='logo' name='twitter' color='lightblue'></box-icon>
                 </a>
                 <a href="#!" className="mr-6 text-neutral-600 dark:text-neutral-200">
-                    <box-icon name='tiktok' type='logo' color='black'></box-icon>
+                    <box-icon type='logo' name='tiktok'  color='black'></box-icon>
                 </a>
             
             </div>
