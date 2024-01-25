@@ -1,23 +1,27 @@
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link , useNavigate } from "react-router-dom";
+import { signInStart,signInSuccess,singInFailure } from '../redux/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import OAuthenticate from "../components/OAuthenticate";
+
 
 export default function SignIn() {
     const [formData , setFormData] = useState({});
-    const[error , setError] = useState(false);
-    const[loading , setLoading] = useState(false);
+    const{loading , error} = useSelector((state)=>state.user);
+    
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const handleChange = (e) =>{
         setFormData({...formData, [e.target.id]:e.target.value.trim()});
       };
       const handleSubmit = async (e)=>{
         e.preventDefault();
         if(!formData.email || !formData.password){
-            return setError('Please Fill all Fields');
+            dispatch(singInFailure("Please Fill all fields"));
         }
         try{
-          setLoading(true);
-          setError(false);
+           dispatch(signInStart());
           const res = await fetch('/api/auth/signin', {
             method: 'POST',
             headers: {
@@ -28,15 +32,15 @@ export default function SignIn() {
       
           const data = await res.json();
           console.log(data);
-          setLoading(false);
+       
          if(data.success == false){
-          setError(data.message);
+            dispatch(singInFailure(data.message));
           return;
          }
+         dispatch(signInSuccess(data));
           navigate('/')
         }catch(error){
-          setLoading(false);
-          setError(error.message);
+            dispatch(singInFailure(error.message));
         }
        
         
@@ -54,7 +58,7 @@ export default function SignIn() {
             {/* right */}
             <div className="flex-1">
                 <p className="text-center text-2xl font-cinzel font-semibold ">Sign In</p>
-                <form className="flex flex-col gap-4 mt-5" onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-5">
                    
                     <div>
                         <Label value="Your email"/>
@@ -71,6 +75,7 @@ export default function SignIn() {
                         </>
                        
                     ):'Sign In'}</Button>
+                    <OAuthenticate/>
                 </form>
                 <div className="flex gap-2 text-sm mt-5 ">
                     <span>Dont have an Account?</span>
