@@ -1,4 +1,4 @@
-import { Alert, Button, Label, TextInput } from "flowbite-react";
+import { Alert, Button, Label, TextInput ,Spinner } from "flowbite-react";
 import { useState } from "react";
 import { Link , useNavigate } from "react-router-dom";
 
@@ -69,7 +69,7 @@ export default function SignUp() {
                     </div>
                     <Button disabled={loading} gradientDuoTone='purpleToPink' type="submit">{loading ? (
                         <>
-                            <spinner size='sm'/>
+                            <Spinner size='sm'/>
                            <span className="pl-3">Loading</span>
                         </>
                        
