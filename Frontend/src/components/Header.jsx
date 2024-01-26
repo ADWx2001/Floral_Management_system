@@ -22,7 +22,7 @@ export default function Header() {
         <Button className="w-12 h-10 lg:hidden" color="gray" pill>
             <AiOutlineSearch/>
         </Button>
-        <div className="flex gap-2 md:order-2 font-cinzel">
+        <div className="flex gap-4 md:order-2 font-cinzel">
             <Button className="w-12 h-10 hidden sm:inline" color="gray" pill>
                 <FaMoon/>
             </Button>
@@ -32,18 +32,22 @@ export default function Header() {
                 Sign In
              </Button>
             </Link>
+
+            <Link to='/cart'>
+                <button className="px-2"><box-icon name="cart-alt" size="lg"></box-icon></button>
+            </Link>
             <Navbar.Toggle/>
      </div>
 
         <Navbar.Collapse  className="font-extrabold font-serif  text-neutral-950 dark:text-neutral-200" >
                 <Navbar.Link active={path==='/'} as={'div'}>
-                    <Link to="/">Home</Link>
+                    <Link to="/" className="text-xl">Home</Link>
                 </Navbar.Link>
                 <Navbar.Link active={path==='/about'} as={'div'}>
-                    <Link to="/about">About</Link>
+                    <Link to="/about"  className="text-xl">About</Link>
                 </Navbar.Link>
                 <Navbar.Link active={path==='/events'} as={'div'}>
-                    <Link to="/events">Events</Link>
+                    <Link to="/events"  className="text-xl">Events</Link>
                 </Navbar.Link>
             </Navbar.Collapse>
 
