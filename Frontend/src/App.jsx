@@ -7,6 +7,7 @@ import DashBoard from "./pages/DashBoard"
 import Events from "./pages/Events"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
+import Cart from "./pages/Cart";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/sign-up" element={<SignUp/>}/>
         <Route path="/dashboard" element={<DashBoard/>}/>
         <Route path="/events" element={<Events/>}/>
+        <Route path="/cart" element={<Cart/>}/>
       </Routes>
       <Footer/>
     </BrowserRouter>
