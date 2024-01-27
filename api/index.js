@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoute from "./routes/user.route.js"
 import authRoute from "./routes/auth.route.js"
+//import productRoute from "./routes/product.route.js"
+// test import products api Prducts.js
+import product from "./utils/Product.js";
 
 
 
@@ -14,9 +17,7 @@ mongoose.connect(process.env.MONGO).then(()=>{
 });
 
 const app = express();
-
 app.use(express.json());
-
 app.listen(3000 ,() =>{
 
     console.log('Server Listning on port 3000')
@@ -25,6 +26,12 @@ app.listen(3000 ,() =>{
 
 app.use("/api/user",userRoute); 
 app.use("/api/auth",authRoute);
+//app.use("/api/products",productRoute)
+
+// test product route
+app.get("/products", (req, res) =>{
+    res.send(product);
+})
 
 
 app.use((err,req,res,next)=>{

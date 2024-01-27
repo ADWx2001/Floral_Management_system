@@ -1,4 +1,4 @@
-import { BrowserRouter , Route , Routes } from "react-router-dom"
+import { BrowserRouter , Route , Routes} from "react-router-dom"
 import Home from "./pages/Home"
 import About from "./pages/About"
 import SignIn from "./pages/SignIn"
@@ -9,6 +9,7 @@ import Header from "./components/Header"
 import Footer from "./components/Footer"
 import PrivateRoute from "./components/PrivateRoute"
 import Cart from "./pages/Cart";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
@@ -19,11 +20,11 @@ export default function App() {
         <Route path="/about" element={<About/>}/>
         <Route path="/sign-in" element={<SignIn/>}/>
         <Route path="/sign-up" element={<SignUp/>}/>
-        <Route element={<PrivateRoute/>}>
-           <Route path="/dashboard" element={<DashBoard/>}/> 
-        </Route>
+        <Route element={<PrivateRoute/>}/>
+        <Route path="/dashboard" element={<DashBoard/>}/> 
         <Route path="/events" element={<Events/>}/>
         <Route path="/cart" element={<Cart/>}/>
+        <Route path="/not-found" element={<NotFound/>} />
       </Routes>
       <Footer/>
     </BrowserRouter>
