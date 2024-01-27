@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoute from "./routes/user.route.js"
@@ -7,9 +8,8 @@ import authRoute from "./routes/auth.route.js"
 // test import products api Prducts.js
 import product from "./utils/Product.js";
 
-
-
 dotenv.config();
+
 mongoose.connect(process.env.MONGO).then(()=>{
     console.log('Connected to MongoDB')
 }).catch((err)=>{
@@ -18,10 +18,15 @@ mongoose.connect(process.env.MONGO).then(()=>{
 
 const app = express();
 app.use(express.json());
+
+const corsOptions = {
+    origin: 'http://localhost:5173',
+  };
+
+app.use(cors(corsOptions));
+
 app.listen(3000 ,() =>{
-
     console.log('Server Listning on port 3000')
-
 });
 
 app.use("/api/user",userRoute); 
