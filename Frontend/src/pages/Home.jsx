@@ -1,15 +1,14 @@
-import Image2 from "../assests/img/home2.jpg"
-import Image3 from "../assests/img/home3.jpg"
-import Image4 from "../assests/img/home4.jpg"
 import ProductTile from "../components/ProductTile";
 import Slider from "../components/Slider";
 
 // Test Sample Product API
-  import product from "../assests/product/Product";
+import product from "../assests/product/Product";
+import { useGetAllProductsQuery } from "../redux/product/productApi";
 
 console.log(product);
 
 export default function Home() {
+  const {data, error, isLoading} = useGetAllProductsQuery;
   return (
     <div className="mx-auto justify-center">
       <Slider/>

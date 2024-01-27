@@ -4,14 +4,21 @@ import axios from "axios";
 const initialState = {
     items: [],
     status :null,
+    error : null,
 };
 
 
 export const productFetch = createAsyncThunk(
     "products/productsFetch",
-    async()=>{
-       const response = await axios.get("http://localhost:3000/products")
-       return response?.data;
+    async(id=null, {rejectWithValue})=>{
+
+        try {
+            const response = await axios.get("http://localhost:3000/products")
+            return response?.data;
+            
+        } catch (error) {
+            return rejectWithValue(error);
+        }
     }
 );
 
@@ -30,6 +37,7 @@ const productsSlice = createSlice({
           })
           .addCase(productFetch.rejected, (state, action) => {
             state.status = "rejected";
+            state.error = action.payload;
           });
     },
 });

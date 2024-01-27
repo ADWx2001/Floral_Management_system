@@ -1,7 +1,7 @@
 const product = [
   {
     _id: "5ff7a6d5b15b1716d88b13a5",
-    name: "Rose Romance Arrangement",
+    name: " Romance Arrangement",
     description:
       "An elegant arrangement of red and white roses, perfect for expressing love and romance.",
     price: 49.99,

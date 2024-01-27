@@ -6,11 +6,13 @@ import storage from 'redux-persist/lib/storage';
 
 import productsReducer from './product/productSlice';
 import { productFetch } from './product/productSlice';
+import { productsApi } from './product/productApi';
 
 const rootReducer = combineReducers({
     user:userReducer,
     theme:themeReducer,
     products: productsReducer,
+    [productsApi.reducerPath] : productsApi.reducer,
     });
 
 const persistConfig = {
@@ -24,11 +26,7 @@ const persistedReducer = persistReducer (persistConfig , rootReducer);
 
 export const store = configureStore({
     reducer :persistedReducer ,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-
-        serializableCheck : false,
-
-    }),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}).concat(productsApi.middleware),
 });
 
 store.dispatch(productFetch());
