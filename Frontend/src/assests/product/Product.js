@@ -9,8 +9,7 @@ const product = [
     availability: true,
     stockQuantity: 25,
     images: [
-      "https://example.com/images/rose_romance_1.jpg",
-      "https://example.com/images/rose_romance_2.jpg",
+      ""
     ],
     tags: ["roses", "romance", "arrangement", "floral"],
     createdAt: "2022-02-12T09:45:30.987Z",
@@ -33,8 +32,6 @@ const product = [
     availability: true,
     stockQuantity: 30,
     images: [
-      "https://example.com/images/sunflower_bliss_1.jpg",
-      "https://example.com/images/sunflower_bliss_2.jpg",
     ],
     tags: ["sunflowers", "bouquet", "cheerful", "floral"],
     createdAt: "2022-03-05T11:20:15.789Z",
@@ -57,7 +54,7 @@ const product = [
     availability: false,
     stockQuantity: 0,
     images: [
-      "https://www.pexels.com/photo/close-photography-of-red-and-pink-rose-56866/"
+      ""
     ],
     tags: ["tulips", "mix", "elegant", "floral"],
     createdAt: "2022-04-18T14:10:05.234Z",
@@ -70,28 +67,6 @@ const product = [
     promotions: [],
   },
 
-  {
-    _id: "5ff7a6d5b15b1716d88b13c9",
-    name: "Tulip Symphony Mix",
-    description:
-      "A vibrant mix of tulips in various colors, creating a symphony of beauty and elegance.",
-    price: 29.99,
-    category: "Single Flowers",
-    availability: false,
-    stockQuantity: 0,
-    images: [
-      "https://www.pexels.com/photo/close-photography-of-red-and-pink-rose-56866/"
-    ],
-    tags: ["tulips", "mix", "elegant", "floral"],
-    createdAt: "2022-04-18T14:10:05.234Z",
-    updatedAt: "2022-04-22T09:55:30.789Z",
-    supplier: {
-      name: "Elegant Blooms Co.",
-    },
-    rating: 0,
-    reviews: [],
-    promotions: [],
-  },
   
 ];
 
