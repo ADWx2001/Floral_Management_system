@@ -47,10 +47,10 @@ export default function ProductTile({item}) {
 
   return (
     <div id={item._id} className="max-w-96 w-full rounded overflow-hidden shadow-xl hover:border">
-      <img className="w-full rounded-2xl p-3" src={item.images} alt="Sunset in the mountains" />
+      <img className="w-96 h-48 object-cover rounded-2xl" src={item.images} alt="Sunset in the mountains" />
       <div className="px-6 py-4 text-center">
         <div className="font-bold text-xl mb-2 text-rose-500">{item.name}</div>
-        <span className="text-base text-green-600">Dilivery in {item.deliveryTime}</span><br />
+        <span className="text-base text-green-600">Delivery in {item.deliveryTime}</span><br />
         <span className={`text-base ${item.availability ? 'text-green-600' : 'text-red-600'}`}>
           {item.availability ? 'In Stock' : 'Out of Stock'}
         </span><br />
@@ -59,8 +59,9 @@ export default function ProductTile({item}) {
       </div>
       <div className="flex p-3 mx-auto justify-between pb-8">
         <button className="p-3 bg-black mx-3 rounded-lg text-white hover:bg-rose-500">Buy Now</button>
-        <button className="p-3 bg-green-500 mx-3 rounded-lg text-white hover:bg-green-600" onClick={()=>handleAddToCart(item)}>Add to Cart</button>
+        <button className="p-3 bg-green-500 mx-3 rounded-lg text-white hover:bg-green-600" onClick={() => handleAddToCart(item)}>Add to Cart</button>
       </div>
     </div>
+
   );
 }
