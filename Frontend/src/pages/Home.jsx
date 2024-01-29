@@ -1,14 +1,26 @@
 import ProductTile from "../components/ProductTile";
 import Slider from "../components/Slider";
 
+
 // Test Sample Product API
-import product from "../assests/product/Product";
 import { useGetAllProductsQuery } from "../redux/product/productApi";
 
-console.log(product);
+
 
 export default function Home() {
-  const {data, error, isLoading} = useGetAllProductsQuery;
+
+  const {data, error, isLoading} = useGetAllProductsQuery();
+  
+
+  if (isLoading) {
+    return <p>Loading...fuck</p>;
+  }
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
+
+  console.log(data);
+
   return (
     <div className="mx-auto justify-center">
       <Slider/>
@@ -17,7 +29,7 @@ export default function Home() {
       </div>
       <div className="flex flex-wrap gap-10 max-w-screen-xl mx-auto mt-16 mb-10 justify-center">
         {/* Image card */}
-        {product.map((singleProduct) => (
+        {/* {data.map((singleProduct) => (
           <ProductTile
             key={singleProduct._id} // Make sure to use a unique key for each product
             img={singleProduct.images} // Assuming the first image in the array is the main image
@@ -26,7 +38,8 @@ export default function Home() {
             availability={singleProduct.availability ? "In Stock" : "Out of Stock"}
             price={`$${singleProduct.price}`}
           />
-      ))}
+      ))} */}
+          {data.map((singleItem) => (<ProductTile item={singleItem} key={singleItem._id}/>))}
       </div>
     </div>
   )

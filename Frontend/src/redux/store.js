@@ -7,12 +7,15 @@ import storage from 'redux-persist/lib/storage';
 import productsReducer from './product/productSlice';
 import { productFetch } from './product/productSlice';
 import { productsApi } from './product/productApi';
+import cartReducer from './cart/cartSlice';
 
 const rootReducer = combineReducers({
     user:userReducer,
     theme:themeReducer,
     products: productsReducer,
+    cart : cartReducer,
     [productsApi.reducerPath] : productsApi.reducer,
+
     });
 
 const persistConfig = {
@@ -26,8 +29,10 @@ const persistedReducer = persistReducer (persistConfig , rootReducer);
 
 export const store = configureStore({
     reducer :persistedReducer ,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}).concat(productsApi.middleware),
+    middleware: (getDefaultMiddleware) => 
+    getDefaultMiddleware({serializableCheck: false}).prepend(productsApi.middleware),
 });
 
 store.dispatch(productFetch());
+
 export const persistor = persistStore(store); 

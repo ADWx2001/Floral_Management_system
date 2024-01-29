@@ -11,9 +11,13 @@ import PrivateRoute from "./components/PrivateRoute"
 import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
 
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 export default function App() {
   return (
     <BrowserRouter>
+    <ToastContainer />
       <Header/>
       <Routes>
         <Route path="/" element={<Home/>}/>

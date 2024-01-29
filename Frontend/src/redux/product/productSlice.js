@@ -10,15 +10,10 @@ const initialState = {
 
 export const productFetch = createAsyncThunk(
     "products/productsFetch",
-    async(id=null, {rejectWithValue})=>{
-
-        try {
-            const response = await axios.get("http://localhost:3000/products")
+    async(_, {signal})=>{
+      const response = await axios.get("http://localhost:3000/products", {signal
+    })
             return response?.data;
-            
-        } catch (error) {
-            return rejectWithValue(error);
-        }
     }
 );
 
@@ -42,4 +37,4 @@ const productsSlice = createSlice({
     },
 });
 
-export default productsSlice.reducer
+export default productsSlice.reducer;
