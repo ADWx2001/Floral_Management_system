@@ -39,7 +39,7 @@ export default function OAuthenticate() {
         }
     } 
   return (
-    <Button type='button' gradientDuoTone='pinkToOrange' outline onClick={handleGoogleClick}>
+    <Button type='button' gradientDuoTone='purpleToBlue' outline onClick={handleGoogleClick}>
         <AiFillGoogleCircle className='w-6 h-6 mr-2'/>
         Continue with Google
     </Button>
