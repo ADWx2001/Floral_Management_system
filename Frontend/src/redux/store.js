@@ -7,7 +7,7 @@ import storage from 'redux-persist/lib/storage';
 import productsReducer from './product/productSlice';
 import { productFetch } from './product/productSlice';
 import { productsApi } from './product/productApi';
-import cartReducer from './cart/cartSlice';
+import cartReducer, { getCartTotal } from './cart/cartSlice';
 
 const rootReducer = combineReducers({
     user:userReducer,
@@ -34,5 +34,6 @@ export const store = configureStore({
 });
 
 store.dispatch(productFetch());
+store.dispatch(getCartTotal());
 
 export const persistor = persistStore(store); 

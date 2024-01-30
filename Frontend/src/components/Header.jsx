@@ -14,10 +14,12 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice";
 
+
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
   const cart = useSelector((state) => state.cart);
+  const { cartTotalQuantity } = useSelector(state => state.cart)
 
   const dispatch = useDispatch();
   const path = useLocation().pathname;
@@ -57,14 +59,7 @@ export default function Header() {
         <Link to="/cart">
           <div className="flex relative">
             <box-icon name="cart" size="lg"></box-icon>
-            {cart.cartItems?.map((cartItem) => (
-              <span
-                key={cartItem._id}
-                className="rounded-xl absolute top-0 right-0 px-1 bg-yellow-300 text-black text-sm"
-              >
-                {cartItem.cartTotalQuantity}
-              </span>
-            ))}
+              <span className="rounded-xl absolute top-0 right-0 px-1 bg-yellow-300 text-black text-sm">{cartTotalQuantity}</span>
           </div>
         </Link>
         <Navbar.Toggle />
