@@ -11,7 +11,7 @@ import  { HiOutlineExclamationCircle } from "react-icons/hi";
 
 export default function DashProfile() {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector(state => state.user);
+  const { currentUser , loading } = useSelector(state => state.user);
   const [image, setImage] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imagePercent, setImagePercent] = useState(0);
@@ -186,20 +186,48 @@ export default function DashProfile() {
           type='submit'
           gradientDuoTone='purpleToBlue'
           outline
+          disabled={loading }
         >
-          Update Account
+          {loading ? 'Loading..' : 'Update Account'}
         </Button>
         {currentUser.isAdmin && (
-          <Link to='/create-post'>
+          <Link to='/add-product'>
             <Button
               type='button'
               gradientDuoTone='purpleToPink'
               className='w-full'
+              outline
             >
-              Create a post
+              Add products
             </Button>
           </Link>
         )}
+
+       {currentUser.isAdmin && (
+          <Link to='/create-event'>
+            <Button
+              type='button'
+              gradientDuoTone='purpleToPink'
+              className='w-full'
+              outline
+            >
+              Create events
+            </Button>
+          </Link>
+        )}
+
+        {currentUser.isAdmin && (
+          <Link to='/add-suppliers'>
+            <Button
+              type='button'
+              gradientDuoTone='purpleToPink'
+              className='w-full'
+              outline
+            >
+              Add Suppliers
+            </Button>
+          </Link>
+        )} 
       </form>
       <div className='text-red-500 flex justify-between mt-5'>
         <span onClick={()=>setShowModel(true)} className='cursor-pointer' >
