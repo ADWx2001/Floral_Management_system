@@ -20,7 +20,7 @@ export default function AddProducts() {
             <FileInput type='file'accept='image/*'/>
             <Button type='button'gradientDuoTone='purpleToBlue'size='sm' outline>Upload Image</Button>
         </div>
-        <ReactQuill theme="snow" placeholder="Description..." className="h-52 mb-12" id="description"/>
+        <ReactQuill theme="snow" placeholder="Description..." className="h-52 mb-12"/>
         <div className='flex flex-col gap-4 sm:flex-row justify-between'>
             <TextInput type="number" placeholder="Price" id="price"/>
             <TextInput type="number" placeholder="Quantity" id="stockQuantity"/>
