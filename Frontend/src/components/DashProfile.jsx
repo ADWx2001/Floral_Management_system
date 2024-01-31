@@ -51,7 +51,7 @@ export default function DashProfile() {
         setImagePercent(progress.toFixed(0));
       },
       (error) => {
-        setImageError("Image size should be less than 3mb");
+        setImageError("Image size should be less than 5mb");
         console.error("Upload error:", error);
         setImagePercent(null);
         setImage(null);
@@ -114,7 +114,9 @@ export default function DashProfile() {
   }
   const handleSignOut = async ()=>{
     try {
-      await fetch('api/user/signout');
+      await fetch('api/user/signout',{
+        method : 'GET'
+      })
       dispatch(signOut());
     } catch (error) {
       console.log(error)
