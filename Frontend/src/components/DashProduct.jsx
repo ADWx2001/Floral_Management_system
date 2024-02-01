@@ -90,7 +90,7 @@ export default function DashProduct() {
             </Table.Head>
               {userProduct.map((products)=>(
                 // eslint-disable-next-line react/jsx-key
-                <Table.Body  className='divide-y'>
+                <Table.Body  className='divide-y'  key={products._id}>
                   <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                     <Table.Cell>{new Date(products.updatedAt).toLocaleDateString()}</Table.Cell>
                     <Table.Cell>
