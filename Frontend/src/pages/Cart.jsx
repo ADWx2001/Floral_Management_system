@@ -44,7 +44,7 @@ export default function Cart() {
                <Link to="/">
                  <span className="p-2 bg-gray-200 rounded px-5 hover:bg-green-400 hover:text-white">
                    Start Shopping
-               </span>
+                 </span>
                </Link>
              </div>
         </div>
@@ -96,8 +96,13 @@ export default function Cart() {
               <span className="text-xl font-semibold">Subtotal : Rs. {cart.cartTotalAmount}</span>
               <p className="text-xs text-left pt-1 pb-2"><span className="text-red-700">*</span>Taxes and shipping calculated at checkout</p>
               <div className="flex flex-wrap gap-3">
-                <button className="bg-gray-200 p-3 rounded hover:bg-green-400 hover:text-white text-sm">Continue Shopping</button>
-                <button className="bg-green-400 p-3 rounded hover:bg-green-500 hover:text-white text-md text-white">Checkout</button>
+                <Link to='/products'>
+                  <button className="bg-gray-200 p-3 rounded hover:bg-green-400 hover:text-white text-sm">Continue Shopping</button>
+                </Link>
+
+                <Link to='/checkout'>
+                  <button className="bg-green-400 p-3 rounded hover:bg-green-500 hover:text-white text-md text-white">Checkout</button>
+                </Link>
               </div>
             </div>
           </div>
