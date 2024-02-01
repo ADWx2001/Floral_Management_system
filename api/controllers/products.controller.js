@@ -67,3 +67,15 @@ export const getProducts = async (req,res,next)=>{
     next(error);
   }
 }
+
+export const deleteproduct = async (req, res, next) => {
+  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+    return next(errorHandler(403, 'You are not allowed to delete this post'));
+  }
+  try {
+    await Product.findByIdAndDelete(req.params.productId);
+    res.status(200).json('The product has been deleted');
+  } catch (error) {
+    next(error);
+  }
+};
