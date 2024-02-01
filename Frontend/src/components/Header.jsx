@@ -26,6 +26,9 @@ export default function Header() {
     const {theme} = useSelector((state) => state.theme); 
     const [searchTerm,setSearchTerm] = useState("");
     console.log(searchTerm);
+
+    const cart = useSelector((state) => state.cart);
+    const { cartTotalQuantity } = useSelector(state => state.cart)
   
     useEffect(()=>{
         const urlParams = new URLSearchParams(location.search)
@@ -52,6 +55,7 @@ export default function Header() {
         const searchQuery = urlParams.toString();
         navigate(`/search?${searchQuery}`);
       }
+
   return (
     <Navbar className="border-b-2 font-extrabold ">
       <Link
@@ -119,6 +123,7 @@ export default function Header() {
 
            
             <Navbar.Toggle/>
+          </div>
      </div>
 
       <Navbar.Collapse className="font-extrabold font-serif  text-neutral-950 dark:text-neutral-200">
@@ -137,6 +142,13 @@ export default function Header() {
             Events
           </Link>
         </Navbar.Link>
+
+        <Link to="/cart">
+          <div className="flex relative">
+            <box-icon name="cart" size="lg"></box-icon>
+              <span className="rounded-xl absolute top-0 right-0 px-1 bg-yellow-300 text-black text-sm">{cartTotalQuantity}</span>
+          </div>
+        </Link>
       </Navbar.Collapse>
     </Navbar>
   );
