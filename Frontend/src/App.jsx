@@ -15,6 +15,10 @@ import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import Products from "./pages/Products"
 import Checkout from "./pages/Checkout"
+import Search from "./pages/Search"
+import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute"
+import AddProducts from "./pages/AddProducts"
+
 
 export default function App() {
   return (
@@ -26,8 +30,12 @@ export default function App() {
         <Route path="/about" element={<About/>}/>
         <Route path="/sign-in" element={<SignIn/>}/>
         <Route path="/sign-up" element={<SignUp/>}/>
+        <Route path="/search" element={<Search/>}/>
         <Route element={<PrivateRoute/>}/>
         <Route path="/dashboard" element={<DashBoard/>}/> 
+        <Route element={<OnlyAdminPrivateRoute/>}>
+           <Route path="/add-product" element={<AddProducts/>}/> 
+        </Route>
         <Route path="/events" element={<Events/>}/>
         <Route path="/cart" element={<Cart/>}/>
         <Route path="/not-found" element={<NotFound/>} />

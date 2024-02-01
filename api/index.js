@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoute from "./routes/user.route.js"
 import authRoute from "./routes/auth.route.js"
+import productRoute from "./routes/products.route.js"
+import cookieParser from "cookie-parser";
 //import productRoute from "./routes/product.route.js"
 // test import products api Prducts.js
 import product from "./utils/Product.js";
@@ -17,6 +19,7 @@ mongoose.connect(process.env.MONGO).then(()=>{
 });
 
 const app = express();
+app.use(cookieParser());
 app.use(express.json());
 
 const corsOptions = {
@@ -31,6 +34,7 @@ app.listen(3000 ,() =>{
 
 app.use("/api/user",userRoute); 
 app.use("/api/auth",authRoute);
+app.use("/api/products",productRoute);
 //app.use("/api/products",productRoute)
 
 // test product route

@@ -8,21 +8,50 @@ import {
   Navbar,
   TextInput,
 } from "flowbite-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice";
+import { signOut } from "../redux/user/userSlice";
+import { useEffect, useState } from "react";
 
 
 export default function Header() {
-  const { currentUser } = useSelector((state) => state.user);
-  const { theme } = useSelector((state) => state.theme);
-  const cart = useSelector((state) => state.cart);
-  const { cartTotalQuantity } = useSelector(state => state.cart)
+    const path = useLocation().pathname;
+    const location = useLocation();
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const {currentUser} = useSelector((state) => state.user);  
+    const {theme} = useSelector((state) => state.theme); 
+    const [searchTerm,setSearchTerm] = useState("");
+    console.log(searchTerm);
+  
+    useEffect(()=>{
+        const urlParams = new URLSearchParams(location.search)
+        const searchTermFromUrl = urlParams.get('searchTerm');
+        if(searchTermFromUrl){
+            setSearchTerm(searchTermFromUrl);
+        }
 
-  const dispatch = useDispatch();
-  const path = useLocation().pathname;
+    },[location.search])
+
+    const handleSignOut = async ()=>{
+        try {
+          await fetch('api/user/signout');
+          dispatch(signOut());
+          
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      const handleSubmit = (e)=> {
+        e.preventDefault();
+        const urlParams = new URLSearchParams(location.search);
+        urlParams.set('searchTerm', searchTerm);
+        const searchQuery = urlParams.toString();
+        navigate(`/search?${searchQuery}`);
+      }
   return (
     <Navbar className="border-b-2 font-extrabold ">
       <Link
@@ -34,12 +63,14 @@ export default function Header() {
         </span>
         Shop
       </Link>
-      <form className="font-cinzel">
+      <form onSubmit={handleSubmit} className="font-cinzel">
         <TextInput
           type="text"
           placeholder="Search..."
           rightIcon={AiOutlineSearch}
           className="hidden lg:inline"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
         />
       </form>
       <Button className="w-12 h-10 lg:hidden" color="gray" pill>
@@ -49,21 +80,46 @@ export default function Header() {
         <Button className="w-12 h-10 hidden sm:inline" color="gray" pill>
           <FaMoon />
         </Button>
+        <div className="flex gap-2 md:order-2 font-cinzel">
+            <Button className="w-12 h-10 hidden sm:inline" color="gray" pill onClick={()=>dispatch(toggleTheme())}>
+                {theme === 'light' ? <FaSun/>: <FaMoon/>}
+               
+            </Button>
+            {currentUser ? (
+                <Dropdown 
+                arrowIcon={false} 
+                inline
+                label={
+                    <Avatar
+                        alt="user"
+                        img ={currentUser.profilePicture} 
+                        rounded
+                    />
 
-        <Link to="/sign-in">
-          <Button gradientDuoTone="purpleToBlue" outline>
-            Sign In
-          </Button>
-        </Link>
+                }
+                > 
+                    <DropdownHeader>
+                        <span className="block text-sm">{currentUser.username}</span>
+                        <span className="block text-sm font-medium truncate">{currentUser.email}</span>
+                    </DropdownHeader>
+                    <Link to={'/dashboard?tab=profile'}>
+                        <DropdownItem>Profile</DropdownItem>
 
-        <Link to="/cart">
-          <div className="flex relative">
-            <box-icon name="cart" size="lg"></box-icon>
-              <span className="rounded-xl absolute top-0 right-0 px-1 bg-yellow-300 text-black text-sm">{cartTotalQuantity}</span>
-          </div>
-        </Link>
-        <Navbar.Toggle />
-      </div>
+                    </Link>
+                    <DropdownDivider/>
+                    <DropdownItem onClick={handleSignOut}>Sign Out</DropdownItem>
+                </Dropdown>
+            ):(
+                     <Link to='/sign-in'>
+                     <Button gradientDuoTone='purpleToBlue'outline  >
+                        Sign In
+                     </Button>
+                    </Link>
+            )}
+
+           
+            <Navbar.Toggle/>
+     </div>
 
       <Navbar.Collapse className="font-extrabold font-serif  text-neutral-950 dark:text-neutral-200">
         <Navbar.Link active={path === "/"} as={"div"}>
