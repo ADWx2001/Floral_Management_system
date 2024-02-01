@@ -21,9 +21,6 @@ export const create = async(req,res,next)=>{
       } catch (error) {
         next(error);
       }
-
-
-
 }
 
 export const getProducts = async (req,res,next)=>{

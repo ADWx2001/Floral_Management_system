@@ -34,7 +34,7 @@ export default function App() {
         <Route element={<PrivateRoute/>}/>
         <Route path="/dashboard" element={<DashBoard/>}/> 
         <Route element={<OnlyAdminPrivateRoute/>}>
-           <Route path="/add-product" element={<AddProducts/>}/> 
+        <Route path="/add-product" element={<AddProducts/>}/> 
         </Route>
         <Route path="/events" element={<Events/>}/>
         <Route path="/cart" element={<Cart/>}/>
