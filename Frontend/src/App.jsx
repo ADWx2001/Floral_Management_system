@@ -11,6 +11,7 @@ import PrivateRoute from "./components/PrivateRoute"
 import Search from "./pages/Search"
 import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute"
 import AddProducts from "./pages/AddProducts"
+import UpdateProducts from "./pages/UpdateProduct"
 
 
 export default function App() {
@@ -27,7 +28,8 @@ export default function App() {
            <Route path="/dashboard" element={<DashBoard/>}/> 
         </Route>
         <Route element={<OnlyAdminPrivateRoute/>}>
-           <Route path="/add-product" element={<AddProducts/>}/> 
+           <Route path="/add-product" element={<AddProducts/>}/>
+           <Route path="/update-product/:productId" element={<UpdateProducts/>}/>  
         </Route>
         <Route path="/events" element={<Events/>}/>
       </Routes>
