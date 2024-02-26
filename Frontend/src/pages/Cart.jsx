@@ -96,7 +96,7 @@ export default function Cart() {
               <span className="text-xl font-semibold">Subtotal : Rs. {cart.cartTotalAmount}</span>
               <p className="text-xs text-left pt-1 pb-2"><span className="text-red-700">*</span>Taxes and shipping calculated at checkout</p>
               <div className="flex flex-wrap gap-3">
-                <Link to='/products'>
+                <Link to='/'>
                   <button className="bg-gray-200 p-3 rounded hover:bg-green-400 hover:text-white text-sm">Continue Shopping</button>
                 </Link>
 

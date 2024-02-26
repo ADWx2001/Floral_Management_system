@@ -20,6 +20,9 @@ export default function Checkout() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(formData);
+    const form = document.getElementById('checkout-form');
+    form.submit();
     // Handle form submission logic (e.g., send data to server)
     console.log("Form submitted:", formData);
   };
@@ -32,7 +35,7 @@ export default function Checkout() {
 
       <div className="flex flex-wrap justify-between px-60 pt-14 mx-auto pb-28">
         
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} id="checkout-form">
           <div className="flex flex-wrap justify-between gap-32">
             <div className="">
               <div className="mb-5">

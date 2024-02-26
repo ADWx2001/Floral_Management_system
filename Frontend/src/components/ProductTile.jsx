@@ -58,7 +58,7 @@ export default function ProductTile({item}) {
         <span className="text-lg text-red-600 font-semibold">USD {item.price}</span>
       </div>
       <div className="flex p-3 mx-auto justify-between pb-8">
-        <button className="p-3 bg-black mx-3 rounded-lg text-white hover:bg-rose-500">Buy Now</button>
+        <button className="p-3 bg-black mx-3 rounded-lg text-white hover:bg-rose-500">Details</button>
         <button className="p-3 bg-green-500 mx-3 rounded-lg text-white hover:bg-green-600" onClick={() => handleAddToCart(item)}>Add to Cart</button>
       </div>
     </div>
