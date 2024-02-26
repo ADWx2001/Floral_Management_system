@@ -64,3 +64,43 @@ export const getProducts = async (req,res,next)=>{
     next(error);
   }
 }
+
+export const deleteproduct = async (req, res, next) => {
+  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+    return next(errorHandler(403, 'You are not allowed to delete this post'));
+  }
+  try {
+    await Product.findByIdAndDelete(req.params.productId);
+    res.status(200).json('The product has been deleted');
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateproduct = async (req, res, next) => {
+  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+    return next(errorHandler(403, 'You are not allowed to update this post'));
+  }
+  try {
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.productId,
+      {
+        $set: {
+          title: req.body.title,
+          description: req.body.description,
+          category: req.body.category,
+          image: req.body.image,
+          price : req.body.price,
+          deliveryTime:req.body.deliveryTime,
+          quantity:req.body.quantity,
+          supplier:req.body.supplier
+
+        },
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedProduct);
+  } catch (error) {
+    next(error);
+  }
+};
