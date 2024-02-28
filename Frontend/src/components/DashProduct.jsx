@@ -12,24 +12,25 @@ export default function DashProduct() {
     const [productIdToDelete, setProductIdToDelete] = useState('');
 
     useEffect(() => {
-        const fetchPosts = async () => {
-          try {
-            const res = await fetch(`/api/products/getproducts?userId=${currentUser._id}`);
-            const data = await res.json();
-            if (res.ok) {
-              setUserProduct(data.products);
-              if (data.products.length < 9) {
-                setShowMore(false);
-              }
+      const fetchPosts = async () => {
+        try {
+          const res = await fetch(`/api/products/getproducts`);
+          const data = await res.json();
+          if (res.ok) {
+            setUserProduct(data.products);
+            if (data.products.length < 9) {
+              setShowMore(false);
             }
-          } catch (error) {
-            console.log(error.message);
           }
-        };
-        if (currentUser.isAdmin) {
-          fetchPosts();
+        } catch (error) {
+          console.log(error.message);
         }
-      }, [currentUser._id]);
+      };
+    
+      fetchPosts(); 
+    }, []);
+    
+    
 
       const handleShowMore = async () => {
         const startIndex = userProduct.length;
