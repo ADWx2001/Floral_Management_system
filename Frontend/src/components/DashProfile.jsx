@@ -232,9 +232,9 @@ export default function DashProfile() {
         )} 
       </form>
       <div className='text-red-500 flex justify-between mt-5'>
-        <span onClick={()=>setShowModel(true)} className='cursor-pointer' >
-          Delete Account
-        </span>
+      <span onClick={()=>setShowModel(true)} className='cursor-pointer' >
+        Delete Account
+      </span>
         <span onClick={handleSignOut} className='cursor-pointer'>
           Sign Out
         </span>
