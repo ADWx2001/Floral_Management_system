@@ -17,6 +17,7 @@ export default function Header() {
     const {theme} = useSelector((state) => state.theme); 
     const [searchTerm,setSearchTerm] = useState("");
     console.log(searchTerm);
+    
  
   
     useEffect(()=>{
