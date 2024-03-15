@@ -179,6 +179,18 @@ export default function DashProfile() {
           placeholder='email'
           defaultValue={currentUser.email}onChange={handleChange}
         />
+         <TextInput
+          type='text'
+          id='adress'
+          placeholder='adress'
+          defaultValue={currentUser.adress} onChange={handleChange}
+        />
+         <TextInput
+          type='text'
+          id='mobile'
+          placeholder='mobile'
+          defaultValue={currentUser.mobile} onChange={handleChange}
+        />
         <TextInput
           type='password'
           id='password'

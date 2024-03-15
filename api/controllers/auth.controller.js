@@ -5,15 +5,15 @@ import jwt from "jsonwebtoken";
 
 export const signup = async (req,res,next)=>{
 
-    const{username,email,password} = req.body;
+    const{username,email,password,mobile,adress} = req.body;
 
-    if(!username || !email || !password || username === "" || email === "" || password === ""){
+    if(!username || !email || !password ||!mobile||!adress|| username === "" || email === "" || password === ""||mobile===""||adress===""){
        next(errorHandler(400,'All fields are required'));
     }
 
    
     const hashedPassword = bcryptjs.hashSync(password,10);
-    const newUSer = new User({username,email,password:hashedPassword});
+    const newUSer = new User({username,email,password:hashedPassword,adress,mobile});
     try{
         await newUSer.save();
         res.status(201).json({message:"User created successfuly"});
