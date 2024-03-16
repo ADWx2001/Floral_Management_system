@@ -44,17 +44,7 @@ export default function DashSideBar() {
                 Profile
              </Sidebar.Item>
            </Link>
-          {currentUser.isAdmin && (
-            <Link to='/dashboard?tab=products'>
-              <Sidebar.Item
-                active={tab === 'products'}
-                icon={HiGift}
-                as='div'
-              >
-                Products
-              </Sidebar.Item>
-            </Link>
-          )}
+        
             {currentUser.isAdmin && (
             <Link to='/dashboard?tab=users'>
               <Sidebar.Item
@@ -66,6 +56,51 @@ export default function DashSideBar() {
               </Sidebar.Item>
             </Link>
           )}
+            {currentUser.isAdmin && (
+            <Link to='/dashboard?tab=products'>
+              <Sidebar.Item
+                active={tab === 'products'}
+                icon={HiGift}
+                as='div'
+              >
+                Products
+              </Sidebar.Item>
+            </Link>
+          )}
+           {currentUser.isAdmin && (
+            <Link to='/dashboard?tab=events'>
+              <Sidebar.Item
+                active={tab === 'events'}
+                icon={HiOutlineUserGroup}
+                as='div'
+              >
+                Events
+              </Sidebar.Item>
+            </Link>
+          )}
+           {currentUser.isAdmin && (
+            <Link to='/dashboard?tab=staff'>
+              <Sidebar.Item
+                active={tab === 'staff'}
+                icon={HiOutlineUserGroup}
+                as='div'
+              >
+                Satff members
+              </Sidebar.Item>
+            </Link>
+          )}
+          {currentUser.isAdmin && (
+            <Link to='/dashboard?tab=suppliers'>
+              <Sidebar.Item
+                active={tab === 'suppliers'}
+                icon={HiGift}
+                as='div'
+              >
+                Suppliers
+              </Sidebar.Item>
+            </Link>
+          )}
+
           <Sidebar.Item icon={HiArrowSmRight} className="cursor-pointer" onClick={handleSignOut}>
             Sign Out
           </Sidebar.Item>

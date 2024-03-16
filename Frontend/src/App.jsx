@@ -13,6 +13,11 @@ import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute"
 import AddProducts from "./pages/AddProducts"
 import UpdateProducts from "./pages/UpdateProduct"
 import DashBoard from "./pages/Dashboard"
+import Addsuppliers from "./pages/AddSuppliers"
+import Addstaff from "./pages/Addstaff"
+import Addevents from "./pages/AddEvents"
+import Updateevents from "./pages/updateevent"
+import Updatesuppliers from "./pages/Updatesupplier"
 
 
 export default function App() {
@@ -30,7 +35,13 @@ export default function App() {
         </Route>
         <Route element={<OnlyAdminPrivateRoute/>}>
            <Route path="/add-product" element={<AddProducts/>}/>
-           <Route path="/update-product/:productId" element={<UpdateProducts/>}/>  
+           <Route path="/update-product/:productId" element={<UpdateProducts/>}/> 
+           <Route path="/add-suppliers" element={<Addsuppliers/>}/>
+           <Route path="/add-staff" element={<Addstaff/>}/>
+           <Route path="/create-event" element={<Addevents/>}/>
+           <Route path="/Update-event/:id" element={<Updateevents/>}/>
+           <Route path="/updatesup/:id" element={<Updatesuppliers/>}/> 
+
         </Route>
         <Route path="/events" element={<Events/>}/>
       </Routes>
