@@ -13,7 +13,7 @@ export default function Home() {
   
 
   if (isLoading) {
-    return <p>Loading...fuck</p>;
+    return <p>Loading...</p>;
   }
   if (error) {
     return <p>Error: {error.message}</p>;
@@ -23,10 +23,14 @@ export default function Home() {
 
   return (
     <div className="mx-auto justify-center">
-      <Slider/>
+      <div className="flex flex-wrap gap-10 max-w-screen-xl mx-auto mt-16 mb-10 justify-center">
+        <Slider/>
+      </div>
+
       <div className="text-center pt-3">
         <h1 className="text-3xl text-rose-700 uppercase font-semibold">Flower Items</h1>
       </div>
+
       <div className="flex flex-wrap gap-10 max-w-screen-xl mx-auto mt-16 mb-10 justify-center">
         {/* Image card */}
         {/* {data.map((singleProduct) => (
@@ -41,6 +45,7 @@ export default function Home() {
       ))} */}
           {data.map((singleItem) => (<ProductTile item={singleItem} key={singleItem._id}/>))}
       </div>
+
     </div>
   )
 }

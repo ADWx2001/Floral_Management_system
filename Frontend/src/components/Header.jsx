@@ -145,7 +145,7 @@ export default function Header() {
 
         <Link to="/cart">
           <div className="flex relative">
-            <box-icon name="cart" size="lg"></box-icon>
+            <box-icon type='solid' name='shopping-bag' color='#FF80AB' size='lg'></box-icon>
               <span className="rounded-xl absolute top-0 right-0 px-1 bg-yellow-300 text-black text-sm">{cartTotalQuantity}</span>
           </div>
         </Link>

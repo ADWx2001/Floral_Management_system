@@ -9,6 +9,7 @@ import Header from "./components/Header"
 import Footer from "./components/Footer"
 import PrivateRoute from "./components/PrivateRoute"
 import Cart from "./pages/Cart";
+import Ordersummary from "./pages/Ordersummary"
 import NotFound from "./pages/NotFound";
 
 import { ToastContainer } from 'react-toastify';
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="/cart" element={<Cart/>}/>
         <Route path="/not-found" element={<NotFound/>} />
         <Route path="/products" element={<Products/>} />
+        <Route path="/ordersummary" element= {<Ordersummary/>} />
         <Route path="/checkout" element={<Checkout/>}/>
       </Routes>
       <Footer/>

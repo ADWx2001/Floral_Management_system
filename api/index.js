@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import userRoute from "./routes/user.route.js"
 import authRoute from "./routes/auth.route.js"
 import productRoute from "./routes/products.route.js"
+import  orderRoute from "./routes/order.route.js" 
 import cookieParser from "cookie-parser";
 //import productRoute from "./routes/product.route.js"
 // test import products api Prducts.js
@@ -36,6 +37,7 @@ app.use("/api/user",userRoute);
 app.use("/api/auth",authRoute);
 app.use("/api/products",productRoute);
 //app.use("/api/products",productRoute)
+app.use("api/order",orderRoute);
 
 // test product route
 app.get("/products", (req, res) =>{
