@@ -12,7 +12,7 @@ export default function DashProduct() {
     const [productIdToDelete, setProductIdToDelete] = useState('');
 
     useEffect(() => {
-        const fetchPosts = async () => {
+        const fetchProducts = async () => {
           try {
             const res = await fetch(`/api/products/getproducts`);
             const data = await res.json();
@@ -27,7 +27,7 @@ export default function DashProduct() {
           }
         };
         if (currentUser.isAdmin) {
-          fetchPosts();
+          fetchProducts();
         }
       }, []);
 
@@ -94,13 +94,15 @@ export default function DashProduct() {
                   <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                     <Table.Cell>{new Date(products.updatedAt).toLocaleDateString()}</Table.Cell>
                     <Table.Cell>
-                    <Link to='`/product/${products._id}`'>
-                       <img
-                        src={products.image}
-                        alt={products.title}
-                        className="w-20 h-10 object-cover bg-gray-500"
-                       />
-                    </Link>
+                    <Link to={`/product/${products.slug}`}>
+                    
+                          <img
+                            src={products.image}
+                            alt={products.title}
+                            className="w-20 h-10 object-cover bg-gray-500"
+                          />
+                        </Link>
+
                   </Table.Cell>
                   <Table.Cell>
                     <Link className='font-medium text-gray-900 dark:text-white'to={`/product/${products.slug}`}>

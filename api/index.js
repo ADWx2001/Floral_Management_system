@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import userRoute from "./routes/user.route.js"
 import authRoute from "./routes/auth.route.js"
 import productRoute from "./routes/products.route.js"
+import reviewRoute from "./routes/reviews.route.js"
+
 import cookieParser from "cookie-parser";
 
 
@@ -29,6 +31,7 @@ app.listen(3000 ,() =>{
 app.use("/api/user",userRoute); 
 app.use("/api/auth",authRoute);
 app.use("/api/products",productRoute);
+app.use("/api/reviews",reviewRoute);
 
 
 app.use((err,req,res,next)=>{
