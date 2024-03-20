@@ -20,7 +20,10 @@ const reviewSchema = new mongoose.Schema({
     numberofrating: {
         type: Number,
         default: 0
-    }
+    },
+    reviewimage:{
+        type:String,
+    },
 }, { timestamps: true });
 
 const Review = mongoose.model('Review', reviewSchema);

@@ -139,7 +139,7 @@ export default function AddProducts() {
             {publishError}
           </Alert>
         )}
-        </form>
+      </form>
     </div>
   )
 }

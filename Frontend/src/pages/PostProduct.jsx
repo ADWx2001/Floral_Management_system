@@ -49,24 +49,34 @@ export default function PostProduct() {
           <div>Error occurred while fetching data.</div>
         ) : (
           <>
-          <div className='flex flex-col'>
+          
             <h1 className='text-3xl mt-10 p-3 text-center font-cinzel max-w-2xl mx-auto lg:text-4xl'>{product && product.title}</h1>
-            <div>
-              <img src={product && product.image} alt={product && product.title} className='mt-10 p-3 max-h-[600px] w-[500px] object-cover' />
+            
+            <div className='lg:flex lg:flex-row'>
+  
+            <div className='lg:w-1/2'>
+              <div className='lg:flex lg:flex-row float-left'>
+                <img src={product && product.image} alt={product && product.title} className='mt-10 p-3 max-h-[600px] w-[500px] object-cover' />
+              </div>
             </div>
-          </div>
-          <div  className='flex flex-col'>
-              <h1>Price : {product && product.price}</h1>
-              <h1>Category : {product && product.category}</h1>
-              <h1>Description : {product && product.description}</h1>
-              
-          </div>
+
+            
+            <div className='lg:w-1/2 p-16'>
+              <div className='lg:flex lg:flex-row float-left'> 
+                <div className='flex flex-col'>
+                  <h1 className='p-1 font-serif'>Price: Rs. {product && product.price}</h1>
+                  <h1 className='p-1 font-serif'>Category: {product && product.category}</h1>
+                  <h1 className='p-1 font-serif'>Description: {product && product.description}</h1>
+                </div>
+              </div>
+            </div>
+            </div>
+
+          <Dashreviews productId={product._id}/>
           <div className ='max-w-4xl mx-auto '>
             <CallToAction/>
 
           </div >
-
-          <Dashreviews productId={product._id}/>
          
           </>
           
