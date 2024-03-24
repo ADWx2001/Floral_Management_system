@@ -98,7 +98,10 @@ export const getUsers = async (req, res, next) => {
       return rest;
     });
 
+    
     const totalUsers = await User.countDocuments();
+    const totalAdmins = await User.countDocuments({ isAdmin: true });
+    const totalCustomers = await User.countDocuments({ isAdmin: false });
 
     const now = new Date();
 
@@ -110,11 +113,27 @@ export const getUsers = async (req, res, next) => {
     const lastMonthUsers = await User.countDocuments({
       createdAt: { $gte: oneMonthAgo },
     });
+    const lastMonthCustomers = await User.countDocuments({
+      isAdmin: false ,
+      createdAt: { $gte: oneMonthAgo },
+    });
+    const lastMonthAdmin = await User.countDocuments({
+      isAdmin: true ,
+      createdAt: { $gte: oneMonthAgo },
+    });
+
 
     res.status(200).json({
       users: usersWithoutPassword,
       totalUsers,
-      lastMonthUsers,
+      lastMonthCustomers,
+      totalAdmins,
+      totalCustomers,
+      lastMonthAdmin,
+      lastMonthUsers
+
+
+
     });
   } catch (error) {
     next(error);
