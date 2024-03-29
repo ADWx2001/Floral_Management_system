@@ -1,14 +1,18 @@
 import mongoose from 'mongoose'
 
 const orderSchema = new mongoose.Schema({
-    orderId:{
+    orderId: {
         type: String,
-        required:true,
-        unique:true
+        required: true,
+        unique: true,
     },
     userId: {
         type:String,
         required : true,
+    },
+    productsId:{
+        type:String,
+        required: true,
     },
     first_name:{
         type:String,
@@ -50,10 +54,13 @@ const orderSchema = new mongoose.Schema({
        type: Number,
        required:true,
     },
-    orderstatus:{
-        type: String,
-        enum:['pending','processing','completed', 'cancelled'],
-    },
+    // orderstatus:{
+    //     type: String,
+    //     enum:['pending','processing','completed', 'cancelled'],
+    // },
+    // paymentstatus:{
+    //     type: String,
+    // },
     }, {timestamps: true}
 
 );

@@ -7,6 +7,7 @@ import authRoute from "./routes/auth.route.js"
 import productRoute from "./routes/products.route.js"
 import  orderRoute from "./routes/order.route.js" 
 import cookieParser from "cookie-parser";
+import paymentRoute from "./routes/payment.route.js";
 //import productRoute from "./routes/product.route.js"
 // test import products api Prducts.js
 import product from "./utils/Product.js";
@@ -36,8 +37,8 @@ app.listen(3000 ,() =>{
 app.use("/api/user",userRoute); 
 app.use("/api/auth",authRoute);
 app.use("/api/products",productRoute);
-//app.use("/api/products",productRoute)
-app.use("api/order",orderRoute);
+app.use("/api/order",orderRoute);
+app.use("/api/notify",paymentRoute);
 
 // test product route
 app.get("/products", (req, res) =>{

@@ -146,14 +146,14 @@ export default function Cart() {
       <div className="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
          <h2 className="title font-manrope font-bold text-4xl leading-10 mb-8 text-center text-black">Shopping Cart
               </h2>
-          <p className="font-semibold ">Your cart is empty</p>
-          <div className="pt-10 pb-10">
+          <p className="font-semibold text-center  ">Your cart is empty</p>
+          <div className="text-center mt-5 mb-10">
                <Link to="/">
-                 <span className="p-2 bg-gray-200 rounded px-5 hover:bg-green-400 hover:text-white">
+                 <span className="p-2 bg-gray-200 rounded px-5 hover:bg-pink-500 hover:text-white">
                    Start Shopping
                  </span>
                </Link>
-             </div>
+          </div>
         </div>
         
       ) :(
@@ -183,7 +183,7 @@ export default function Cart() {
                           <p
                               className="font-normal text-lg leading-8 text-gray-500 my-2 min-[550px]:my-3 max-[550px]:text-center">
                               {cartItem.category}</p>
-                          <h6 className="font-medium text-lg leading-8 text-indigo-600  max-[550px]:text-center">Rs.{cartItem.price}</h6>
+                          <h6 className="font-medium text-lg leading-8 text-rose-600  max-[550px]:text-center">Rs.{cartItem.price}</h6>
                       </div>
                   </div>
                   <div
@@ -247,7 +247,7 @@ export default function Cart() {
               </div>
               <div className="flex items-center flex-col sm:flex-row justify-center gap-3 mt-8">
                   <Link to=''>
-                    <button
+                    <button onClick={() => handleClearCart()}
                         className="rounded-full py-4 px-6 w-full max-w-[280px]  flex items-center bg-red-50 justify-center transition-all duration-500 hover:bg-red-600">
                         <span className="px-2 font-semibold text-lg leading-8 text-indigo-600 hover:text-white">Clear cart</span>
                     </button>
