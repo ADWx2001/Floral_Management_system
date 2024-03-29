@@ -18,6 +18,8 @@ export default function SignUp() {
         if(!formData.username || !formData.email || !formData.password||!formData.mobile||!formData.adress){
             return setError('Please Fill all Fields');
         }
+
+       
         try{
           setLoading(true);
           setError(false);
