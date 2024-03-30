@@ -179,7 +179,7 @@ export const forgetpassword = async (req, res, next) => {
     user.verifytoken = token;
     
     await user.save();
-    console.log(user);
+    
 
    
     const mailOptions = {
@@ -205,7 +205,7 @@ export const forgetpassword = async (req, res, next) => {
 
 export const resetpassword = async (req, res, next) => {
   const { id, token } = req.params;
-  console.log(id,token);
+  
   
 
   try {
