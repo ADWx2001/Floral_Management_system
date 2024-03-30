@@ -194,7 +194,7 @@ export const forgetpassword = async (req, res, next) => {
         console.error("Error sending email:", error);
         return res.status(500).json({ status: 500, message: "Email not sent" });
       }
-      console.log("Email sent:", info.response);
+      
       res.status(201).json({ status: 201, message: "Email sent successfully" });
     });
   } catch (error) {
