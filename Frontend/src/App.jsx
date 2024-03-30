@@ -20,6 +20,7 @@ import Search from "./pages/Search"
 import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute"
 import AddProducts from "./pages/AddProducts"
 import UpdateProducts from "./pages/UpdateProduct"
+import UpdateOrder from "./pages/UpdateOrder";
 
 
 export default function App() {
@@ -37,7 +38,8 @@ export default function App() {
         <Route path="/dashboard" element={<DashBoard/>}/> 
         <Route element={<OnlyAdminPrivateRoute/>}>
            <Route path="/add-product" element={<AddProducts/>}/>
-           <Route path="/update-product/:productId" element={<UpdateProducts/>}/>  
+           <Route path="/update-product/:productId" element={<UpdateProducts/>}/>
+           <Route path="/update-order/:orderId" element={<UpdateOrder/>}></Route>  
         </Route>
         <Route path="/events" element={<Events/>}/>
         <Route path="/cart" element={<Cart/>}/>
@@ -45,6 +47,7 @@ export default function App() {
         <Route path="/products" element={<Products/>} />
         <Route path="/ordersummary" element= {<Ordersummary/>} />
         <Route path="/checkout" element={<Checkout/>}/>
+        
       </Routes>
       <Footer/>
     </BrowserRouter>

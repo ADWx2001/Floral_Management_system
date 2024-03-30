@@ -17,14 +17,14 @@ export default function FooterCom() {
 
             <div className="flex justify-center">
                 <a href="#!" className="mr-6 text-neutral-600 dark:text-neutral-200">
-                    <box-icon type='logo' name='meta' color='blue'></box-icon>
+                    <box-icon type='logo' name='meta' color='#0668E1'></box-icon>
                 </a>
                 <a href="#!" className="mr-6 text-neutral-600 dark:text-neutral-200">
                     <box-icon  type='logo' name='instagram'  color='red'></box-icon>
                 </a>
                 
                 <a href="#!" className="mr-6 text-neutral-600 dark:text-neutral-200">
-                    <box-icon  type='logo' name='twitter' color='lightblue'></box-icon>
+                    <box-icon  type='logo' name='twitter' color='#1DA1F2'></box-icon>
                 </a>
                 <a href="#!" className="mr-6 text-neutral-600 dark:text-neutral-200">
                     <box-icon type='logo' name='tiktok'  color='black'></box-icon>
