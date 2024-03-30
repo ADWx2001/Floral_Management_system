@@ -1,4 +1,5 @@
 import Order from "../models/order.model.js";
+import SellerRequest from "../models/seller-request.model.js";
 import { mongoose } from "mongoose";
 import { errorHandler } from "../utils/error.js";
 
@@ -30,7 +31,7 @@ export const createOrder = async (req, res,next)=>{
         const randomString = Math.random().toString(36).substring(2, 10); 
         const id = "ORD" + randomString + phone; 
         return id;
-    }
+      }
 
       const orderId = idGen(phone);
 
@@ -125,6 +126,93 @@ export const deleteOrder = async(req, res ,next)=>{
     try {
         await Order.findByIdAndDelete(orderId);
         res.status(200).json('The Order has been deleted');
+      } catch (error) {
+        next(error);
+      }
+}
+
+//item request placement with seller functions
+
+//create record
+export const placeRequestRecord = async(req, res, next)=>{
+    if (!req.body.title || !req.body.category || !req.body.description || !req.body.quantity || !req.body.email ||!req.body.supplier ) {
+        return next(errorHandler(400, 'Please provide all required fields'));
+      }
+
+      const title = req.body.title;
+      const category = req.body.category;
+      const description = req.body.description;
+      const quantity = req.body.quantity;
+      const email = req.body.email;
+      const supplier = req.body.supplier;
+
+      const newRequest = new SellerRequest({
+        title,category,description,quantity,email,supplier
+      })
+
+      try {
+        const savedRequest = await newRequest.save();
+        res.status(201).json(savedRequest);
+      } catch (error) {
+        next(error);
+      }
+
+      
+    }
+
+      
+
+//fetch only one record from database
+export const getOneRequestRecord = async(req, res, next)=>{
+
+    try {
+        const requestId = req.params.id;
+        const result = await SellerRequest.findById(requestId);
+        
+        if (!result) {
+            return res.status(404).json({ error: 'Order not found' });
+        }
+        
+        res.json(result);    
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+//get all the request records
+export const getRequestRecords = async(req,res,next)=>{
+    SellerRequest.find().then((requests)=>{
+        res.json(requests);
+    }).catch((error)=>{
+        console.log(error);
+    })
+}
+
+//update the request record
+export const updateRequestRecord = async(req, res, next)=>{
+    let requestId = req.params.id;
+    const {title,category,description,quantity,email,seller} = req.body;
+    
+    const updateRequest = {
+        title,category,description,quantity,email,seller
+    }
+
+    try {
+        await SellerRequest.findByIdAndUpdate(requestId, updateRequest);
+        res.status(200).json(updateRequest);
+    } catch (error) {
+        next(error);
+    }
+}
+
+//delete the request record
+export const deleteRequestRecord = async(req, res, next)=>{
+    let  requestId = req.params.id;
+    try {
+        await SellerRequest.findByIdAndDelete(requestId);
+        res.status(200).json('The record has been deleted');
       } catch (error) {
         next(error);
       }

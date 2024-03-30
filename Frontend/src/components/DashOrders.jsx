@@ -12,6 +12,7 @@ export default function DashOrders() {
     const [showModel , setShowModel] = useState(false);
     const [orderIdToDelete, setOrderIdToDelete] = useState('');
 
+
   //fetch all the orders from database
     useEffect(() => {
 
@@ -32,8 +33,7 @@ export default function DashOrders() {
       if (currentUser) {
         fetchOrders();
       }
-
-    }, [currentUser]);
+    } ,[currentUser]);
 
     //delete order by id
     const handleDeleteOrder = async () => {
@@ -58,8 +58,12 @@ export default function DashOrders() {
       }
     };
 
+  
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
+      <div className="flex flex-wrap gap-5">
+      </div>
+      <h1 className="pt-6 px-4 font-semibold">Orders recieved</h1>
     { Array.isArray(Orders) && Orders.length > 0 ? (
     <>
     <Table hoverable className='shadow-md'>
@@ -149,6 +153,7 @@ export default function DashOrders() {
       ):(
         <p>Haven't any orders to show</p>
       )}
+
       <Modal show={showModel} onClose={()=>setShowModel(false)} popup size='md'>
           <Modal.Header/>
           <Modal.Body>
@@ -166,6 +171,9 @@ export default function DashOrders() {
             </div>
           </Modal.Body>
       </Modal>
+    
+      
+
   </div>
   )
   

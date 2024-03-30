@@ -21,6 +21,8 @@ import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute"
 import AddProducts from "./pages/AddProducts"
 import UpdateProducts from "./pages/UpdateProduct"
 import UpdateOrder from "./pages/UpdateOrder";
+import RequestItems from "./pages/RequestItems"
+import UpdateRequest from "./pages/UpdateRequest"
 
 
 export default function App() {
@@ -39,7 +41,9 @@ export default function App() {
         <Route element={<OnlyAdminPrivateRoute/>}>
            <Route path="/add-product" element={<AddProducts/>}/>
            <Route path="/update-product/:productId" element={<UpdateProducts/>}/>
-           <Route path="/update-order/:orderId" element={<UpdateOrder/>}></Route>  
+           <Route path="/update-order/:orderId" element={<UpdateOrder/>}></Route>
+           <Route path="/req-items-seller" element={<RequestItems/>}></Route>  
+           <Route path="/update-request/:requestId" element={<UpdateRequest/>}></Route>
         </Route>
         <Route path="/events" element={<Events/>}/>
         <Route path="/cart" element={<Cart/>}/>

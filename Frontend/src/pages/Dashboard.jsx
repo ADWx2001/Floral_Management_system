@@ -5,6 +5,7 @@ import DashProfile from "../components/DashProfile";
 import DashProduct from "../components/DashProduct";
 import DashUsers from "../components/DashUsers";
 import DashOrders from "../components/DashOrders";
+import DashItemRequests from "../components/DashItemRequests";
 
 export default function DashBoard() {
   const location = useLocation();
@@ -27,6 +28,7 @@ export default function DashBoard() {
       {tab === 'products' && <DashProduct/>}
       {tab === 'users' && <DashUsers/>}
       {tab == 'orders' && <DashOrders/>}
+      {tab == 'restock' && <DashItemRequests/>}
     </div>
   )
 }
