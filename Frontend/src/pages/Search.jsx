@@ -31,7 +31,7 @@ export default function Search() {
                 ...sideBarData,
                 searchTerm:searchTermFromUrl,
                 sort:sortFromUrl,
-                category: categoryFromUrl || 'uncategorized'
+                category: categoryFromUrl 
             })
         }
         const fetchProducts = async  () =>{
@@ -97,9 +97,9 @@ export default function Search() {
                     <label className="whitespace-nowrap font-cinzel">Category:</label>
                     <Select onChange={handleChange} value={sideBarData.category} id='category'>
                         <option value='uncategorized'>Uncategorized</option>
-                        <option value='arrangements'>arrangements</option>
-                        <option value='singleFlower'>singleFlower</option>
-                        <option value='boquets'>boquets</option>
+                        <option value='arrangements'>Arrangements</option>
+                        <option value='singleFlower'>SingleFlower</option>
+                        <option value='boquets'>Boquets</option>
                     </Select>
                 </div>
                 <Button type="submit" outline gradientDuoTone='purpleToBlue'>Filter Products</Button>

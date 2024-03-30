@@ -43,6 +43,10 @@ const userSchema = new mongoose.Schema({
         default:false
     },
 
+    verifytoken:{
+        type:String
+    },
+
 
     profilePicture:{
         type:String,

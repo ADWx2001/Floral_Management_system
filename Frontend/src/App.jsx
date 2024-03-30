@@ -3,7 +3,6 @@ import Home from "./pages/Home"
 import About from "./pages/About"
 import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
-
 import Events from "./pages/Events"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
@@ -18,6 +17,8 @@ import Addstaff from "./pages/Addstaff"
 import Addevents from "./pages/AddEvents"
 import Updateevents from "./pages/updateevent"
 import Updatesuppliers from "./pages/Updatesupplier"
+import ForgetPassword from "./pages/ForgetPassword"
+import ResetPassword from "./pages/ResetPassword"
 
 
 export default function App() {
@@ -44,6 +45,8 @@ export default function App() {
 
         </Route>
         <Route path="/events" element={<Events/>}/>
+        <Route path="/forgetPassword" element={<ForgetPassword/>}/>
+        <Route path="/resetpassword/:id/:token" element={<ResetPassword/>} />
       </Routes>
       <Footer/>
     </BrowserRouter>

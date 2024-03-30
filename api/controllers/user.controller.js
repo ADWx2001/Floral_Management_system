@@ -1,12 +1,22 @@
+import  jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 import { errorHandler } from "../utils/error.js";
 import bcryptjs from "bcryptjs";
+import nodemailer from "nodemailer";
 
 export const test = (req, res) => {
   res.json({
     message: 'API is working'
   });
 };
+
+const transporter = nodemailer.createTransport({
+  service:"gmail",
+  auth:{
+      user:"projecttest088@gmail.com",
+      pass:"rhbe jknk ikvh hwzl"
+  }
+}) 
 
 export const updateUser = async (req,res,next) => {
     if(req.user.id !== req.params.id) {
@@ -146,5 +156,93 @@ export const getUsers = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+  }
+};
+
+export const forgetpassword = async (req, res, next) => {
+  const { email } = req.body;
+  try {
+   
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ status: 401, message: "User not found" });
+    }
+
+    
+    const token = jwt.sign(
+      { id: user._id, isAdmin: user.isAdmin },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
+
+  
+    user.verifytoken = token;
+    
+    await user.save();
+    console.log(user);
+
+   
+    const mailOptions = {
+      from: "sanjana.nim2001@gmail.com",
+      to: email,
+      subject: "Password Reset",
+      text: `Use the following link to reset your password: http://localhost:5173/resetpassword/${user._id}/${token}`
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email:", error);
+        return res.status(500).json({ status: 500, message: "Email not sent" });
+      }
+      console.log("Email sent:", info.response);
+      res.status(201).json({ status: 201, message: "Email sent successfully" });
+    });
+  } catch (error) {
+    console.error("Forget password error:", error);
+    next(error);
+  }
+};
+
+export const resetpassword = async (req, res, next) => {
+  const { id, token } = req.params;
+  console.log(id,token);
+  
+
+  try {
+    const validuser = await User.findOne({_id: id, verifytoken: token});
+   
+    const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
+
+
+    if (validuser && verifyToken.id) {
+      res.status(201).json({ status: 201, validuser });
+    } else {
+      res.status(401).json({ status: 401, message: "User does not exist" });
+    }
+  } catch (error) {
+    console.error("Error in resetpassword controller:", error);
+    res.status(500).json({ status: 500, message: "Internal server error" });
+  }
+};
+
+export const updateResetPassword = async (req, res, next) => {
+  const { id, token } = req.params;
+  const { password } = req.body;
+
+  try {
+      const validuser = await User.findOne({ _id: id, verifytoken: token });
+      const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
+
+      if (validuser && verifyToken.id) {
+          const newpassword = await bcryptjs.hash(password, 10);
+
+          await User.findByIdAndUpdate(id, { password: newpassword });
+
+          res.status(201).json({ status: 201, message: "Password updated successfully" });
+      } else {
+          res.status(401).json({ status: 401, message: "User does not exist or invalid token" });
+      }
+  } catch (error) {
+      res.status(500).json({ status: 500, error: error.message });
   }
 };

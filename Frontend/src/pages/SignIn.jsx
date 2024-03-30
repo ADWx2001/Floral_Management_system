@@ -47,6 +47,7 @@ export default function SignIn() {
       }
   return (
     <div className="min-h-screen mt-20">
+        
         <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-20">
             {/* left */}
             <div className="flex-1">
@@ -77,6 +78,12 @@ export default function SignIn() {
                     ):'Sign In'}</Button>
                     <OAuthenticate/>
                 </form>
+                
+                <div className="flex gap-2 text-sm mt-5 ">
+                    <span>Forget Password?</span>
+                    <Link to='/forgetPassword' className="text-blue-500">Click Here</Link>
+                </div>
+
                 <div className="flex gap-2 text-sm mt-5 ">
                     <span>Dont have an Account?</span>
                     <Link to='/sign-up' className="text-blue-500">Sign Up</Link>
