@@ -31,7 +31,7 @@ export default function SignIn() {
                 email: formData.email,
                 password: formData.password,
                 photo: formData.profilePicture,
-            }),
+              }),
           });
       
           const data = await res.json();
