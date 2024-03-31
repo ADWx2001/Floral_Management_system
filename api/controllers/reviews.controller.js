@@ -34,3 +34,46 @@ export const getProductReview =async(req,res,next) => {
     next(error)
     }
 }
+
+
+export const UpdateReview = async(req,res,next) => {
+    try{
+        const review = await Review.findById(req.params.reviewId);
+        if(!review){
+            return next(errorHandler(404,'Review not found'));
+        }
+
+        if(review.userId !== req.user.id && !req.user.isAdmin){
+            return next(errorHandler(403,'you are not allow to edit reviews'));
+        }
+
+        const updatedReview = await Review.findByIdAndUpdate(
+        req.params.reviewId,
+        {$set:{
+            content:req.body.content,}
+        },
+        {new:true}
+        );
+        res.status(200).json(updatedReview)
+
+    }catch(error){
+        next(error);
+    }
+};
+
+
+export const deleteReview = async(req,res,next) => {
+    try {
+        const review = await Review.findById(req.params.reviewId);
+        if(!review){
+            return  next(errorHandler(404,'Review not found'));
+        }
+        if(review.userId !== req.user.id && !req.user.isAdmin){
+            return next(errorHandler(403,'Your are not allow to delte this review'));
+        }
+        await Review.findByIdAndDelete(req.params.reviewId);
+        res.status(200).json('Review has been deleted');
+    } catch (error) {
+       next(error);
+    }
+}

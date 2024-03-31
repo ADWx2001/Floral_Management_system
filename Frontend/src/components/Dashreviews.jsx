@@ -1,13 +1,14 @@
-import { Textarea, Alert, Button, FileInput, Select } from 'flowbite-react';
+import { Textarea, Alert, Button, FileInput, Select, Modal } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link ,Navigate,useNavigate} from 'react-router-dom';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { app } from "../firebase";
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import Review from '../../../api/models/review.model';
+import Review from '../../../api/models/review.model.js';
 import Reviews from './Reviews';
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
 export default function Dashreviews({ productId }) {
   const { currentUser } = useSelector(state => state.user);
@@ -18,7 +19,9 @@ export default function Dashreviews({ productId }) {
   const [formData, setFormData] = useState({});
   const [review, setReview] = useState('');
   const [reviews, setReviews] = useState([]);
- console.log(reviews);
+  const [showModal, setshowModal] = useState(false);
+  const [reviewToDelete, setreviewToDelete] = useState(null);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -189,6 +192,30 @@ export default function Dashreviews({ productId }) {
     getreviews();
   },[productId])
 
+const handleUpdate =async(review,updatedContent) => {
+  setReviews(
+    reviews.map((r) => (r._id === review._id ? {...r,content:updatedContent}:r))
+  );
+};
+
+const handleDelete = async(reviewId) => {
+  try {
+    setshowModal(false);
+    if(!currentUser){
+      Navigate('/signin');
+      return;
+    }
+    const res = await fetch(`/api/reviews/deleteReview/${reviewId}`,{
+      method: 'Delete',
+    });
+    if(res.ok){
+      const data = await res.json();
+      setReviews(reviews.filter((review) => review._id !== reviewId));
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+}
 
   return (
     <div className='max-w-2xl mx-auto w-full p-3'>
@@ -255,12 +282,33 @@ export default function Dashreviews({ productId }) {
         </div> 
         {
           reviews.map(review =>(
-            <Reviews key={review._id} review={review}  />
+            <Reviews 
+            key={review._id} 
+            review={review} 
+            onUpdate={handleUpdate} 
+            onDelete={(reviewId) => {setshowModal(true), setreviewToDelete(reviewId)}} />
           ))
         }
         </>
        
       )}
+      <Modal show={showModal} onClose={()=>setshowModal(false)} popup size='md'>
+          <Modal.Header/>
+          <Modal.Body>
+            <div className="text-center">
+              <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto"/>
+              <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-200">Are you sure you want to Delete this Review ?</h3>
+            </div>
+            <div className='flex justify-center gap-4'>
+              <Button color='failure' onClick={() => handleDelete(reviewToDelete)}>
+                Yes, I am sure
+              </Button>
+              <Button color='gray' onClick={() => setshowModal(false)}>
+                No, cancel
+              </Button>
+            </div>
+          </Modal.Body>
+      </Modal>
     </div>
   )
   
