@@ -77,3 +77,24 @@ export const deleteReview = async(req,res,next) => {
        next(error);
     }
 }
+
+export const getReviews = async(req,res,next) => {
+    if(!req.user.isAdmin)
+        return next(errorHandler(403,'Your not allow to see all th reviews'));
+    try {
+        const startIndex = parseInt(req.query.startIndex) || 0;
+        const limit = parseInt(req.query.limit) || 9;
+        const sortDirection = req.query.sort === 'desc' ? -1 : 1;
+        const reviews = await Review.find()
+            .sort({createdAt: sortDirection})
+            .skip(startIndex)
+            .limit(limit);
+            const totalReviews = await Review.countDocuments();
+            const now = new Date();
+            const oneMonthAgo = new Date(now.getFullYear(),now.getMonth() -1,now.getDate());
+            const lastMonthReviews = await Review.countDocuments({createdAt: {$gte: oneMonthAgo}});
+            res.status(200).json({reviews,totalReviews,lastMonthReviews});
+    } catch (error) {
+        next(error);
+    }
+}
