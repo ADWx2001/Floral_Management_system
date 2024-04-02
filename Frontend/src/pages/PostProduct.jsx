@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Spinner } from 'flowbite-react';
 import CallToAction from './CallToAction';
 import Dashreviews from '../components/Dashreviews';
+import  {RatingStar}  from 'flowbite-react';
 
 export default function PostProduct() {
   const { productSlug } = useParams();
@@ -68,6 +69,8 @@ export default function PostProduct() {
                   <h1 className='p-1 font-serif'>Category: {product && product.category}</h1>
                   <h1 className='p-1 font-serif'>Description: {product && product.description}</h1>
                 </div>
+
+                
               </div>
             </div>
             </div>

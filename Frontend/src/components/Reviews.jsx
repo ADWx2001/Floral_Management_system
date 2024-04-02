@@ -3,13 +3,13 @@ import moment from 'moment';
 import Review from '../../../api/models/review.model.js';
 import { useSelector } from 'react-redux';
 import { Button, Textarea } from 'flowbite-react';
-
+import { Link } from "react-router-dom";
 
 
 export default function Reviews({review , onUpdate , onDelete}) {
     const [user,setUser] = useState({});
     const [isUpdating, setisUpdating] = useState(false);
-    const [updatedContent,setupdatedContent] = useState(review.content);
+    const [updatedContent,setupdatedContent] = useState(review.content,review.reviewimage);
     const {currentUser} = useSelector((state) => state.user);
     console.log(user);
 
@@ -32,6 +32,7 @@ export default function Reviews({review , onUpdate , onDelete}) {
     const handleUpdate = () =>{
         setisUpdating(true);
         setupdatedContent(review.content);
+        
     };
 
     const handleSave = async() => {
@@ -77,6 +78,7 @@ export default function Reviews({review , onUpdate , onDelete}) {
                     value={updatedContent}
                     onChange={(e) => setupdatedContent(e.target.value)}
                     />
+                <div></div>
 
                     <div  className='flex justify-end gap-2 text-xs  '>
                         <Button type='button' gradientDuoTone='purpleToBlue' size='sm' 
@@ -94,6 +96,14 @@ export default function Reviews({review , onUpdate , onDelete}) {
             ):( 
             <>
             <p className='text-gray-500 pb-2'>{review.content}</p> 
+            <div className='mt-2'>
+                <img
+                    src={review.reviewimage}
+                    alt=''
+                    className="w-20 h-10 object-fill bg-gray-500"
+                />
+                  
+            </div>
             <div>
                 {
                     currentUser && (currentUser._id === review.userId || currentUser.isAdmin) && (

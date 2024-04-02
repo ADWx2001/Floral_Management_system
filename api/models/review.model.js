@@ -32,6 +32,7 @@ const reviewSchema = new mongoose.Schema({
     },
     reviewimage:{
         type:String,
+        default:"https://www.contentviewspro.com/wp-content/uploads/2017/07/default_image.png"
     },
 }, { timestamps: true });
 

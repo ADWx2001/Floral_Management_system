@@ -52,7 +52,9 @@ export const UpdateReview = async(req,res,next) => {
         const updatedReview = await Review.findByIdAndUpdate(
         req.params.reviewId,
         {$set:{
-            content:req.body.content,}
+            content:req.body.content,
+            
+        }
         },
         {new:true}
         );

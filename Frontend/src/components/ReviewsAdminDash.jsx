@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { HiArrowNarrowUp, HiOutlineExclamationCircle, HiAnnotation } from 'react-icons/hi';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import { Link } from "react-router-dom";
 
 export default function ReviewsAdminDash() {
   const { currentUser } = useSelector((state) => state.user);
@@ -51,7 +52,7 @@ export default function ReviewsAdminDash() {
   useEffect(() => {
   const fetchReviewsDash =async () => {
     try {
-      const resdash = await fetch(`/api/reviews/getreviews?limit=5`);
+      const resdash = await fetch(`/api/reviews/getreviews?limit=9`);
       const data = await resdash.json();
       if (resdash.ok) {
         setReviews(data.reviews);
@@ -113,7 +114,13 @@ export default function ReviewsAdminDash() {
                   <Table.Cell>
                    {review.content}
                   </Table.Cell>
-                  <Table.Cell>{}</Table.Cell>
+                  <Table.Cell>
+                      <img
+                        src={review.reviewimage}
+                        alt=''
+                        className='w-20 h-10  object-fill bg-gray-500 '
+                      />
+                  </Table.Cell>
                   <Table.Cell>{review.rating}</Table.Cell>
                   <Table.Cell>{review.username}</Table.Cell>
                   <Table.Cell>{review.productId}</Table.Cell>
