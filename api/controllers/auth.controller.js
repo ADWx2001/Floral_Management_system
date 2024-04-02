@@ -20,7 +20,9 @@ export const signup = async (req, res, next) => {
       return next(errorHandler(400, 'Invalid mobile number format'));
   } else if (!passwordRegex.test(password)) {
       return next(errorHandler(400, 'Password should be at least 5 characters long and contain at least one uppercase letter, one digit, and one symbol (!@#$%^&*()_+).'));
-  }
+  }else if (username.length < 7 || req.body.username.length > 20) {
+    return next(errorHandler(400, 'Username must be between 7 and 20 characters'));
+}
 
   const hashedPassword = bcryptjs.hashSync(password, 10);
   const newUser = new User({ username, email, password: hashedPassword, adress, mobile });
