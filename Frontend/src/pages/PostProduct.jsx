@@ -72,7 +72,7 @@ export default function PostProduct() {
             </div>
             </div>
 
-          <Dashreviews productId={product._id}/>
+          <Dashreviews productId={product.title}/>
           <div className ='max-w-4xl mx-auto '>
             <CallToAction/>
 

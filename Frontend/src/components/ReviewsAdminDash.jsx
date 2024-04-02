@@ -1,14 +1,15 @@
 import { Modal, Table, Button } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { HiArrowNarrowUp, HiOutlineExclamationCircle, HiAnnotation } from 'react-icons/hi';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 
 export default function ReviewsAdminDash() {
   const { currentUser } = useSelector((state) => state.user);
   const [reviews, setReviews] = useState([]);
   const [showMore, setShowMore] = useState(true);
-  const [showModal, setShowModal] = useState(false);
+  const [totalReviews, settotalReviews] = useState(0);
+  const [lastMonthReviews, setlastMonthReviews] = useState(0);
   const [reviewIdToDelete, setreviewIdToDelete] = useState('');
   useEffect(() => {
     const fetchReviews = async () => {
@@ -46,10 +47,50 @@ export default function ReviewsAdminDash() {
     }
   };
 
+
+  useEffect(() => {
+  const fetchReviewsDash =async () => {
+    try {
+      const resdash = await fetch(`/api/reviews/getreviews?limit=5`);
+      const data = await resdash.json();
+      if (resdash.ok) {
+        setReviews(data.reviews);
+        settotalReviews(data.totalReviews);
+        setlastMonthReviews(data.lastMonthReviews);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  if(currentUser.isAdmin){
+    fetchReviewsDash();
+  }
+  },[currentUser]);
   
 
   return (
-    <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
+    
+    <div className='table-auto overflow-x-scroll md:mx-auto p-2 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
+   
+    <div className='flex flex-col p-3 mb-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
+          <div className='flex justify-between'>
+            <div className=''>
+              <h3 className='text-gray-500 text-md uppercase'>
+                Total Reviews
+              </h3>
+              <p className='text-2xl'>{totalReviews}</p>
+            </div>
+            <HiAnnotation className='bg-indigo-600  text-white rounded-full text-5xl p-3 shadow-lg' />
+          </div>
+          <div className='flex  gap-2 text-sm'>
+            <span className='text-green-500 flex items-center'>
+              <HiArrowNarrowUp />
+              {lastMonthReviews}
+            </span>
+            <div className='text-gray-500'>Last Month</div>
+          </div>
+        </div>
+
       {currentUser.isAdmin && reviews.length > 0 ? (
         <>
           <Table hoverable className='shadow-md'>
@@ -58,8 +99,8 @@ export default function ReviewsAdminDash() {
               <Table.HeadCell>Review Content</Table.HeadCell>
               <Table.HeadCell>Image</Table.HeadCell>
               <Table.HeadCell>Rating No</Table.HeadCell>
-              <Table.HeadCell>UserID</Table.HeadCell>
-              <Table.HeadCell>ProductID</Table.HeadCell>
+              <Table.HeadCell>UserName</Table.HeadCell>
+              <Table.HeadCell>ProductName</Table.HeadCell>
               <Table.HeadCell>Reply</Table.HeadCell>
               
             </Table.Head>
@@ -74,20 +115,14 @@ export default function ReviewsAdminDash() {
                   </Table.Cell>
                   <Table.Cell>{}</Table.Cell>
                   <Table.Cell>{review.rating}</Table.Cell>
-                  <Table.Cell>{review.userId}</Table.Cell>
+                  <Table.Cell>{review.username}</Table.Cell>
                   <Table.Cell>{review.productId}</Table.Cell>
-                  
                   <Table.Cell>
-                    <span
-                      onClick={() => {
-                        setShowModal(true);
-                        
-                      }}
-                      className='font-medium text-blue-500 hover:underline cursor-pointer'
-                    >
+                    <span className='font-medium text-blue-500 hover:underline cursor-pointer'>
                       Reply
                     </span>
                   </Table.Cell>
+
                 </Table.Row>
               </Table.Body>
             ))}

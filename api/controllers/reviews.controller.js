@@ -3,7 +3,7 @@ import { errorHandler } from "../utils/error.js";
 
 export const addreview = async (req, res, next) => {
     try {
-        const { content, productId, userId, reviewimage } = req.body;
+        const { content, productId, userId, reviewimage ,productname,username} = req.body;
 
         if (userId !== req.user.id) {
             return next(errorHandler(403, 'You are not allowed to add reviews'));
@@ -13,7 +13,9 @@ export const addreview = async (req, res, next) => {
             content,
             productId,
             userId,
-            reviewimage 
+            reviewimage,
+            productname,
+            username, 
         });
 
         await newReview.save();
@@ -84,7 +86,7 @@ export const getReviews = async(req,res,next) => {
     try {
         const startIndex = parseInt(req.query.startIndex) || 0;
         const limit = parseInt(req.query.limit) || 9;
-        const sortDirection = req.query.sort === 'desc' ? -1 : 1;
+        const sortDirection = req.query.sort === 'asc' ? 1 : -1;
         const reviews = await Review.find()
             .sort({createdAt: sortDirection})
             .skip(startIndex)

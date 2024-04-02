@@ -5,6 +5,15 @@ const reviewSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    username: {
+        type: String,
+        required: true
+       
+    },
+    title: {
+        type: String,
+       
+    },
     productId: {
         type: String,
         required: true

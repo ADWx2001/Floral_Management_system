@@ -73,7 +73,7 @@ export default function Reviews({review , onUpdate , onDelete}) {
             {isUpdating ? (
                 <>
                   <Textarea
-                    className='mb-2'
+                    className='mb-2 '
                     value={updatedContent}
                     onChange={(e) => setupdatedContent(e.target.value)}
                     />

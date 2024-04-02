@@ -10,8 +10,8 @@ import Review from '../../../api/models/review.model.js';
 import Reviews from './Reviews';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
-export default function Dashreviews({ productId }) {
-  const { currentUser } = useSelector(state => state.user);
+export default function Dashreviews({ productId}) {
+  const { currentUser} = useSelector(state => state.user);
   const [reviewError, setReviewError] = useState(null);
   const [file, setFile] = useState(null);
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
@@ -21,6 +21,7 @@ export default function Dashreviews({ productId }) {
   const [reviews, setReviews] = useState([]);
   const [showModal, setshowModal] = useState(false);
   const [reviewToDelete, setreviewToDelete] = useState(null);
+
 
 
   const handleSubmit = async (e) => {
@@ -123,7 +124,7 @@ export default function Dashreviews({ productId }) {
         headers: {
           'content-Type': 'application/json'
         },
-        body: JSON.stringify({ content: review, productId, userId: currentUser._id, reviewimage: formData.reviewimage }),
+        body: JSON.stringify({ content: review, productId, userId: currentUser._id, reviewimage: formData.reviewimage, username:currentUser.username}),
       });
       const data = await res.json();
       if (res.status === 200) {
@@ -192,6 +193,10 @@ export default function Dashreviews({ productId }) {
     getreviews();
   },[productId])
 
+ 
+
+  
+
 const handleUpdate =async(review,updatedContent) => {
   setReviews(
     reviews.map((r) => (r._id === review._id ? {...r,content:updatedContent}:r))
@@ -226,6 +231,8 @@ const handleDelete = async(reviewId) => {
             <img className='h-5 w-5 object-cover rounded-full' src={currentUser.profilePicture} alt="" />
             <Link to={'/dashboard?tab=profile'} className='text-xs text-cyan-600 hover:underline '>
               @{currentUser.username}
+              
+             
             </Link>
           </div>
         ) : (
