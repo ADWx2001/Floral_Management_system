@@ -21,6 +21,8 @@ export default function Dashreviews({ productId}) {
   const [reviews, setReviews] = useState([]);
   const [showModal, setshowModal] = useState(false);
   const [reviewToDelete, setreviewToDelete] = useState(null);
+  const [showMore, setShowMore] = useState(true);
+  const totalCommentsCount = reviews.length;
 
 
 
@@ -114,6 +116,30 @@ export default function Dashreviews({ productId}) {
       };
     });
   };
+
+  const handleShowMore = async () => {
+    if (!reviews) {
+      console.error('Reviews array is undefined.');
+      return;
+    }
+    const startIndex = reviews.length;
+    try {
+      const res = await fetch(`/api/reviews/getProductReview/${productId}?startIndex=${startIndex}`);
+      const data = await res.json();
+      if (res.ok) {
+        if (Array.isArray(data) && data.length < 9) {
+          setShowMore(false); 
+        } else if (Array.isArray(data)) {
+          setReviews((prevReviews) => [...prevReviews, ...data]);
+        } else {
+          console.error('Invalid data format: data is not an array.');
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
   
   
 //submite review
@@ -296,7 +322,13 @@ const handleDelete = async(reviewId) => {
             onDelete={(reviewId) => {setshowModal(true), setreviewToDelete(reviewId)}} />
           ))
         }
+         {showMore && (
+          <button onClick={handleShowMore} className='w-full text-teal-500 self-center text-sm py-7'>
+          Show more
+      </button>
+        )}
         </>
+       
        
       )}
       <Modal show={showModal} onClose={()=>setshowModal(false)} popup size='md'>

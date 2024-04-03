@@ -106,7 +106,7 @@ export default function Reviews({review , onUpdate , onDelete}) {
             </div>
             <div>
                 {
-                    currentUser && (currentUser._id === review.userId || currentUser.isAdmin) && (
+                    currentUser && (currentUser._id === review.userId) && (
                     <>
                         <button className='font-normal  text-gray-400 hover:text-blue-500'  type='button'
                         onClick={handleUpdate}>

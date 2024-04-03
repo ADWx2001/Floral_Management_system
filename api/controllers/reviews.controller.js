@@ -26,16 +26,23 @@ export const addreview = async (req, res, next) => {
     }
 };
 
-export const getProductReview =async(req,res,next) => {
-    try{
-        const reviews = await Review.find({productId: req.params.productId}).sort({
-            createdAt: -1,
-        });
+export const getProductReview = async (req, res, next) => {
+    try {
+        const startIndex = parseInt(req.query.startIndex) || 0;
+        const limit = 9; 
+        const sortDirection = req.query.sort === 'asc' ? 1 : -1;
+        const reviews = await Review.find({ productId: req.params.productId })
+            .sort({ createdAt: sortDirection})
+            .skip(startIndex)
+            .limit(limit);
+
         res.status(200).json(reviews);
-    }catch(error){
-    next(error)
+    } catch (error) {
+        next(error);
     }
-}
+};
+
+
 
 
 export const UpdateReview = async(req,res,next) => {
