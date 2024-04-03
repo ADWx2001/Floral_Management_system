@@ -12,28 +12,45 @@ export default function DashOrders() {
     const [showModel , setShowModel] = useState(false);
     const [orderIdToDelete, setOrderIdToDelete] = useState('');
 
+    const [totalOrders, setTotalOrders] = useState(0);
+    const [totalSale, setTotalSale] = useState(0);
 
-  //fetch all the orders from database
-    useEffect(() => {
 
-      const fetchOrders = async () => {
-        try {
-          const res = await fetch(`/api/order/getorders`);
-          const data = await res.json();
-          if (res.ok) {
-            setOrders(data);
-            if (data.length < 9) {  
-              setShowMore(false);
-            }
+
+  //get total sales
+  const calculateTotalSale = () => {
+    const total = Orders.reduce((accumulator, currentOrder) => {
+      return accumulator + parseFloat(currentOrder.totalcost);
+    }, 0);
+    setTotalSale(total);
+  };
+  
+   //fetch all the orders from database
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const res = await fetch(`/api/order/getorders`);
+        const data = await res.json();
+        const length = data.length;
+  
+        setTotalOrders(length);
+        if (res.ok) {
+          setOrders(data);
+          if (data.length < 9) {  
+            setShowMore(false);
           }
-        } catch (error) {
-          console.log("error in fetching", error);
+          calculateTotalSale(); // Call calculateTotalSale here
         }
-      };
-      if (currentUser) {
-        fetchOrders();
+      } catch (error) {
+        console.log("error in fetching", error);
       }
-    } ,[currentUser]);
+    };
+    
+    if (currentUser) {
+      fetchOrders();
+    }
+  }, [currentUser, Orders]); 
+  
 
     //delete order by id
     const handleDeleteOrder = async () => {
@@ -62,6 +79,9 @@ export default function DashOrders() {
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
       <div className="flex flex-wrap gap-5">
+        <p>Total orders:{totalOrders}</p>
+        <p>Total Sales:Rs.{totalSale}.00</p>
+        <p>Created at: </p>
       </div>
       <h1 className="pt-6 px-4 font-semibold">Orders recieved</h1>
     { Array.isArray(Orders) && Orders.length > 0 ? (
@@ -97,7 +117,7 @@ export default function DashOrders() {
               {orders.productsId}
             </Table.Cell>
 
-            <Table.Cell>{orders.first_name}</Table.Cell>
+            <Table.Cell>{orders.first_name},{orders.createdAt}</Table.Cell>
 
             <Table.Cell>{orders.last_name}</Table.Cell>
 
@@ -126,7 +146,9 @@ export default function DashOrders() {
                 </Link>
                 
 
-                <button><box-icon name='package' color='#5755FE'></box-icon></button>
+                <Link to={`/create-delivery-record/${orders._id}`}>
+                  <button><box-icon name='package' color='#5755FE'></box-icon></button>
+                </Link>
 
                 <button onClick={() => {
                           setShowModel(true);

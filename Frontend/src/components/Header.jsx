@@ -66,6 +66,7 @@ export default function Header() {
           Flora
         </span>
         Shop
+        {/* <img src="/img/logo.png" alt="" width={"15%"} /> */}
       </Link>
       <form onSubmit={handleSubmit} className="font-cinzel">
         <TextInput

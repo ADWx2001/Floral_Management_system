@@ -23,6 +23,8 @@ import UpdateProducts from "./pages/UpdateProduct"
 import UpdateOrder from "./pages/UpdateOrder";
 import RequestItems from "./pages/RequestItems"
 import UpdateRequest from "./pages/UpdateRequest"
+import CreateDelivery from "./pages/CreateDelivery"
+import UpdateDelivery from "./pages/UpdateDelivery"
 
 
 export default function App() {
@@ -44,6 +46,8 @@ export default function App() {
            <Route path="/update-order/:orderId" element={<UpdateOrder/>}></Route>
            <Route path="/req-items-seller" element={<RequestItems/>}></Route>  
            <Route path="/update-request/:requestId" element={<UpdateRequest/>}></Route>
+           <Route path="/create-delivery-record/:orderId" element={<CreateDelivery/>}></Route>
+           <Route path="/update-delivery/:deliveryId" element={<UpdateDelivery/>}></Route>
         </Route>
         <Route path="/events" element={<Events/>}/>
         <Route path="/cart" element={<Cart/>}/>
