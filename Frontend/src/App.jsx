@@ -3,7 +3,7 @@ import Home from "./pages/Home"
 import About from "./pages/About"
 import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
-import Events from "./pages/Events"
+import Event from "./pages/Event";
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import PrivateRoute from "./components/PrivateRoute"
@@ -31,6 +31,7 @@ export default function App() {
         <Route path="/sign-in" element={<SignIn/>}/>
         <Route path="/sign-up" element={<SignUp/>}/>
         <Route path="/search" element={<Search/>}/>
+        <Route path="/event-home" element={<Event/>}/>
         <Route element={<PrivateRoute/>}>
            <Route path="/dashboard" element={<DashBoard/>}/> 
         </Route>
@@ -44,7 +45,6 @@ export default function App() {
            <Route path="/updatesup/:id" element={<Updatesuppliers/>}/> 
 
         </Route>
-        <Route path="/events" element={<Events/>}/>
         <Route path="/forgetPassword" element={<ForgetPassword/>}/>
         <Route path="/resetpassword/:id/:token" element={<ResetPassword/>} />
       </Routes>
