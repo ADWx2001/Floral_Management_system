@@ -22,7 +22,7 @@ export default function Dashreviews({ productId}) {
   const [showModal, setshowModal] = useState(false);
   const [reviewToDelete, setreviewToDelete] = useState(null);
   const [showMore, setShowMore] = useState(true);
-  const totalCommentsCount = reviews.length;
+
 
 
 
@@ -127,7 +127,7 @@ export default function Dashreviews({ productId}) {
       const res = await fetch(`/api/reviews/getProductReview/${productId}?startIndex=${startIndex}`);
       const data = await res.json();
       if (res.ok) {
-        if (Array.isArray(data) && data.length < 9) {
+        if (Array.isArray(data) && data.length < 6) {
           setShowMore(false); 
         } else if (Array.isArray(data)) {
           setReviews((prevReviews) => [...prevReviews, ...data]);
@@ -139,7 +139,6 @@ export default function Dashreviews({ productId}) {
       console.error(error);
     }
   };
-  
   
   
 //submite review
@@ -303,9 +302,11 @@ const handleDelete = async(reviewId) => {
           </form>
         )
       }
+
       {reviews.length === 0 ? (
         <p className='text-sm my-5'>No Reviews yet!</p>
       ):(
+      
         <>
          <div className='text-sm my-5 flex items-center gap-1'>
           <p className='font-semibold'>Reviews</p>
@@ -327,6 +328,7 @@ const handleDelete = async(reviewId) => {
           Show more
       </button>
         )}
+        
         </>
        
        
