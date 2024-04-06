@@ -11,53 +11,25 @@ export default function DashUsers() {
   const [showModal, setShowModal] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState('');
   const [totalCustomers, setTotalCustomers] = useState(0);
-
-  const [lastMonthCustomers, setlastMonthCustomers] = useState(0);
-  const [totalAdmins, setTotalAdmins] = useState(0)
-  const [lastMonthAdmin, setlastMonthAdmin] = useState(0);
-  const [lastMonthUsers, setlastMonthUsers] = useState(0);
-  const [totalUsers, setTotalUsers] = useState(0)
-
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const res = await fetch(`/api/user/getusers`);
-
   const [lastMonthCustomers, setLastMonthCustomers] = useState(0);
-  const [totalAdmins, setTotalAdmins] = useState(0)
+  const [totalAdmins, setTotalAdmins] = useState(0);
   const [lastMonthAdmin, setLastMonthAdmin] = useState(0);
   const [lastMonthUsers, setLastMonthUsers] = useState(0);
-  const [totalUsers, setTotalUsers] = useState(0)
+  const [totalUsers, setTotalUsers] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
-
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-
-        const res = await fetch(`/api/user/getusers`);
-
         const res = await fetch(`/api/user/getusers?searchTerm=${searchTerm}`);
-
-
         const data = await res.json();
         if (res.ok) {
           setUsers(data.users);
           setTotalCustomers(data.totalCustomers);
-
-          setlastMonthCustomers(data.lastMonthCustomers);
-          setTotalAdmins(data.totalAdmins);
-          setlastMonthAdmin(data.lastMonthAdmin);
-          setlastMonthUsers(data.lastMonthUsers);
-
-
           setLastMonthCustomers(data.lastMonthCustomers);
           setTotalAdmins(data.totalAdmins);
           setLastMonthAdmin(data.lastMonthAdmin);
           setLastMonthUsers(data.lastMonthUsers);
-
-
           setTotalUsers(data.totalUsers);
 
           if (data.users.length < 9) {
@@ -71,16 +43,7 @@ export default function DashUsers() {
     if (currentUser.isAdmin) {
       fetchUsers();
     }
-
-  }, [currentUser._id]);
-
-
-
-  }, [currentUser._id]);
-
   }, [currentUser._id, searchTerm]);
-
-
 
   const handleShowMore = async () => {
     const startIndex = users.length;
@@ -100,29 +63,6 @@ export default function DashUsers() {
 
   const handleDeleteUser = async () => {
     try {
-
-        const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
-            method: 'DELETE',
-        });
-        const data = await res.json();
-        if (res.ok) {
-            setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
-            setShowModal(false);
-        } else {
-            console.log(data.message);
-        }
-    } catch (error) {
-        console.log(error.message);
-    }
-  };
-
-  return (
-    <div className=' p-3 md:mx-auto'>
-   
-        
-   <div className='flex-wrap flex gap-4 justify-center'>
-
-
       const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
         method: 'DELETE',
       });
@@ -155,8 +95,6 @@ export default function DashUsers() {
       </div>
 
       <div className='flex-wrap flex gap-4 justify-center'>
-
-
         <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
           <div className='flex justify-between'>
             <div className=''>
@@ -166,18 +104,7 @@ export default function DashUsers() {
 
             <HiOutlineUserGroup className='bg-red-600  text-white rounded-full text-5xl p-3 shadow-lg' />
           </div>
-          <div className='flex  gap-2 text-sm'>
-
-
-            <HiOutlineUserGroup className='bg-red-600  text-white rounded-full text-5xl p-3 shadow-lg' />
-          </div>
-          <div className='flex  gap-2 text-sm'>
-
-            <HiOutlineUserGroup className='bg-red-600 text-white rounded-full text-5xl p-3 shadow-lg' />
-          </div>
           <div className='flex gap-2 text-sm'>
-
-
             <span className='text-green-500 flex items-center'>
               <HiArrowNarrowUp />
               {lastMonthCustomers}
@@ -196,18 +123,7 @@ export default function DashUsers() {
 
             <HiUser className='bg-lime-600  text-white rounded-full text-5xl p-3 shadow-lg' />
           </div>
-          <div className='flex  gap-2 text-sm'>
-
-
-            <HiUser className='bg-lime-600  text-white rounded-full text-5xl p-3 shadow-lg' />
-          </div>
-          <div className='flex  gap-2 text-sm'>
-
-            <HiUser className='bg-lime-600 text-white rounded-full text-5xl p-3 shadow-lg' />
-          </div>
           <div className='flex gap-2 text-sm'>
-
-
             <span className='text-green-500 flex items-center'>
               <HiArrowNarrowUp />
               {lastMonthAdmin}
@@ -224,18 +140,7 @@ export default function DashUsers() {
 
             <HiOutlineUserGroup className='bg-indigo-600  text-white rounded-full text-5xl p-3 shadow-lg' />
           </div>
-          <div className='flex  gap-2 text-sm'>
-
-
-            <HiOutlineUserGroup className='bg-indigo-600  text-white rounded-full text-5xl p-3 shadow-lg' />
-          </div>
-          <div className='flex  gap-2 text-sm'>
-
-            <HiOutlineUserGroup className='bg-indigo-600 text-white rounded-full text-5xl p-3 shadow-lg' />
-          </div>
           <div className='flex gap-2 text-sm'>
-
-
             <span className='text-green-500 flex items-center'>
               <HiArrowNarrowUp />
               {lastMonthUsers}
@@ -331,16 +236,6 @@ export default function DashUsers() {
           </Modal.Body>
         </Modal>
       </div>
-
-      
     </div>
   );
-  
-  
-  
-
-    </div>
-  );
-
-
 }

@@ -108,9 +108,9 @@ export const getUsers = async (req, res, next) => {
     const sortDirection = req.query.sort === 'asc' ? 1 : -1;
 
 
-    const users = await User.find()
+   
 
-    const users = await User.find()
+    
 
     const searchTerm = req.query.searchTerm || '';
 

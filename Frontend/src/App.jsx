@@ -4,10 +4,7 @@ import About from "./pages/About"
 import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
 import Events from "./pages/Events"
-
 import Products from "./pages/Products"
-
-
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import PrivateRoute from "./components/PrivateRoute"
@@ -23,8 +20,6 @@ import Updateevents from "./pages/updateevent"
 import Updatesuppliers from "./pages/Updatesupplier"
 import ForgetPassword from "./pages/ForgetPassword"
 import ResetPassword from "./pages/ResetPassword"
-
-
 import CreateDelivery from "./pages/CreateDelivery"
 import UpdateDelivery from "./pages/UpdateDelivery"
 import UpdateOrder from "./pages/UpdateOrder"
@@ -33,6 +28,7 @@ import UpdateOrder from "./pages/UpdateOrder"
 
 export default function App() {
   return (
+    <>
     <BrowserRouter>
       <Header/>
       <Routes>
@@ -60,8 +56,6 @@ export default function App() {
         </Route>
         <Route path="/events" element={<Events/>}/>
 
-
-        </Route>
         <Route path="/events" element={<Events/>}/>
 
         <Route path="/products" element={<Products/>}/>
@@ -71,5 +65,7 @@ export default function App() {
       </Routes>
       <Footer/>
     </BrowserRouter>
+
+    </>
   )
 }

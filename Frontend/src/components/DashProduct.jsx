@@ -15,10 +15,7 @@ export default function DashProduct() {
 
     useEffect(() => {
 
-      const fetchPosts = async () => {
-
-
-      const fetchPosts = async () => {
+     
 
       const fetchProducts = async () => {
 
@@ -40,10 +37,7 @@ export default function DashProduct() {
       };
     
 
-      fetchPosts(); 
 
-
-      fetchPosts(); 
 
       fetchProducts(); 
 

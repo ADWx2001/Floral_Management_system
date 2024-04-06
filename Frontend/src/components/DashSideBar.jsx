@@ -2,9 +2,6 @@ import { Sidebar } from "flowbite-react";
 import { useEffect, useState } from "react";
 
 import { HiArrowSmRight, HiGift, HiOutlineUserGroup, HiUser, HiTruck, HiArchive, HiBookmark } from 'react-icons/hi';
-
-import { HiArrowSmRight, HiGift, HiOutlineUserGroup, HiUser } from 'react-icons/hi';
-
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { signOut } from "../redux/user/userSlice";
