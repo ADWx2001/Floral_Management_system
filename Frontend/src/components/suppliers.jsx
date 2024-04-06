@@ -1,5 +1,7 @@
 import { Button, Modal, Table } from "flowbite-react";
+
 import { Alert,  FileInput, Select, TextInput } from "flowbite-react";
+
 import { useEffect, useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useSelector } from "react-redux";
@@ -11,12 +13,18 @@ export default function Suppliers() {
     const [Suppliers,setsuppliers] = useState ([])
     const [showModel , setShowModel] = useState(false);
     const [productIdToDelete, setProductIdToDelete] = useState('');
+
     const [search, setSearch] = useState('');
 
   
 
     useEffect(() => {
         const fetchsuppliers= async () => {
+
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+
           try {
             const res = await fetch('/api/suppliers/get');
             const data = await res.json();
@@ -24,7 +32,7 @@ export default function Suppliers() {
                
                 setsuppliers(data);
                 console.log(data);
-              
+
                  
             }
           } catch (error) {
@@ -32,7 +40,11 @@ export default function Suppliers() {
           }
         };
         if (currentUser.isAdmin) {
+
           fetchsuppliers();
+          
+          fetchProducts();
+
         }
       }, [currentUser._id]);
 
@@ -60,6 +72,7 @@ export default function Suppliers() {
 
       <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
     
+
     <Link style={{
               fontSize:18,
                marginLeft:900,
@@ -80,16 +93,30 @@ export default function Suppliers() {
      
             <Table hoverable className="shadow-md" >
               
+
+      <>
+            <Table hoverable className="shadow-md">
+
               <Table.Head>
                 <Table.HeadCell>Name</Table.HeadCell>
                 <Table.HeadCell> Image</Table.HeadCell>
                 <Table.HeadCell>Company name</Table.HeadCell>
+
                
                 <Table.HeadCell>Address</Table.HeadCell>
                 <Table.HeadCell>Category</Table.HeadCell>
                 <Table.HeadCell>Payment Type</Table.HeadCell>
                 <Table.HeadCell>Communication method</Table.HeadCell>
                 <Table.HeadCell>Contact</Table.HeadCell>
+
+                <Table.HeadCell>Phone number</Table.HeadCell>
+                <Table.HeadCell>Email</Table.HeadCell>
+                <Table.HeadCell>Address</Table.HeadCell>
+                <Table.HeadCell>Category</Table.HeadCell>
+                <Table.HeadCell>Payment Type</Table.HeadCell>
+                <Table.HeadCell>Communication Type</Table.HeadCell>
+                
+
                
                 <Table.HeadCell>
                   <span>Delete</span>
@@ -99,12 +126,16 @@ export default function Suppliers() {
                 </Table.HeadCell>
                
               </Table.Head>
+
              
       { Suppliers.filter((i) => {
-                return search.toLowerCase() === ''
+                return search.toLowerCase()  ''
                   ? i
                   : i.suppliername.toLowerCase().includes(search);
               }).map(
+      
+      { Suppliers.map(
+
         i=>{
           return(
            
@@ -113,7 +144,7 @@ export default function Suppliers() {
                     <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                       <Table.Cell>{i.suppliername}</Table.Cell>
                       <Table.Cell>
-               
+
                          <img
                           src={i.profilePicture}
                           alt={i.suppliername}
@@ -123,16 +154,23 @@ export default function Suppliers() {
                     </Table.Cell>
                     
                     <Table.Cell>{i.comapnyname}</Table.Cell>
+
                    
+
+                    <Table.Cell>{i.phonenumber}</Table.Cell>
+                    <Table.Cell>{i.email}</Table.Cell>
+
                     <Table.Cell>{i.address}</Table.Cell>
                     <Table.Cell>{i.category}</Table.Cell>
                     <Table.Cell>{i.paymenttype}</Table.Cell>
                     <Table.Cell>{i.communicationmethod}</Table.Cell>
+
                     <Table.Cell  >
                     <Link className='text-teal-500 hover:underline'to={`/contactsup/${i._id}`}>
                         <span>Contact</span>
                       </Link>
                     </Table.Cell>
+
 
                 
                     <Table.Cell>
@@ -200,5 +238,9 @@ export default function Suppliers() {
            
 
   )
+
+}
+
+
 }
 

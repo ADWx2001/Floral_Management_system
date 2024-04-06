@@ -1,8 +1,10 @@
 import Supplier from "../models/supplier.model.js";
 import { errorHandler } from "../utils/error.js";
+
 import nodemailer from 'nodemailer';
 import Mailgen  from 'mailgen';
 import Restocks from "../models/Restockrecords.model.js";
+
 
 export const add = async(req,res,next)=>{
    
@@ -16,7 +18,11 @@ export const add = async(req,res,next)=>{
    const communicationmethod=req.body.CommunicationMethod;
    const profilePicture=req.body.image;
 
+
   const newsupplier = new Supplier({
+
+      const newsupplier = new Supplier({
+
         suppliername,
         comapnyname,
         phonenumber,
@@ -26,7 +32,17 @@ export const add = async(req,res,next)=>{
         paymenttype,
         communicationmethod,
         profilePicture,
+
  });
+
+
+
+
+
+        
+       
+      });
+
 
       try {
         const savedsupplier = await newsupplier.save();
@@ -40,6 +56,7 @@ export const add = async(req,res,next)=>{
 
 
 }
+
 
 
 export const addstocksrec = async(req,res,next)=>{
@@ -118,12 +135,18 @@ export const get = async(req,res,next)=>{
   
 
    Supplier.find().then((suppliers)=>{
+
+export const get = async(req,res,next)=>{
+   
+
+    Supplier.find().then((suppliers)=>{
+
       res.json(suppliers)
      
       }).catch((err)=>{
       console.log(err);
   })
- 
+
  
 
 
@@ -210,6 +233,13 @@ export const Sendmail = (req, res) => {
 
 
 
+  
+ 
+
+
+}
+
+
 export const Delete= async(req,res,next)=>{
    let userId = req.params.id;
   
@@ -253,12 +283,15 @@ export const updatesupplier = async (req, res, next) => {
            phonenumber:Number(req.body.PhoneNumber),
            email:req.body.EmailAddress,
           address:req.body.Address,
-         
+
+
            paymenttype:req.body.Paymentmethod,
           category:req.body.category,
            communicationmethod:req.body.CommunicationMethod,
            profilePicture:req.body.image,
+
            damageditemcount:req.body.Damageditem,
+
 
         },
       },

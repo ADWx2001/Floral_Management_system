@@ -23,7 +23,11 @@ import ResetPassword from "./pages/ResetPassword"
 import CreateDelivery from "./pages/CreateDelivery"
 import UpdateDelivery from "./pages/UpdateDelivery"
 import UpdateOrder from "./pages/UpdateOrder"
+
 import Addrestockrec from "./pages/addStockrecords"
+
+
+
 
 
 export default function App() {
@@ -45,7 +49,9 @@ export default function App() {
            <Route path="/update-product/:productId" element={<UpdateProducts/>}/> 
            <Route path="/add-suppliers" element={<Addsuppliers/>}/>
            <Route path="/add-staff" element={<Addstaff/>}/>
+
            <Route path="/add-srecords" element={<Addrestockrec/>}/>
+
            <Route path="/create-event" element={<Addevents/>}/>
            <Route path="/Update-event/:id" element={<Updateevents/>}/>
            <Route path="/updatesup/:id" element={<Updatesuppliers/>}/> 
