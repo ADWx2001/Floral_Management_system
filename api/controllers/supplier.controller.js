@@ -1,298 +1,186 @@
 import Supplier from "../models/supplier.model.js";
 import { errorHandler } from "../utils/error.js";
-
 import nodemailer from 'nodemailer';
-import Mailgen  from 'mailgen';
+import Mailgen from 'mailgen';
 import Restocks from "../models/Restockrecords.model.js";
 
+export const add = async (req, res, next) => {
+  const { SupplierName, CompanyName, PhoneNumber, EmailAddress, Address, Paymentmethod, category, CommunicationMethod, image } = req.body;
 
-export const add = async(req,res,next)=>{
-   
-   const suppliername=req.body.SupplierName;
-   const comapnyname=req.body.CompanyName;
-   const phonenumber=Number(req.body.PhoneNumber);
-   const email=req.body.EmailAddress;
-   const address=req.body.Address;
-   const paymenttype=req.body.Paymentmethod;
-   const category=req.body.category;
-   const communicationmethod=req.body.CommunicationMethod;
-   const profilePicture=req.body.image;
+  const newSupplier = new Supplier({
+    suppliername: SupplierName,
+    comapnyname: CompanyName,
+    phonenumber: Number(PhoneNumber),
+    email: EmailAddress,
+    address: Address,
+    category: category,
+    paymenttype: Paymentmethod,
+    communicationmethod: CommunicationMethod,
+    profilePicture: image,
+  });
 
-
-  const newsupplier = new Supplier({
-
-      const newsupplier = new Supplier({
-
-        suppliername,
-        comapnyname,
-        phonenumber,
-        email,
-        address,
-        category,
-        paymenttype,
-        communicationmethod,
-        profilePicture,
-
- });
-
-
-
-
-
-        
-       
-      });
-
-
-      try {
-        const savedsupplier = await newsupplier.save();
-        res.status(201).json(savedsupplier);
-      
-      } catch (error) {
-        next(error);
-       
-      }
-
-
-
-}
-
-
-
-export const addstocksrec = async(req,res,next)=>{
-   
-  const supplier=req.body.SupplierName;
-  const itemname=req.body.itemname;
-  const cost=Number(req.body.cost);
-  const Deliverystatus=req.body.dstatus;
-  const quantity=Number(req.body.qan);
-  const Date=req.body.date;
-
-
-
-  
-
-
-
-     const newrecord = new Restocks({
-      supplier,
-      itemname,
-      cost,
-      Deliverystatus,
-      quantity,
-      Date,
-    
-});
-
-     try {
-       const savedrecord = await newrecord.save();
-       res.status(201).json(savedrecord);
-     
-     } catch (error) {
-       next(error);
-      
-     }
-
-
-
-}
-
-
-export const getstocksrec = async(req,res,next)=>{
-  
-
-  Restocks.find().then((Restocks)=>{
-     res.json(Restocks)
-    
-     }).catch((err)=>{
-     console.log(err);
- })
-
-}
-
-export const Deletesrec= async(req,res,next)=>{
-  let id = req.params.id;
- 
-Restocks.findByIdAndDelete(id)
-.then (() => {
-res.status (200).send({status: "record deleted"})
-}).catch((err) => {
-console.log(err);
-res.status (500). send({status: "Error with deleting data", error: err.message});
-})
-}
-
-
-
-
-
-
-
-
-
-
-export const get = async(req,res,next)=>{
-  
-
-   Supplier.find().then((suppliers)=>{
-
-export const get = async(req,res,next)=>{
-   
-
-    Supplier.find().then((suppliers)=>{
-
-      res.json(suppliers)
-     
-      }).catch((err)=>{
-      console.log(err);
-  })
-
- 
-
-
-}
-
-
-export const getCount = async(req,res,next)=>{
-  
-  const count= await Supplier.find().countDocuments();
-
-  if(count){
-    res.json(count)
-}
-
-}
-
-
-
-export const Sendmail = (req, res) => {
-
-  const sEmail=req.body.email;
-  const subject=req.body.subject;
-  const msg=req.body.massege;
-
-  console.log(sEmail);
-  console.log(subject);
-  console.log(msg);
-
-  let config = {
-      service : 'gmail',
-      auth : {
-          user: 'pesaraicc@gmail.com',
-          pass: 'mqkd dlyw slto mwsc'
-      }
+  try {
+    const savedSupplier = await newSupplier.save();
+    res.status(201).json(savedSupplier);
+  } catch (error) {
+    next(error);
   }
+}
 
-  let transporter = nodemailer.createTransport(config);
+export const addstocksrec = async (req, res, next) => {
+  const { SupplierName, itemname, cost, dstatus, qan, date } = req.body;
 
-  let MailGenerator = new Mailgen({
+  const newRecord = new Restocks({
+    supplier: SupplierName,
+    itemname: itemname,
+    cost: Number(cost),
+    Deliverystatus: dstatus,
+    quantity: Number(qan),
+    Date: date,
+  });
+
+  try {
+    const savedRecord = await newRecord.save();
+    res.status(201).json(savedRecord);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export const getstocksrec = async (req, res, next) => {
+  try {
+    const restocks = await Restocks.find();
+    res.json(restocks);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export const deleteSrec = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    await Restocks.findByIdAndDelete(id);
+    res.status(200).send({ status: "record deleted" });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export const get = async (req, res, next) => {
+  try {
+    const suppliers = await Supplier.find();
+    res.json(suppliers);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export const getCount = async (req, res, next) => {
+  try {
+    const count = await Supplier.countDocuments();
+    res.json(count);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export const Sendmail = async (req, res, next) => {
+  const { email, subject, massege } = req.body;
+  console.log(email, subject, massege);
+  
+  try {
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'pesaraicc@gmail.com',
+        pass: 'mqkd dlyw slto mwsc'
+      }
+    });
+
+    let MailGenerator = new Mailgen({
       theme: "default",
-      product : {
-          name: "Mailgen",
-          link : 'https://mailgen.js/'
+      product: {
+        name: "Mailgen",
+        link: 'https://mailgen.js/'
       }
-  })
+    });
 
-  let response = {
+    let response = {
       body: {
-          name : "flora ",
-          intro: msg,
-          table : {
-              data : [
-                  {
-                      item : "Nodemailer Stack Book",
-                      description: "A Backend application",
-                      price : "$10.99",
-                  }
-              ]
-          },
-          outro: "Looking forward to do more business"
+        name: "flora",
+        intro: massege,
+        table: {
+          data: [
+            {
+              item: "Nodemailer Stack Book",
+              description: "A Backend application",
+              price: "$10.99",
+            }
+          ]
+        },
+        outro: "Looking forward to do more business"
       }
-  }
+    };
 
-  let mail = MailGenerator.generate(response)
+    let mail = MailGenerator.generate(response);
 
-  let message = {
-      from : 'pesaraicc@gmail.com',
-      to : sEmail,
+    let message = {
+      from: 'pesaraicc@gmail.com',
+      to: email,
       subject: subject,
       html: mail
+    };
+
+    await transporter.sendMail(message);
+    return res.status(201).json({ msg: "you should receive an email" });
+  } catch (error) {
+    next(error);
   }
-
-  transporter.sendMail(message).then(() => {
-      return res.status(201).json({
-          msg: "you should receive an email"
-      })
-  }).catch(error => {
-      return res.status(500).json({ error })
-  })
-
- 
 }
 
-
-
-
-  
- 
-
-
+export const Delete = async (req, res, next) => {
+  const userId = req.params.id;
+  try {
+    await Supplier.findByIdAndDelete(userId);
+    res.status(200).send({ status: "User deleted" });
+  } catch (error) {
+    next(error);
+  }
 }
 
-
-export const Delete= async(req,res,next)=>{
-   let userId = req.params.id;
-  
-Supplier.findByIdAndDelete(userId)
-.then (() => {
-res.status (200).send({status: "User deleted"})
-}).catch((err) => {
-console.log(err);
-res.status (500). send({status: "Error with deleting data", error: err.message});
-})
-}
-
-
-
-export const Getuser= async(req,res,next)=>{
-  const userId= req.params.id;
-  console.log(userId);
-  Supplier.findOne({_id:userId}).then((supplier)=>{
-
-    if (supplier){
-        res.json(supplier)
-       } else {
-        res.status(401);
-        console.log("error")
-        
-      }
-
-})
-
+export const Getuser = async (req, res, next) => {
+  const userId = req.params.id;
+  try {
+    const supplier = await Supplier.findOne({ _id: userId });
+    if (supplier) {
+      res.json(supplier);
+    } else {
+      res.status(401);
+      console.log("error");
+    }
+  } catch (error) {
+    next(error);
+  }
 }
 
 export const updatesupplier = async (req, res, next) => {
-
+  const { SupplierName, CompanyName, PhoneNumber, EmailAddress, Address, Paymentmethod, category, CommunicationMethod, image, Damageditem } = req.body;
+  
   try {
     const updatesupplier = await Supplier.findByIdAndUpdate(
       req.params.id,
       {
         $set: {
-         suppliername:req.body.SupplierName,
-         comapnyname:req.body.CompanyName,
-           phonenumber:Number(req.body.PhoneNumber),
-           email:req.body.EmailAddress,
-          address:req.body.Address,
-
-
-           paymenttype:req.body.Paymentmethod,
-          category:req.body.category,
-           communicationmethod:req.body.CommunicationMethod,
-           profilePicture:req.body.image,
-
-           damageditemcount:req.body.Damageditem,
-
-
+          suppliername: SupplierName,
+          comapnyname: CompanyName,
+          phonenumber: Number(PhoneNumber),
+          email: EmailAddress,
+          address: Address,
+          paymenttype: Paymentmethod,
+          category: category,
+          communicationmethod: CommunicationMethod,
+          profilePicture: image,
+          damageditemcount: Damageditem,
         },
       },
       { new: true }

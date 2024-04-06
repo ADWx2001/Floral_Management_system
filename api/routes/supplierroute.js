@@ -10,11 +10,11 @@ import { getCount } from '../controllers/supplier.controller.js';
 import { Sendmail } from '../controllers/supplier.controller.js';
 import { addstocksrec } from '../controllers/supplier.controller.js';
 import { getstocksrec } from '../controllers/supplier.controller.js';
-import { Deletesrec } from '../controllers/supplier.controller.js';
+import { deleteSrec } from '../controllers/supplier.controller.js';
 
 
 
-import {updatesupplier} from '../controllers/supplier.controller.js'
+
 
 
 const router = express.Router();
@@ -23,7 +23,7 @@ router.post('/add',add);
 
 router.post('/addstockrecords',addstocksrec);
 router.get('/getstockrecords',getstocksrec);
-router.delete('/deletestockrecords/:id',Deletesrec);
+router.delete('/deletestockrecords/:id',deleteSrec);
 router.post('/sendmail',Sendmail);
 router.get('/get',get);
 router.delete('/delete/:id',Delete);

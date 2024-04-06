@@ -1,7 +1,7 @@
 import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 
-import ReactQuill from 'react-quill';
+
 
 import 'react-quill/dist/quill.snow.css';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
@@ -10,7 +10,6 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate , useParams} from "react-router-dom";
 
-import { useSelector } from "react-redux";
 
 
 export default function Updatesuppliers() {
@@ -21,9 +20,6 @@ export default function Updatesuppliers() {
     const[imageUploadError,setImageUploadError] = useState(null);
     const [formData , setFormData] = useState({});
     const [publishError, setPublishError] = useState(null);
-
-    const [Suppliers,setsuppliers] = useState ([])
-
     const[name,setname]=useState();
     const[companyname,setcname]=useState();
     const[Email,setemail]=useState();
@@ -255,6 +251,5 @@ export default function Updatesuppliers() {
   )
 
 }
-=======
-}
+
 
