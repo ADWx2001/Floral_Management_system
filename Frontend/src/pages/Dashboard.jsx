@@ -7,6 +7,7 @@ import DashUsers from "../components/DashUsers";
 import Suppliers from "../components/suppliers";
 import Events from "./Events";
 import Staffmembers from "../components/Staffmembers";
+import Supplierperfromance from "../components/supplierperofrmance";
 
 export default function DashBoard() {
   const location = useLocation();
@@ -31,6 +32,7 @@ export default function DashBoard() {
       {tab === 'suppliers' && <Suppliers/>}
       {tab === 'events' && <Events/>}
       {tab === 'staff' && <Staffmembers/>}
+      {tab === 'sperforamnce' && <Supplierperfromance/>}
     </div>
   )
 }

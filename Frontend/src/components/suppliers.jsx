@@ -1,5 +1,5 @@
 import { Button, Modal, Table } from "flowbite-react";
-
+import { Alert,  FileInput, Select, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useSelector } from "react-redux";
@@ -11,9 +11,12 @@ export default function Suppliers() {
     const [Suppliers,setsuppliers] = useState ([])
     const [showModel , setShowModel] = useState(false);
     const [productIdToDelete, setProductIdToDelete] = useState('');
+    const [search, setSearch] = useState('');
+
+  
 
     useEffect(() => {
-        const fetchPosts = async () => {
+        const fetchsuppliers= async () => {
           try {
             const res = await fetch('/api/suppliers/get');
             const data = await res.json();
@@ -21,6 +24,7 @@ export default function Suppliers() {
                
                 setsuppliers(data);
                 console.log(data);
+              
                  
             }
           } catch (error) {
@@ -28,7 +32,7 @@ export default function Suppliers() {
           }
         };
         if (currentUser.isAdmin) {
-          fetchPosts();
+          fetchsuppliers();
         }
       }, [currentUser._id]);
 
@@ -56,19 +60,36 @@ export default function Suppliers() {
 
       <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
     
+    <Link style={{
+              fontSize:18,
+               marginLeft:900,
+              
+              }} className='text-teal-500 hover:underline'to={`/dashboard?tab=sperforamnce`}>
+                        <span >View Supplier Performance </span>
+                      </Link>
       <>
-            <Table hoverable className="shadow-md">
+      <TextInput type='text'placeholder='Search Supplier Name.....'required id='title'className='flex-1'  
+               style={{
+                width:700,
+                marginTop:30,
+                marginBottom:30,
+                marginLeft:250,
+               }}
+               onChange={(e) => setSearch(e.target.value)}
+              />
+     
+            <Table hoverable className="shadow-md" >
+              
               <Table.Head>
                 <Table.HeadCell>Name</Table.HeadCell>
                 <Table.HeadCell> Image</Table.HeadCell>
                 <Table.HeadCell>Company name</Table.HeadCell>
-                <Table.HeadCell>Phone number</Table.HeadCell>
-                <Table.HeadCell>Email</Table.HeadCell>
+               
                 <Table.HeadCell>Address</Table.HeadCell>
                 <Table.HeadCell>Category</Table.HeadCell>
                 <Table.HeadCell>Payment Type</Table.HeadCell>
-                <Table.HeadCell>Communication Type</Table.HeadCell>
-                
+                <Table.HeadCell>Communication method</Table.HeadCell>
+                <Table.HeadCell>Contact</Table.HeadCell>
                
                 <Table.HeadCell>
                   <span>Delete</span>
@@ -78,8 +99,12 @@ export default function Suppliers() {
                 </Table.HeadCell>
                
               </Table.Head>
-      
-      { Suppliers.map(
+             
+      { Suppliers.filter((i) => {
+                return search.toLowerCase() === ''
+                  ? i
+                  : i.suppliername.toLowerCase().includes(search);
+              }).map(
         i=>{
           return(
            
@@ -88,7 +113,7 @@ export default function Suppliers() {
                     <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                       <Table.Cell>{i.suppliername}</Table.Cell>
                       <Table.Cell>
-                  
+               
                          <img
                           src={i.profilePicture}
                           alt={i.suppliername}
@@ -98,12 +123,16 @@ export default function Suppliers() {
                     </Table.Cell>
                     
                     <Table.Cell>{i.comapnyname}</Table.Cell>
-                    <Table.Cell>{i.phonenumber}</Table.Cell>
-                    <Table.Cell>{i.email}</Table.Cell>
+                   
                     <Table.Cell>{i.address}</Table.Cell>
                     <Table.Cell>{i.category}</Table.Cell>
                     <Table.Cell>{i.paymenttype}</Table.Cell>
                     <Table.Cell>{i.communicationmethod}</Table.Cell>
+                    <Table.Cell  >
+                    <Link className='text-teal-500 hover:underline'to={`/contactsup/${i._id}`}>
+                        <span>Contact</span>
+                      </Link>
+                    </Table.Cell>
 
                 
                     <Table.Cell>
