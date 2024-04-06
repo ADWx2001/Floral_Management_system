@@ -92,6 +92,10 @@ export const updateevent = async (req, res, next) => {
   }
 };
 
+
+
+
+
 export const Delete= async(req,res,next)=>{
   let userId = req.params.id;
  
@@ -103,3 +107,5 @@ console.log(err);
 res.status (500). send({status: "Error with deleting data", error: err.message});
 })
 }
+
+//finished
