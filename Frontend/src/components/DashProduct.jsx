@@ -14,7 +14,11 @@ export default function DashProduct() {
     const [lastMonthProducts, setlastMonthProducts] = useState(0);
 
     useEffect(() => {
+
       const fetchPosts = async () => {
+
+      const fetchProducts = async () => {
+
         try {
           const res = await fetch(`/api/products/getproducts`);
           const data = await res.json();
@@ -31,7 +35,11 @@ export default function DashProduct() {
         }
       };
     
+
       fetchPosts(); 
+
+      fetchProducts(); 
+
     }, []);
     
     
