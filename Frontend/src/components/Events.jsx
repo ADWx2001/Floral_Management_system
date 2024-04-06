@@ -43,6 +43,12 @@ useEffect(() => {
         }
       );
       const data = await res.json();
+
+      if (res.ok) {
+        console.log(data.message); 
+        window.location.href='/dashboard?tab=events';
+      }
+
       if (!res.ok) {
         console.log(data.message); 
         window.location.href='/dashboard?tab=events';
