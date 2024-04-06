@@ -1,12 +1,16 @@
 import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 
+import ReactQuill from 'react-quill';
+
 import 'react-quill/dist/quill.snow.css';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { app } from "../firebase";
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate , useParams} from "react-router-dom";
+
+import { useSelector } from "react-redux";
 
 
 export default function Updatesuppliers() {
@@ -17,7 +21,9 @@ export default function Updatesuppliers() {
     const[imageUploadError,setImageUploadError] = useState(null);
     const [formData , setFormData] = useState({});
     const [publishError, setPublishError] = useState(null);
-   
+
+    const [Suppliers,setsuppliers] = useState ([])
+
     const[name,setname]=useState();
     const[companyname,setcname]=useState();
     const[Email,setemail]=useState();
@@ -25,6 +31,9 @@ export default function Updatesuppliers() {
     const[paymenttype,setpaytype]=useState();
     const[cat,setcategory]=useState();
     const[number,setnumber]=useState();
+
+    const[count,setcount]=useState();
+
     const[cmethod,setcmethod]=useState();
     const[image,setimage]=useState();
   
@@ -105,6 +114,9 @@ export default function Updatesuppliers() {
              setpaytype(data.paymenttype)
              setemail(data.email)
       setimage(data.profilePicture)
+
+      setcount(data.damageditemcount)
+
              setFile(data.profilePicture)
              console.log(data.paymenttype)
              console.log(formData.profilePicture)
@@ -220,9 +232,18 @@ export default function Updatesuppliers() {
             <TextInput type='text'placeholder='Phone Number:'required id='Phone Number:'className='flex-1'  onChange={(e) =>
               setFormData({ ...formData, PhoneNumber: e.target.value })
             }  defaultValue={number}/>
+
+            <TextInput type='email'placeholder='Email Address:'required id='Email Address:'className='flex-1'  onChange={(e) =>
+              setFormData({ ...formData, EmailAddress: e.target.value })
+            } defaultValue={Email}/>
+            <TextInput type='text'placeholder='Damaged item count'required id='count'className='flex-1'  onChange={(e) =>
+              setFormData({ ...formData, Damageditem: e.target.value })
+            } defaultValue={count}/>
+
             <TextInput type='text'placeholder='Email Address:'required id='Email Address:'className='flex-1'  onChange={(e) =>
               setFormData({ ...formData, EmailAddress: e.target.value })
             } defaultValue={Email}/>
+
         <Button type='submit' gradientDuoTone='purpleToBlue'>Update</Button>
         {publishError && (
           <Alert className='mt-5' color='failure'>
@@ -232,4 +253,8 @@ export default function Updatesuppliers() {
         </form>
     </div>
   )
+
 }
+=======
+}
+
