@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 export default function Staffmembers() {
     const { currentUser } = useSelector((state) => state.user);
     const [Staffmembers, setmembers] = useState([]);
-    const [showMore, setShowMore] = useState(true);
+    
     const [showModel , setShowModel] = useState(false);
     const [memberIDToDelete, setmemberIdToDelete] = useState('');
 
@@ -43,11 +43,7 @@ export default function Staffmembers() {
           const data = await res.json();
           if (!res.ok) {
             console.log(data.message); 
-          } else {
-            setUserProduct((prev) =>
-              prev.filter((products) => products._id !== productIdToDelete)
-            );
-          }
+          } 
         } catch (error) {
           console.log(error.message);
         }
@@ -151,4 +147,3 @@ export default function Staffmembers() {
     </div>
   )
 }
-

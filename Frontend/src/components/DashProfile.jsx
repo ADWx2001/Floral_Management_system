@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { app } from "../firebase";
 import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
 import { Link } from "react-router-dom";
 import { deleteUserFailure, deleteUserStart, deleteUserSuccess, signOut, updateUserFailure, updateUserStart, updateUserSuccess } from "../redux/user/userSlice";
 import  { HiOutlineExclamationCircle } from "react-icons/hi";
@@ -43,7 +42,7 @@ export default function DashProfile() {
     const fileName = new Date().getTime() + image.name;
     const storageRef = ref(storage, fileName);
     const uploadTask = uploadBytesResumable(storageRef, image);
-
+  
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -57,16 +56,22 @@ export default function DashProfile() {
         setImage(null);
         setImageFileUrl(null);
       },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>{
-          setImageFileUrl(downloadURL)
-          setFormData({ ...formData, profilePicture: downloadURL,})
+      async () => {
+        try {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+          setImageFileUrl(downloadURL);
+          setFormData({ ...formData, profilePicture: downloadURL });
+        } catch (error) {
+          console.error("Error getting download URL:", error);
+          setImageError("Error uploading image");
+          setImagePercent(null);
+          setImage(null);
+          setImageFileUrl(null);
         }
-         
-        );
       }
     );
   };
+  
   const handleChange = (e)=>{
     setFormData({...formData,[e.target.id]:e.target.value});
   };
@@ -86,12 +91,16 @@ export default function DashProfile() {
       if(data.success === false){
         dispatch(updateUserFailure(data.message));
         setUpdateUserError(data.message);
+        setUpdateSuccess(null);
         return;
       }
       dispatch(updateUserSuccess(data));
       setUpdateSuccess("User profile updated successfully");
+      setUpdateUserError(null);
     } catch (error) {
-      dispatch(updateUserFailure(error))
+      dispatch(updateUserFailure(error));
+      setUpdateUserError(error.message);
+      setUpdateSuccess(null);
       
     }
 
@@ -179,6 +188,18 @@ export default function DashProfile() {
           placeholder='email'
           defaultValue={currentUser.email}onChange={handleChange}
         />
+         <TextInput
+          type='text'
+          id='adress'
+          placeholder='adress'
+          defaultValue={currentUser.adress} onChange={handleChange}
+        />
+         <TextInput
+          type='text'
+          id='mobile'
+          placeholder='mobile'
+          defaultValue={currentUser.mobile} onChange={handleChange}
+        />
         <TextInput
           type='password'
           id='password'
@@ -230,23 +251,11 @@ export default function DashProfile() {
             </Button>
           </Link>
         )} 
-          {currentUser.isAdmin && (
-          <Link to='/add-staff'>
-            <Button
-              type='button'
-              gradientDuoTone='purpleToPink'
-              className='w-full'
-              outline
-            >
-              Add Staff Members
-            </Button>
-          </Link>
-        )} 
       </form>
       <div className='text-red-500 flex justify-between mt-5'>
-        <span onClick={()=>setShowModel(true)} className='cursor-pointer' >
-          Delete Account
-        </span>
+      <span onClick={()=>setShowModel(true)} className='cursor-pointer' >
+        Delete Account
+      </span>
         <span onClick={handleSignOut} className='cursor-pointer'>
           Sign Out
         </span>

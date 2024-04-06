@@ -1,6 +1,7 @@
 import { Sidebar } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { HiArrowSmRight, HiGift, HiOutlineUserGroup, HiUser } from 'react-icons/hi';
+
+import { HiArrowSmRight, HiGift, HiOutlineUserGroup, HiUser, HiTruck, HiArchive, HiBookmark } from 'react-icons/hi';
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { signOut } from "../redux/user/userSlice";
@@ -43,30 +44,8 @@ export default function DashSideBar() {
                 as='div'>
                 Profile
              </Sidebar.Item>
-             
            </Link>
-          {currentUser.isAdmin && (
-            <Link to='/dashboard?tab=products'>
-              <Sidebar.Item
-                active={tab === 'products'}
-                icon={HiGift}
-                as='div'
-              >
-                Products
-              </Sidebar.Item>
-            </Link>
-          )}
-            {currentUser.isAdmin && (
-            <Link to='/dashboard?tab=suppliers'>
-              <Sidebar.Item
-                active={tab === 'suppliers'}
-                icon={HiGift}
-                as='div'
-              >
-                Suppliers
-              </Sidebar.Item>
-            </Link>
-          )}
+        
             {currentUser.isAdmin && (
             <Link to='/dashboard?tab=users'>
               <Sidebar.Item
@@ -78,14 +57,14 @@ export default function DashSideBar() {
               </Sidebar.Item>
             </Link>
           )}
-          {currentUser.isAdmin && (
-            <Link to='/dashboard?tab=staff'>
+            {currentUser.isAdmin && (
+            <Link to='/dashboard?tab=products'>
               <Sidebar.Item
-                active={tab === 'staff'}
-                icon={HiOutlineUserGroup}
+                active={tab === 'products'}
+                icon={HiGift}
                 as='div'
               >
-                Satff members
+                Products
               </Sidebar.Item>
             </Link>
           )}
@@ -100,6 +79,65 @@ export default function DashSideBar() {
               </Sidebar.Item>
             </Link>
           )}
+           {currentUser.isAdmin && (
+            <Link to='/dashboard?tab=staff'>
+              <Sidebar.Item
+                active={tab === 'staff'}
+                icon={HiOutlineUserGroup}
+                as='div'
+              >
+                Satff members
+              </Sidebar.Item>
+            </Link>
+          )}
+          {currentUser.isAdmin && (
+            <Link to='/dashboard?tab=suppliers'>
+              <Sidebar.Item
+                active={tab === 'suppliers'}
+                icon={HiGift}
+                as='div'
+              >
+                Suppliers
+              </Sidebar.Item>
+            </Link>
+          )}
+
+          {currentUser.isAdmin && (
+            <Link to='/dashboard?tab=orders'>
+              <Sidebar.Item
+                active={tab === 'orders'}
+                icon={HiArchive}
+                as='div'
+              >
+                Orders
+              </Sidebar.Item>
+            </Link>
+          )}
+          {currentUser.isAdmin && (
+            <Link to='/dashboard?tab=restock'>
+              <Sidebar.Item
+                active={tab === 'restock'}
+                icon={HiBookmark}
+                as='div'
+              >
+                Restock
+              </Sidebar.Item>
+            </Link>
+          )}
+          {currentUser.isAdmin && (
+            <Link to='/dashboard?tab=delivery'>
+              <Sidebar.Item
+                active={tab === 'delivery'}
+                icon={HiTruck}
+                as='div'
+              >
+                Delivery
+              </Sidebar.Item>
+            </Link>
+          )}
+    
+
+
           <Sidebar.Item icon={HiArrowSmRight} className="cursor-pointer" onClick={handleSignOut}>
             Sign Out
           </Sidebar.Item>

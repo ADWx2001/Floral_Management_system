@@ -17,6 +17,8 @@ export default function Header() {
     const {theme} = useSelector((state) => state.theme); 
     const [searchTerm,setSearchTerm] = useState("");
     console.log(searchTerm);
+    
+ 
   
     useEffect(()=>{
         const urlParams = new URLSearchParams(location.search)
@@ -112,6 +114,13 @@ export default function Header() {
                 <Navbar.Link active={path==='/events'} as={'div'}>
                     <Link to="/events">Events</Link>
                 </Navbar.Link>
+
+
+                <Navbar.Link active={path==='/products'} as={'div'}>
+                    <Link to="/products">Products</Link>
+                </Navbar.Link>
+
+
             </Navbar.Collapse>
 
     </Navbar>

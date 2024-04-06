@@ -81,8 +81,6 @@ export default function AddProducts() {
       }
     } catch (error) {
       setPublishError('Something went wrong');
-
-      
     }
   };
   return (

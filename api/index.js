@@ -9,10 +9,13 @@ import supplierroute from "./routes/supplierroute.js"
 import Eventroute from "./routes/Events.route.js"
 import Staffroute from "./routes/Staff.route.js"
 
+import orderRoute from "./routes/order.route.js"
+import deliveryRoute from "./routes/delivery.route.js"
+
 
 
 dotenv.config();
-mongoose.connect("mongodb+srv://sanjananim2001:sndnt@folower-shop.4f6ypmu.mongodb.net/flower-shop?retryWrites=true&w=majority").then(()=>{
+mongoose.connect(process.env.MONGO).then(()=>{
     console.log('Connected to MongoDB')
 }).catch((err)=>{
     console.log(err)
@@ -35,6 +38,10 @@ app.use("/api/products",productRoute);
 app.use("/api/suppliers",supplierroute)
 app.use("/api/events",Eventroute)
 app.use("/api/staff",Staffroute)
+
+app.use("/api/delivery/",deliveryRoute);
+app.use("/api/order/",orderRoute);
+
 
 
 

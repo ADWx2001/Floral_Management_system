@@ -1,6 +1,6 @@
 import { Button, Modal, Table } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { HiGift, HiOutlineExclamationCircle} from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -10,27 +10,41 @@ export default function DashProduct() {
     const [showMore, setShowMore] = useState(true);
     const [showModel , setShowModel] = useState(false);
     const [productIdToDelete, setProductIdToDelete] = useState('');
+    const [totalProducts, setTotalProducts] = useState(0);
+    const [lastMonthProducts, setlastMonthProducts] = useState(0);
 
     useEffect(() => {
-        const fetchPosts = async () => {
-          try {
-            const res = await fetch('/api/products/getproducts');
-            const data = await res.json();
-            if (res.ok) {
-              setUserProduct(data.products);
-              console.log(data.products)
-              if (data.products.length < 9) {
-                setShowMore(false);
-              }
+
+     
+
+      const fetchProducts = async () => {
+
+
+        try {
+          const res = await fetch(`/api/products/getproducts`);
+          const data = await res.json();
+          if (res.ok) {
+            setUserProduct(data.products);
+            setTotalProducts(data.totalProducts)
+            setlastMonthProducts(data.lastMonthProducts)
+            if (data.products.length < 9) {
+              setShowMore(false);
             }
-          } catch (error) {
-            console.log(error.message);
           }
-        };
-        if (currentUser.isAdmin) {
-          fetchPosts();
+        } catch (error) {
+          console.log(error.message);
         }
-      }, []);
+      };
+    
+
+
+
+      fetchProducts(); 
+
+
+    }, []);
+    
+    
 
       const handleShowMore = async () => {
         const startIndex = userProduct.length;
@@ -74,6 +88,29 @@ export default function DashProduct() {
 
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
+      <div className='flex-wrap flex gap-4 justify-center'>
+        <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
+          <div className='flex justify-between'>
+            <div className=''>
+              <h3 className='text-gray-500 text-md uppercase'>Total Products</h3>
+              <p className='text-2xl'>{totalProducts}</p>
+            </div>
+            <HiGift className='bg-red-600  text-white rounded-full text-5xl p-3 shadow-lg' />
+          </div>
+        </div>
+        <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
+          <div className='flex justify-between'>
+            <div className=''>
+              <h3 className='text-gray-500 text-md uppercase'>
+                Last Month Products
+              </h3>
+              <p className='text-2xl'>{lastMonthProducts}</p>
+            </div>
+            <HiGift className='bg-lime-600  text-white rounded-full text-5xl p-3 shadow-lg' />
+          </div>
+        </div>
+        
+      </div>
       {currentUser.isAdmin && userProduct.length>0?
       (
         <>

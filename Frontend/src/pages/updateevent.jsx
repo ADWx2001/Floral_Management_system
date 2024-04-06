@@ -7,7 +7,7 @@ import { app } from "../firebase";
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate , useParams} from "react-router-dom";
-import { useSelector } from "react-redux";
+
 
 export default function Updateevents() {
 
