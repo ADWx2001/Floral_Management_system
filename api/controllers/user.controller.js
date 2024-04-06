@@ -107,7 +107,20 @@ export const getUsers = async (req, res, next) => {
     const limit = parseInt(req.query.limit) || 9;
     const sortDirection = req.query.sort === 'asc' ? 1 : -1;
 
+
     const users = await User.find()
+
+    const users = await User.find()
+
+    const searchTerm = req.query.searchTerm || '';
+
+    const usersQuery = User.find({
+      username: { $regex: searchTerm, $options: 'i' } 
+    });
+
+    const users = await usersQuery
+
+
       .sort({ createdAt: sortDirection })
       .skip(startIndex)
       .limit(limit);
@@ -117,7 +130,7 @@ export const getUsers = async (req, res, next) => {
       return rest;
     });
 
-    
+
     const totalUsers = await User.countDocuments();
     const totalAdmins = await User.countDocuments({ isAdmin: true });
     const totalCustomers = await User.countDocuments({ isAdmin: false });
@@ -150,7 +163,6 @@ export const getUsers = async (req, res, next) => {
       totalCustomers,
       lastMonthAdmin,
       lastMonthUsers
-
 
 
     });
