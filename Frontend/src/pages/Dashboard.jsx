@@ -8,6 +8,14 @@ import Suppliers from "../components/suppliers";
 import Staffmembers from "../components/Staffmembers";
 import Events from "../components/Events";
 
+import Supplierperfromance from "../components/supplierperofrmance";
+
+
+
+import DashDeliveries from "../components/DashDeliveries";
+import DashOrders from "../components/DashOrders";
+
+
 export default function DashBoard() {
   const location = useLocation();
   const[tab,setTab]= useState();
@@ -31,6 +39,14 @@ export default function DashBoard() {
       {tab === 'suppliers' && <Suppliers/>}
       {tab === 'events' && <Events/>}
       {tab === 'staff' && <Staffmembers/>}
+
+      {tab == 'delivery' && <DashDeliveries/>}
+      {tab == 'orders' && <DashOrders/>}
+
+      {tab === 'sperforamnce' && <Supplierperfromance/>}
+
+      
+
     </div>
   )
 }
