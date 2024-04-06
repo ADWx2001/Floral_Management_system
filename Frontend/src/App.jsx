@@ -5,6 +5,7 @@ import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
 import Events from "./pages/Events"
 import Products from "./pages/Products"
+
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import PrivateRoute from "./components/PrivateRoute"
@@ -46,6 +47,7 @@ export default function App() {
 
         </Route>
         <Route path="/events" element={<Events/>}/>
+
         <Route path="/products" element={<Products/>}/>
         <Route path="/forgetPassword" element={<ForgetPassword/>}/>
         <Route path="/resetpassword/:id/:token" element={<ResetPassword/>} />
