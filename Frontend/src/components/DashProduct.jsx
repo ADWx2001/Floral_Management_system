@@ -17,7 +17,11 @@ export default function DashProduct() {
 
       const fetchPosts = async () => {
 
+
+      const fetchPosts = async () => {
+
       const fetchProducts = async () => {
+
 
         try {
           const res = await fetch(`/api/products/getproducts`);
@@ -38,7 +42,11 @@ export default function DashProduct() {
 
       fetchPosts(); 
 
+
+      fetchPosts(); 
+
       fetchProducts(); 
+
 
     }, []);
     

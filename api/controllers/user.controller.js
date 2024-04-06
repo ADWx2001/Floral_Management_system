@@ -110,6 +110,8 @@ export const getUsers = async (req, res, next) => {
 
     const users = await User.find()
 
+    const users = await User.find()
+
     const searchTerm = req.query.searchTerm || '';
 
     const usersQuery = User.find({
@@ -117,6 +119,7 @@ export const getUsers = async (req, res, next) => {
     });
 
     const users = await usersQuery
+
 
       .sort({ createdAt: sortDirection })
       .skip(startIndex)
@@ -160,6 +163,7 @@ export const getUsers = async (req, res, next) => {
       totalCustomers,
       lastMonthAdmin,
       lastMonthUsers
+
 
     });
   } catch (error) {

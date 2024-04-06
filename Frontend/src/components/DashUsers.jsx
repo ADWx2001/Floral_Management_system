@@ -18,6 +18,12 @@ export default function DashUsers() {
   const [lastMonthUsers, setlastMonthUsers] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0)
 
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const res = await fetch(`/api/user/getusers`);
+
   const [lastMonthCustomers, setLastMonthCustomers] = useState(0);
   const [totalAdmins, setTotalAdmins] = useState(0)
   const [lastMonthAdmin, setLastMonthAdmin] = useState(0);
@@ -34,6 +40,7 @@ export default function DashUsers() {
 
         const res = await fetch(`/api/user/getusers?searchTerm=${searchTerm}`);
 
+
         const data = await res.json();
         if (res.ok) {
           setUsers(data.users);
@@ -44,10 +51,12 @@ export default function DashUsers() {
           setlastMonthAdmin(data.lastMonthAdmin);
           setlastMonthUsers(data.lastMonthUsers);
 
+
           setLastMonthCustomers(data.lastMonthCustomers);
           setTotalAdmins(data.totalAdmins);
           setLastMonthAdmin(data.lastMonthAdmin);
           setLastMonthUsers(data.lastMonthUsers);
+
 
           setTotalUsers(data.totalUsers);
 
@@ -65,7 +74,12 @@ export default function DashUsers() {
 
   }, [currentUser._id]);
 
+
+
+  }, [currentUser._id]);
+
   }, [currentUser._id, searchTerm]);
+
 
 
   const handleShowMore = async () => {
@@ -108,6 +122,7 @@ export default function DashUsers() {
         
    <div className='flex-wrap flex gap-4 justify-center'>
 
+
       const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
         method: 'DELETE',
       });
@@ -141,6 +156,7 @@ export default function DashUsers() {
 
       <div className='flex-wrap flex gap-4 justify-center'>
 
+
         <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
           <div className='flex justify-between'>
             <div className=''>
@@ -152,9 +168,15 @@ export default function DashUsers() {
           </div>
           <div className='flex  gap-2 text-sm'>
 
+
+            <HiOutlineUserGroup className='bg-red-600  text-white rounded-full text-5xl p-3 shadow-lg' />
+          </div>
+          <div className='flex  gap-2 text-sm'>
+
             <HiOutlineUserGroup className='bg-red-600 text-white rounded-full text-5xl p-3 shadow-lg' />
           </div>
           <div className='flex gap-2 text-sm'>
+
 
             <span className='text-green-500 flex items-center'>
               <HiArrowNarrowUp />
@@ -176,9 +198,15 @@ export default function DashUsers() {
           </div>
           <div className='flex  gap-2 text-sm'>
 
+
+            <HiUser className='bg-lime-600  text-white rounded-full text-5xl p-3 shadow-lg' />
+          </div>
+          <div className='flex  gap-2 text-sm'>
+
             <HiUser className='bg-lime-600 text-white rounded-full text-5xl p-3 shadow-lg' />
           </div>
           <div className='flex gap-2 text-sm'>
+
 
             <span className='text-green-500 flex items-center'>
               <HiArrowNarrowUp />
@@ -198,9 +226,15 @@ export default function DashUsers() {
           </div>
           <div className='flex  gap-2 text-sm'>
 
+
+            <HiOutlineUserGroup className='bg-indigo-600  text-white rounded-full text-5xl p-3 shadow-lg' />
+          </div>
+          <div className='flex  gap-2 text-sm'>
+
             <HiOutlineUserGroup className='bg-indigo-600 text-white rounded-full text-5xl p-3 shadow-lg' />
           </div>
           <div className='flex gap-2 text-sm'>
+
 
             <span className='text-green-500 flex items-center'>
               <HiArrowNarrowUp />
@@ -304,7 +338,9 @@ export default function DashUsers() {
   
   
   
+
     </div>
   );
+
 
 }
