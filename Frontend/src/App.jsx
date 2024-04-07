@@ -3,7 +3,6 @@ import Home from "./pages/Home"
 import About from "./pages/About"
 import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
-import Events from "./pages/Events"
 import Event from "./pages/Event";
 import Products from "./pages/Products"
 import Header from "./components/Header"
@@ -51,7 +50,7 @@ export default function App() {
             <Route path="/update-product/:productId" element={<UpdateProducts/>}/>  
             <Route path="/reply-review/:reviewId" element={<ReplyReview/>}/> 
           </Route>
-          <Route path="/events" element={<Events/>}/>
+       
           <Route path="/product/:productSlug" element={<PostProduct/>}/>
           <Route path="/update-review/:reviewId" element={<UpdateReviews/>}/>  
           <Route path="/add-suppliers" element={<Addsuppliers/>}/>
@@ -66,6 +65,7 @@ export default function App() {
           <Route path="/forgetPassword" element={<ForgetPassword/>}/>
           <Route path="/resetpassword/:id/:token" element={<ResetPassword/>} />
           <Route path = "/products" element={<Products/>}/>
+          
         </Routes>
         <Footer/>
       </>
