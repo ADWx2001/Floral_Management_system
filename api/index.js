@@ -5,8 +5,13 @@ import userRoute from "./routes/user.route.js"
 import authRoute from "./routes/auth.route.js"
 import productRoute from "./routes/products.route.js"
 import reviewRoute from "./routes/reviews.route.js"
-
 import cookieParser from "cookie-parser";
+import supplierroute from "./routes/supplierroute.js"
+import Eventroute from "./routes/Events.route.js"
+import Staffroute from "./routes/Staff.route.js"
+import orderRoute from "./routes/order.route.js"
+import deliveryRoute from "./routes/delivery.route.js"
+
 
 
 
@@ -31,7 +36,17 @@ app.listen(3000 ,() =>{
 app.use("/api/user",userRoute); 
 app.use("/api/auth",authRoute);
 app.use("/api/products",productRoute);
+
 app.use("/api/reviews",reviewRoute);
+
+app.use("/api/suppliers",supplierroute)
+app.use("/api/events",Eventroute)
+app.use("/api/staff",Staffroute)
+
+app.use("/api/delivery/",deliveryRoute);
+app.use("/api/order/",orderRoute);
+
+
 
 
 app.use((err,req,res,next)=>{

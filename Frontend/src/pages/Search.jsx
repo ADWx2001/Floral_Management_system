@@ -1,6 +1,13 @@
+
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
+import { Button, Select, TextInput } from "flowbite-react";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import PostCard from "../components/PostCard";
+
 
 
 export default function Search() {
@@ -17,6 +24,11 @@ export default function Search() {
     const[loading , setLoading] = useState([]);
     const[showMore , setShowMore] = useState([]);
 
+    const[products , setProducts] = useState([]);
+    const[loading , setLoading] = useState([]);
+   
+
+
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -30,7 +42,11 @@ export default function Search() {
                 ...sideBarData,
                 searchTerm:searchTermFromUrl,
                 sort:sortFromUrl,
+
                 category:categoryFromUrl
+
+                category: categoryFromUrl 
+
             })
         }
         const fetchProducts = async  () =>{
@@ -43,6 +59,7 @@ export default function Search() {
             }
             if(res.ok){
                 const data = await res.json();
+
                 setProducts(data.posts);
                 setLoading(false);
                 if(data.posts.length===9){
@@ -50,6 +67,11 @@ export default function Search() {
                 }else{
                     setShowMore(false);
                 }
+
+                setProducts(data.products);
+                setLoading(false);
+                
+
             }
 
         }
@@ -81,6 +103,7 @@ export default function Search() {
       };
 
   return (
+
     <div>
         <div className="">
             <form onSubmit={handleSubmit}>
@@ -90,6 +113,61 @@ export default function Search() {
                 </div>
             </form>
         </div>
+
+    <div className="flex flex-col md:flex-row">
+        <div className="p-7 border-b md:border-r md:min-h-screen border-gray-500">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+                <div className="flex items-center gap-2">
+                    <label className="whitespace-nowrap font-cinzel">Searched Product:</label>
+                    <TextInput placeholder="search..." id="searchTerm" type="text" value={sideBarData.searchTerm}  onChange={handleChange}/>
+
+                </div>
+                <div className="flex items-center gap-2">
+                    <label className="whitespace-nowrap font-cinzel">Sort:</label>
+                    <Select onChange={handleChange} value={sideBarData.sort} id='sort'>
+                        <option value='desc'>Latest</option>
+                        <option value='asc'>Older</option>
+                    </Select>
+                </div>
+                <div className="flex items-center gap-2">
+                    <label className="whitespace-nowrap font-cinzel">Category:</label>
+                    <Select onChange={handleChange} value={sideBarData.category} id='category'>
+                        <option value='uncategorized'>Uncategorized</option>
+                        <option value='arrangements'>Arrangements</option>
+                        <option value='singleFlower'>SingleFlower</option>
+                        <option value='boquets'>Boquets</option>
+                    </Select>
+                </div>
+                <Button type="submit" outline gradientDuoTone='purpleToBlue'>Filter Products</Button>
+            </form>
+        </div>
+        <div className="w-full">
+            <h1 className="text-3xl font-semibold sm:border-b border-gray-500 p-3 mt-5">Product Results</h1>
+            <div className="p-7 flex flex-wrap gap-4">
+                {
+                    !loading && products.length ===0 &&(
+                      <p className="text-xl text-gray-500" >
+                        No Product Found.
+                      </p>
+                    ) 
+                }
+                {
+                    loading && (
+                        <p className="text-xl text-gray-500" >
+                        Loading....
+                      </p>
+                    )
+                }
+                {
+                    !loading && products && products.map((products)=>
+
+                        <PostCard key={products._id} product={products}/> 
+                        
+                    )
+                }
+            </div>
+        </div>
+
     </div>
   )
 }
