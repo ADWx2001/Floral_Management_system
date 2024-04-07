@@ -18,6 +18,7 @@ export default function Header() {
     const [searchTerm,setSearchTerm] = useState("");
     console.log(searchTerm);
 
+    const { cartTotalQuantity } = useSelector(state => state.cart)
   
     useEffect(()=>{
         const urlParams = new URLSearchParams(location.search)
@@ -111,14 +112,22 @@ export default function Header() {
                     <Link to="/about">About</Link>
                 </Navbar.Link>
                 <Navbar.Link active={path==='/events'} as={'div'}>
-                 
                     <Link to="/event-home">Events</Link>
                 </Navbar.Link>
-
-
                 <Navbar.Link active={path==='/products'} as={'div'}>
                     <Link to="/products">Products</Link>
                 </Navbar.Link>
+                {currentUser && (
+                <Navbar.Link>
+                    <Link to="/cart">
+                        <div className="flex relative">
+                            <box-icon type='solid' name='cart-alt' color='black' size='md'></box-icon>
+                            <span className="rounded-xl absolute  left-7 bottom-6 px-1 bg-pink-400 text-black text-xs">{cartTotalQuantity}</span>
+                        </div>
+                    </Link>
+                </Navbar.Link>
+                )}
+
 
 
 
