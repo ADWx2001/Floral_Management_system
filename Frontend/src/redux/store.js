@@ -33,6 +33,12 @@ export const store = configureStore({
     getDefaultMiddleware({serializableCheck: false}).prepend(productsApi.middleware),
 });
 
+
+
+store.dispatch(productFetch());
+store.dispatch(getCartTotal());
+
+
 store.dispatch(productFetch());
 store.dispatch(getCartTotal());
 

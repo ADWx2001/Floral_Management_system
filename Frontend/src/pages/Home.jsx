@@ -1,8 +1,8 @@
-import ProductTile from "../components/ProductTile";
 import Slider from "../components/Slider";
 import CardSlider from "../components/CardSlider";
-import {Card, Button, Checkbox, Label, TextInput} from 'flowbite-react';
-
+import {Card} from 'flowbite-react';
+import { addToCart } from "../redux/cart/cartSlice";
+import  { useDispatch } from "react-redux";
 
 
 // Test Sample Product API
@@ -11,7 +11,13 @@ import {Card, Button, Checkbox, Label, TextInput} from 'flowbite-react';
 
 
 export default function Home() {
-  
+
+// import { useHistory } from 'react-router-dom';
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (product) =>{
+    dispatch(addToCart(product));
+  }
 
   // const {data, error, isLoading} = useGetAllProductsQuery();
   

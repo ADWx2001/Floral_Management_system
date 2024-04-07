@@ -149,7 +149,7 @@ export default function Cart() {
           <p className="font-semibold text-center  ">Your cart is empty</p>
           <div className="text-center mt-5 mb-10">
                <Link to="/">
-                 <span className="p-2 bg-gray-200 rounded px-5 hover:bg-pink-500 hover:text-white">
+                 <span className="p-2 bg-gray-200 rounded px-5 hover:bg-pink-400 hover:text-white">
                    Start Shopping
                  </span>
                </Link>
@@ -175,7 +175,7 @@ export default function Cart() {
                   <div className="grid grid-cols-1 lg:grid-cols-2 min-[550px]:gap-6 border-t border-gray-200 py-6">
                   <div
                       className="flex items-center flex-col min-[550px]:flex-row gap-3 min-[550px]:gap-6 w-full max-xl:justify-center max-xl:max-w-xl max-xl:mx-auto">
-                      <div className="img-box"><img src={cartItem.images} alt="" className="xl:w-[140px]"/></div>
+                      <div className="img-box"><img src={cartItem.image} alt="" className="xl:w-[140px]"/></div>
                       <div className="pro-data w-full max-w-sm ">
                           <h5 className="font-semibold text-xl leading-8 text-black max-[550px]:text-center">{cartItem.name}
                           <p className="font-normal text-sm pb-3">{cartItem.description}</p>

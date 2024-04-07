@@ -10,7 +10,7 @@ export default function Slider() {
         <img src="/img/2.jpg"  alt="..." />
         <img src="/img/3.jpg" alt="..." />
         <img src="/img/4.jpg"  alt="..." />
-        <img src="/img/5.jpg"  alt="..." />
+        <img src="/img/5.jpg"   alt="..." />
       </Carousel>
     </div>
   );

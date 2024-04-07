@@ -43,9 +43,9 @@ app.use("/api/notify",paymentRoute);
 app.use("/api/delivery",deliveryRoute);
 
 // test product route
-app.get("/products", (req, res) =>{
-    res.send(product);
-})
+// app.get("/products", (req, res) =>{
+//     res.send(product);
+// })
 
 
 app.use((err,req,res,next)=>{
