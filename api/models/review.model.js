@@ -23,8 +23,8 @@ const reviewSchema = new mongoose.Schema({
         required: true
     },
     rating: {
-        type: Array,
-        default: []
+        type: Number,
+        
     },
     numberofrating: {
         type: Number,
@@ -33,6 +33,10 @@ const reviewSchema = new mongoose.Schema({
     reviewimage:{
         type:String,
         default:"https://www.contentviewspro.com/wp-content/uploads/2017/07/default_image.png"
+    },
+    reply:{
+        type:String,
+        
     },
 }, { timestamps: true });
 

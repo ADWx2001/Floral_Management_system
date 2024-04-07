@@ -11,7 +11,7 @@ export default function ReviewsAdminDash() {
   const [showMore, setShowMore] = useState(true);
   const [totalReviews, settotalReviews] = useState(0);
   const [lastMonthReviews, setlastMonthReviews] = useState(0);
-  const [reviewIdToDelete, setreviewIdToDelete] = useState('');
+
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -125,9 +125,11 @@ export default function ReviewsAdminDash() {
                   <Table.Cell>{review.username}</Table.Cell>
                   <Table.Cell>{review.productId}</Table.Cell>
                   <Table.Cell>
-                    <span className='font-medium text-blue-500 hover:underline cursor-pointer'>
-                      Reply
+                    <Link  className='font-medium text-blue-500 hover:underline cursor-pointer' to={`/reply-review/${review._id}`}>
+                    <span>
+                        Reply
                     </span>
+                    </Link>
                   </Table.Cell>
 
                 </Table.Row>

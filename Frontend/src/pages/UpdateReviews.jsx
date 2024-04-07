@@ -15,14 +15,13 @@ export default function UpdateReviews() {
   const [formData , setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
   const { reviewId } = useParams();
-
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
     try {
       const fetchReview = async () => {
-        const res = await fetch(`/api/reviews/getreviews?reviewId=${reviewId}`);
+        const res = await fetch(`/api/reviews/getReviews?reviewId=${reviewId}`);
         const data = await res.json();
         if (!res.ok) {
           console.log(data.message);
@@ -101,18 +100,37 @@ export default function UpdateReviews() {
 
       if (res.ok) {
         setPublishError(null);
-        navigate('/dashboard?tab=reviews');
+        navigate('/dashboard?tab=products');
       }
     } catch (error) {
       setPublishError('Something went wrong');
     }
   };
+
+  const handleCancel = () => { 
+    // Redirect to the product slug
+    navigate(`/product/${formData.slug}`);
+};
+
+
   return (
-    <div className="p-3 max-w-3xl mx-auto min-h-screen">
+    <div className="p-3 max-w-3xl mx-auto min-h-screen border border-teal-500 rounded-xl ">
         <h1 className="text-center text-3xl my-7 font-semibold">Update Reviews</h1>
         <form className="flex flex-col  gap-4" onSubmit={handleSubmit}>
         <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-          <TextInput type='text'placeholder='Title'required id='title'className='flex-1'  onChange={(e) =>
+
+        <div className='p-2'>
+            <label className='pr-1 text-gray-500'>Rating</label>
+            <select className='m-2 p-1 rounded-md text-gray-600 ' onChange={(e) =>setFormData({ ...formData, rating: e.target.value })} value={formData.rating}>    
+                <option value="">Select</option>
+                <option value="1">1- Bad</option>
+                <option value="2">2- Fair</option>
+                <option value="3">3- Good</option>
+                <option value="4">4- Very good</option>
+                <option value="5">5- Excelent</option>
+                </select>
+          </div>
+          <TextInput type='text'placeholder='content'required id='content'  onChange={(e) =>
               setFormData({ ...formData, content: e.target.value })
             } value={formData.content}/>
           
@@ -138,6 +156,10 @@ export default function UpdateReviews() {
         )}
         
         <Button type='submit' gradientDuoTone='purpleToBlue'>Update</Button>
+        <button className='font-normal  text-gray-400 hover:text-blue-500'  type='button'
+                        onClick={handleCancel}>
+                        Cancel
+                        </button>
         {publishError && (
           <Alert className='mt-5' color='failure'>
             {publishError}

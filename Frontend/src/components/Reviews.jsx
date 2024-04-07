@@ -4,12 +4,13 @@ import Review from '../../../api/models/review.model.js';
 import { useSelector } from 'react-redux';
 import { Button, Textarea } from 'flowbite-react';
 import { Link } from "react-router-dom";
+import UpdateReviews from '../pages/UpdateReviews.jsx';
 
 
 export default function Reviews({review , onUpdate , onDelete}) {
     const [user,setUser] = useState({});
     const [isUpdating, setisUpdating] = useState(false);
-    const [updatedContent,setupdatedContent] = useState(review.content,review.reviewimage);
+    const [updatedContent,setupdatedContent] = useState(review.content,review.reviewimage,review.rating);
     const {currentUser} = useSelector((state) => state.user);
     console.log(user);
 
@@ -73,28 +74,13 @@ export default function Reviews({review , onUpdate , onDelete}) {
 
             {isUpdating ? (
                 <>
-                  <Textarea
-                    className='mb-2 '
-                    value={updatedContent}
-                    onChange={(e) => setupdatedContent(e.target.value)}
-                    />
-                <div></div>
-
-                    <div  className='flex justify-end gap-2 text-xs  '>
-                        <Button type='button' gradientDuoTone='purpleToBlue' size='sm' 
-                        onClick={handleSave} >
-                            Save
-                        </Button>
-
-                        <Button  type='button' gradientDuoTone='purpleToBlue'outline='purpleToBlue' size='sm'  onClick={() => setisUpdating(false)} >
-                            Cancel
-                        </Button>
-                    </div>  
+                  <div><UpdateReviews/></div>
                 </>
                 
               
             ):( 
             <>
+            <div className='text-gray-500 pb-2 text-xl'> {review.rating}</div>
             <p className='text-gray-500 pb-2'>{review.content}</p> 
             <div className='mt-2'>
                 <img
@@ -102,7 +88,7 @@ export default function Reviews({review , onUpdate , onDelete}) {
                     alt=''
                     className="w-20 h-10 object-fill bg-gray-500"
                 />
-                  
+                 
             </div>
             <div>
                 {
@@ -122,6 +108,12 @@ export default function Reviews({review , onUpdate , onDelete}) {
                     )
                 }
             </div>
+            
+            <div className='pl-16'>
+                <div className=' bg-slate-200 rounded-md'>
+                    <p className='text-justify pl-6 '> {review.reply}</p>
+                </div>
+            </div> 
             </> 
             )}
             

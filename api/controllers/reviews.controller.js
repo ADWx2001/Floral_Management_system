@@ -3,7 +3,7 @@ import { errorHandler } from "../utils/error.js";
 
 export const addreview = async (req, res, next) => {
     try {
-        const { content, productId, userId, reviewimage ,productname,username} = req.body;
+        const { content, productId, userId, reviewimage ,productname,username,rating} = req.body;
 
         if (userId !== req.user.id) {
             return next(errorHandler(403, 'You are not allowed to add reviews'));
@@ -16,6 +16,8 @@ export const addreview = async (req, res, next) => {
             reviewimage,
             productname,
             username, 
+            rating,
+            
         });
 
         await newReview.save();
@@ -61,6 +63,8 @@ export const UpdateReview = async(req,res,next) => {
         req.params.reviewId,
         {$set:{
             content:req.body.content,
+            rating:req.body.rating,
+            reviewimage:req.body.reviewimage,
             
         }
         },
@@ -109,4 +113,30 @@ export const getReviews = async(req,res,next) => {
     } catch (error) {
         next(error);
     }
-}
+};
+
+export const adminReply = async(req,res,next) =>{
+    
+    try {
+        const review = await Review.findById(req.params.reviewId);
+        if(!review){
+            return next(errorHandler(404,'Review not found'));
+        }
+        
+        if(review.userId !== req.user.id && !req.user.isAdmin){
+            return next(errorHandler(403,'you are not allow to edit reviews'));
+        }
+        
+        const { reply } = req.body;
+
+        // Update the review with the reply
+        review.reply = reply;
+
+        await adminReply.save();
+        res.status(200).json(adminReply);
+        
+    } catch (error) {
+        next(error);
+        
+    }
+};

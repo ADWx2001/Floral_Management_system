@@ -18,6 +18,7 @@ export default function Dashreviews({ productId}) {
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});
   const [review, setReview] = useState('');
+  const [rating, setRating] = useState('');
   const [reviews, setReviews] = useState([]);
   const [showModal, setshowModal] = useState(false);
   const [reviewToDelete, setreviewToDelete] = useState(null);
@@ -149,13 +150,15 @@ export default function Dashreviews({ productId}) {
         headers: {
           'content-Type': 'application/json'
         },
-        body: JSON.stringify({ content: review, productId, userId: currentUser._id, reviewimage: formData.reviewimage, username:currentUser.username}),
+        body: JSON.stringify({ content: review,rating, productId, userId: currentUser._id, reviewimage: formData.reviewimage, username:currentUser.username}),
       });
       const data = await res.json();
       if (res.status === 200) {
         setReview('');
+        setRating();
         setReviewError(null);
         setReviews([data, ...reviews]);
+        setRating([data, ...rating]);
       }
     } catch (error) {
       setReviewError(error.message);
@@ -272,6 +275,17 @@ const handleDelete = async(reviewId) => {
       {currentUser &&
         (
           <form className=' gap-10 border border-teal-500 rounded-xl p-3' onSubmit={handleSubmit}>
+             <div className='p-2'>
+                <label className='pr-1 text-gray-500'>Rating</label>
+                <select className='m-2 p-1 rounded-md text-gray-600 ' onChange={(e) => setRating(e.target.value)}value={rating}>    
+                    <option value="">Select</option>
+                    <option value="1">1- Bad</option>
+                    <option value="2">2- Fair</option>
+                    <option value="3">3- Good</option>
+                    <option value="4">4- Very good</option>
+                    <option value="5">5- Excelent</option>
+                </select>
+              </div>
             <Textarea
               placeholder='Add a review..'
               rows='3' maxLength='300'

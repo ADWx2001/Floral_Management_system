@@ -15,7 +15,8 @@ import UpdateProducts from "./pages/UpdateProduct"
 import DashBoard from "./pages/Dashboard"
 import PostProduct from "./pages/PostProduct"
 import ScrollToTop from "./components/ScrollToTop"
-import { UpdateReview } from "../../api/controllers/reviews.controller"
+import UpdateReviews from "./pages/UpdateReviews"
+import ReplyReview from "./pages/ReplyReview"
 
 
 export default function App() {
@@ -35,11 +36,12 @@ export default function App() {
         <Route element={<OnlyAdminPrivateRoute/>}>
            <Route path="/add-product" element={<AddProducts/>}/>
            <Route path="/update-product/:productId" element={<UpdateProducts/>}/>  
-
+           <Route path="/reply-review/:reviewId" element={<ReplyReview/>}/> 
         </Route>
         <Route path="/events" element={<Events/>}/>
         <Route path="/product/:productSlug" element={<PostProduct/>}/>
-        <Route path="/update-review/:reviewId" element={<UpdateReview/>}/>  
+        <Route path="/update-review/:reviewId" element={<UpdateReviews/>}/>  
+       
       </Routes>
 
       <Footer/>
