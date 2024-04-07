@@ -26,9 +26,25 @@ const userSchema = new mongoose.Schema({
 
     },
 
+    adress:{
+        type:String,
+       
+    },
+
+    mobile:{
+        type:String,
+       
+        unique:true
+
+    },
+
     isAdmin:{
         type:Boolean,
         default:false
+    },
+
+    verifytoken:{
+        type:String
     },
 
 

@@ -109,13 +109,15 @@ export default function DashOrders() {
             </Table.Cell>
 
             <Table.Cell>
-              {orders.productsId.map(productId => (
-                <div key={productId}>{productId}</div>
-              ))}
+              {/* <img
+                src={order.profilePicture}
+                alt={order.username}
+                className='w-10 h-10 object-cover bg-gray-500 rounded-full'
+              /> */}
+              {orders.productsId}
             </Table.Cell>
 
-
-            <Table.Cell>{orders.first_name}</Table.Cell>
+            <Table.Cell>{orders.first_name},{orders.createdAt}</Table.Cell>
 
             <Table.Cell>{orders.last_name}</Table.Cell>
 

@@ -1,3 +1,4 @@
+
 import mongoose from 'mongoose'
 
 const deliverySchema = new mongoose.Schema({
@@ -72,5 +73,6 @@ const deliverySchema = new mongoose.Schema({
 );
 
 const Delivery = mongoose.model('Delivery',deliverySchema);
+
 
 export default Delivery;

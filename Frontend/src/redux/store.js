@@ -4,6 +4,7 @@ import themeReducer from './theme/themeSlice';
 import {persistReducer, persistStore} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+import productSlice from './product/productSlice';
 import productsReducer from './product/productSlice';
 import { productFetch } from './product/productSlice';
 import { productsApi } from './product/productApi';
@@ -11,7 +12,10 @@ import cartReducer, { getCartTotal } from './cart/cartSlice';
 
 const rootReducer = combineReducers({
     user:userReducer,
+
     theme:themeReducer,
+    product:productSlice
+,
     products: productsReducer,
     cart : cartReducer,
     [productsApi.reducerPath] : productsApi.reducer,
@@ -33,10 +37,6 @@ export const store = configureStore({
     getDefaultMiddleware({serializableCheck: false}).prepend(productsApi.middleware),
 });
 
-
-
-store.dispatch(productFetch());
-store.dispatch(getCartTotal());
 
 
 store.dispatch(productFetch());

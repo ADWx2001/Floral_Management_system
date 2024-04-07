@@ -1,3 +1,4 @@
+
 import mongoose from 'mongoose'
 
 const orderSchema = new mongoose.Schema({
@@ -11,7 +12,7 @@ const orderSchema = new mongoose.Schema({
         required : true,
     },
     productsId:{
-        type:Array,
+        type:String,
         required: true,
     },
     first_name:{

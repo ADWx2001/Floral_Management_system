@@ -1,4 +1,4 @@
-import mongoose, { Mongoose } from 'mongoose';
+import { mongoose } from 'mongoose';
 
 const requestSchema = new mongoose.Schema({
     title:{
@@ -33,3 +33,4 @@ const requestSchema = new mongoose.Schema({
 
 const  RequestStock = mongoose.model('StockRequests',requestSchema);
 export default RequestStock;
+

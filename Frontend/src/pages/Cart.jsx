@@ -148,8 +148,8 @@ export default function Cart() {
               </h2>
           <p className="font-semibold text-center  ">Your cart is empty</p>
           <div className="text-center mt-5 mb-10">
-               <Link to="/">
-                 <span className="p-2 bg-gray-200 rounded px-5 hover:bg-pink-400 hover:text-white">
+               <Link to="/products">
+                 <span className="px-4 py-3 bg-gradient-to-r from-indigo-500 via purple-500 to-pink-500  text-white rounded-lg  size-10/12">
                    Start Shopping
                  </span>
                </Link>

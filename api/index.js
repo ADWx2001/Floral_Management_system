@@ -5,10 +5,14 @@ import dotenv from "dotenv";
 import userRoute from "./routes/user.route.js"
 import authRoute from "./routes/auth.route.js"
 import productRoute from "./routes/products.route.js"
-import orderRoute from "./routes/order.route.js" 
+import reviewRoute from "./routes/reviews.route.js"
 import cookieParser from "cookie-parser";
+import supplierroute from "./routes/supplierroute.js"
+import Eventroute from "./routes/Events.route.js"
+import Staffroute from "./routes/Staff.route.js"
+import orderRoute from "./routes/order.route.js"
+import deliveryRoute from "./routes/delivery.route.js"
 import paymentRoute from "./routes/payment.route.js";
-import deliveryRoute from "./routes/delivery.route.js";
 //import productRoute from "./routes/product.route.js"
 // test import products api Prducts.js
 import product from "./utils/Product.js";
@@ -46,6 +50,15 @@ app.use("/api/delivery",deliveryRoute);
 // app.get("/products", (req, res) =>{
 //     res.send(product);
 // })
+
+app.use("/api/reviews",reviewRoute);
+
+app.use("/api/suppliers",supplierroute)
+app.use("/api/events",Eventroute)
+app.use("/api/staff",Staffroute)
+
+
+
 
 
 app.use((err,req,res,next)=>{

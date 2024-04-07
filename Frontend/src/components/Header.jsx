@@ -1,17 +1,8 @@
-import {
-  Avatar,
-  Button,
-  Dropdown,
-  DropdownDivider,
-  DropdownHeader,
-  DropdownItem,
-  Navbar,
-  TextInput,
-} from "flowbite-react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Avatar, Button, Dropdown, DropdownDivider, DropdownHeader, DropdownItem, Navbar, TextInput } from "flowbite-react";
+import { Link , useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
-import { FaMoon, FaSun } from "react-icons/fa";
-import { useSelector, useDispatch } from "react-redux";
+import { FaMoon , FaSun} from 'react-icons/fa';
+import { useSelector , useDispatch } from 'react-redux';
 import { toggleTheme } from "../redux/theme/themeSlice";
 import { signOut } from "../redux/user/userSlice";
 import { useEffect, useState } from "react";
@@ -27,7 +18,6 @@ export default function Header() {
     const [searchTerm,setSearchTerm] = useState("");
     console.log(searchTerm);
 
-    const cart = useSelector((state) => state.cart);
     const { cartTotalQuantity } = useSelector(state => state.cart)
   
     useEffect(()=>{
@@ -55,35 +45,23 @@ export default function Header() {
         const searchQuery = urlParams.toString();
         navigate(`/search?${searchQuery}`);
       }
-
   return (
-    <Navbar className="border-b-2 font-extrabold ">
-      <Link
-        to="/"
-        className="self-center whitespace-nowrap text-3xl 3xl:text-xl font-semibold dark:text-white font-tangerine"
-      >
-        <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via purple-500 to-pink-500  text-white rounded-lg  size-10/12">
-          Flora
-        </span>
-        Shop
-        {/* <img src="/img/logo.png" alt="" width={"15%"} /> */}
-      </Link>
-      <form onSubmit={handleSubmit} className="font-cinzel">
-        <TextInput
-          type="text"
-          placeholder="Search..."
-          rightIcon={AiOutlineSearch}
-          className="hidden lg:inline"
+    <Navbar className="border-b-2 font-extrabold "  >
+        <Link to ="/" className="self-center whitespace-nowrap text-3xl 3xl:text-xl font-semibold dark:text-white font-tangerine">
+            <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via purple-500 to-pink-500  text-white rounded-lg  size-10/12" >Flora</span>Shop
+        </Link>
+        <form onSubmit={handleSubmit} className="font-cinzel">
+            <TextInput
+                type="text"
+                placeholder="Search..."
+                rightIcon={AiOutlineSearch}
+                className="hidden lg:inline"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </form>
-      <Button className="w-12 h-10 lg:hidden" color="gray" pill>
-        <AiOutlineSearch />
-      </Button>
-      <div className="flex gap-10 md:order-2 font-cinzel mx-28">
-        <Button className="w-12 h-10 hidden sm:inline" color="gray" pill>
-          <FaMoon />
+            />
+        </form>
+        <Button className="w-12 h-10 lg:hidden" color="gray" pill>
+            <AiOutlineSearch/>
         </Button>
         <div className="flex gap-2 md:order-2 font-cinzel">
             <Button className="w-12 h-10 hidden sm:inline" color="gray" pill onClick={()=>dispatch(toggleTheme())}>
@@ -124,33 +102,38 @@ export default function Header() {
 
            
             <Navbar.Toggle/>
-          </div>
      </div>
 
-      <Navbar.Collapse className="font-extrabold font-serif  text-neutral-950 dark:text-neutral-200">
-        <Navbar.Link active={path === "/"} as={"div"}>
-          <Link to="/" className="text-xl">
-            Home
-          </Link>
-        </Navbar.Link>
-        <Navbar.Link active={path === "/about"} as={"div"}>
-          <Link to="/about" className="text-xl">
-            About
-          </Link>
-        </Navbar.Link>
-        <Navbar.Link active={path === "/events"} as={"div"}>
-          <Link to="/events" className="text-xl">
-            Events
-          </Link>
-        </Navbar.Link>
+        <Navbar.Collapse  className="font-extrabold font-serif  text-neutral-950 dark:text-neutral-200" >
+                <Navbar.Link active={path==='/'} as={'div'}>
+                    <Link to="/">Home</Link>
+                </Navbar.Link>
+                <Navbar.Link active={path==='/about'} as={'div'}>
+                    <Link to="/about">About</Link>
+                </Navbar.Link>
+                <Navbar.Link active={path==='/events'} as={'div'}>
+                    <Link to="/event-home">Events</Link>
+                </Navbar.Link>
+                <Navbar.Link active={path==='/products'} as={'div'}>
+                    <Link to="/products">Products</Link>
+                </Navbar.Link>
+                {currentUser && (
+                <Navbar.Link>
+                    <Link to="/cart">
+                        <div className="flex relative">
+                            <box-icon type='solid' name='cart-alt' color='black' size='md'></box-icon>
+                            <span className="rounded-xl absolute  left-7 bottom-6 px-1 bg-pink-400 text-black text-xs">{cartTotalQuantity}</span>
+                        </div>
+                    </Link>
+                </Navbar.Link>
+                )}
 
-        <Link to="/cart">
-          <div className="flex relative">
-            <box-icon type='solid' name='shopping-bag' color='#FF80AB' size='lg'></box-icon>
-              <span className="rounded-xl absolute top-0 right-0 px-1 bg-yellow-300 text-black text-sm">{cartTotalQuantity}</span>
-          </div>
-        </Link>
-      </Navbar.Collapse>
+
+
+
+            </Navbar.Collapse>
+
     </Navbar>
-  );
+    
+  )
 }
