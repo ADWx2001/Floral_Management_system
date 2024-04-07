@@ -14,8 +14,7 @@ const rootReducer = combineReducers({
     user:userReducer,
 
     theme:themeReducer,
-    product:productSlice
-,
+    product:productSlice,
     products: productsReducer,
     cart : cartReducer,
     [productsApi.reducerPath] : productsApi.reducer,

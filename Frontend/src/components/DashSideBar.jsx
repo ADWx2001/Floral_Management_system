@@ -4,9 +4,13 @@ import { HiArrowSmRight, HiGift, HiOutlineUserGroup, HiUser, HiTruck, HiArchive,
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { signOut } from "../redux/user/userSlice";
+import { useNavigate } from "react-router-dom";
+
 
 export default function DashSideBar() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { currentUser } = useSelector(state => state.user);
   const location = useLocation();
   const [tab, setTab] = useState();
@@ -23,6 +27,7 @@ export default function DashSideBar() {
     try {
       await fetch('/api/user/signout');
       dispatch(signOut());
+      navigate('/');
     } catch (error) {
       console.log(error);
     }
@@ -32,11 +37,11 @@ export default function DashSideBar() {
     <Sidebar className="w-full md:w-56">
       <Sidebar.Items>
         <Sidebar.ItemGroup>
-          <Link to='/dashboard?tab=profile'>
+          <Link to='/dashboard?tab=profile' key="profile">
             <Sidebar.Item 
               active={tab === 'profile'} 
               icon={HiUser} 
-              label={currentUser.isAdmin ? 'Admin' : 'User'}
+              label={currentUser?.isAdmin ? 'Admin' : 'User'} 
               labelColor='dark'
               as='div'
             >
@@ -44,9 +49,9 @@ export default function DashSideBar() {
             </Sidebar.Item>
           </Link>
 
-          {currentUser.isAdmin && (
+          {currentUser?.isAdmin && (
             <>
-              <Link to='/dashboard?tab=users'>
+              <Link to='/dashboard?tab=users' key="users">
                 <Sidebar.Item
                   active={tab === 'users'}
                   icon={HiOutlineUserGroup}
@@ -56,7 +61,7 @@ export default function DashSideBar() {
                 </Sidebar.Item>
               </Link>
 
-              <Link to='/dashboard?tab=products'>
+              <Link to='/dashboard?tab=products' key="products">
                 <Sidebar.Item
                   active={tab === 'products'}
                   icon={HiGift}
@@ -66,7 +71,7 @@ export default function DashSideBar() {
                 </Sidebar.Item>
               </Link>
 
-              <Link to='/dashboard?tab=events'>
+              <Link to='/dashboard?tab=events' key="events">
                 <Sidebar.Item
                   active={tab === 'events'}
                   icon={HiOutlineUserGroup}
@@ -76,7 +81,7 @@ export default function DashSideBar() {
                 </Sidebar.Item>
               </Link>
 
-              <Link to='/dashboard?tab=staff'>
+              <Link to='/dashboard?tab=staff' key="staff">
                 <Sidebar.Item
                   active={tab === 'staff'}
                   icon={HiOutlineUserGroup}
@@ -86,7 +91,7 @@ export default function DashSideBar() {
                 </Sidebar.Item>
               </Link>
 
-              <Link to='/dashboard?tab=reviews'>
+              <Link to='/dashboard?tab=reviews' key="reviews">
                 <Sidebar.Item
                   active={tab === 'reviews'}
                   icon={HiStar}
@@ -96,7 +101,7 @@ export default function DashSideBar() {
                 </Sidebar.Item>
               </Link>
 
-              <Link to='/dashboard?tab=suppliers'>
+              <Link to='/dashboard?tab=suppliers' key="suppliers">
                 <Sidebar.Item
                   active={tab === 'suppliers'}
                   icon={HiGift}
@@ -106,7 +111,7 @@ export default function DashSideBar() {
                 </Sidebar.Item>
               </Link>
 
-              <Link to='/dashboard?tab=orders'>
+              <Link to='/dashboard?tab=orders' key="orders">
                 <Sidebar.Item
                   active={tab === 'orders'}
                   icon={HiArchive}
@@ -116,7 +121,7 @@ export default function DashSideBar() {
                 </Sidebar.Item>
               </Link>
 
-              <Link to='/dashboard?tab=restock'>
+              <Link to='/dashboard?tab=restock' key="restock">
                 <Sidebar.Item
                   active={tab === 'restock'}
                   icon={HiBookmark}
@@ -126,7 +131,7 @@ export default function DashSideBar() {
                 </Sidebar.Item>
               </Link>
 
-              <Link to='/dashboard?tab=delivery'>
+              <Link to='/dashboard?tab=delivery' key="delivery">
                 <Sidebar.Item
                   active={tab === 'delivery'}
                   icon={HiTruck}
@@ -142,6 +147,7 @@ export default function DashSideBar() {
             icon={HiArrowSmRight} 
             className="cursor-pointer" 
             onClick={handleSignOut}
+            key="signout"
           >
             Sign Out
           </Sidebar.Item>

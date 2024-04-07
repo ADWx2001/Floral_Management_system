@@ -7,9 +7,11 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import { Link } from "react-router-dom";
 import { deleteUserFailure, deleteUserStart, deleteUserSuccess, signOut, updateUserFailure, updateUserStart, updateUserSuccess } from "../redux/user/userSlice";
 import  { HiOutlineExclamationCircle } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 
 export default function DashProfile() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { currentUser , loading } = useSelector(state => state.user);
   const [image, setImage] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
@@ -19,7 +21,7 @@ export default function DashProfile() {
   const [updateSuccess , setUpdateSuccess] = useState(null);
   const [updateUserError , setUpdateUserError]=useState(null);
   const [showModel , setShowModel] = useState(false);
-   const filePickerRef = useRef(null);
+  const filePickerRef = useRef(null);
  
 
 
@@ -117,20 +119,20 @@ export default function DashProfile() {
         return;
       }
       dispatch(deleteUserSuccess());
+      navigate('/sign-in');
     } catch (error) {
       dispatch(deleteUserFailure(error));
     }
   }
-  const handleSignOut = async ()=>{
+  const handleSignOut = async () => {
     try {
-      await fetch('api/user/signout',{
-        method : 'GET'
-      })
+      await fetch('/api/user/signout');
       dispatch(signOut());
+      navigate('/');
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <div className='max-w-lg mx-auto p-3 w-full'>
