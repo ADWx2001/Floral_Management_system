@@ -111,9 +111,7 @@ export default function Header() {
                     <Link to="/about">About</Link>
                 </Navbar.Link>
                 <Navbar.Link active={path==='/events'} as={'div'}>
-
-                    <Link to="/events">Events</Link></Navbar.Link>
-
+                    <Link to="/events">Events</Link>
                     <Link to="/event-home">Events</Link>
                 </Navbar.Link>
 

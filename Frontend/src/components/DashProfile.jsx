@@ -291,8 +291,4 @@ export default function DashProfile() {
     </div>
    
   );
-
 }
-
-}
-

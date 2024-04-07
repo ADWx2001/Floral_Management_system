@@ -1,13 +1,7 @@
-
-import { TextInput } from "flowbite-react";
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-
 import { Button, Select, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PostCard from "../components/PostCard";
-
 
 
 export default function Search() {
@@ -20,14 +14,9 @@ export default function Search() {
 
     console.log(sideBarData);
 
-    const[posts , setProducts] = useState([]);
-    const[loading , setLoading] = useState([]);
-    const[showMore , setShowMore] = useState([]);
-
     const[products , setProducts] = useState([]);
     const[loading , setLoading] = useState([]);
    
-
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -42,11 +31,7 @@ export default function Search() {
                 ...sideBarData,
                 searchTerm:searchTermFromUrl,
                 sort:sortFromUrl,
-
-                category:categoryFromUrl
-
                 category: categoryFromUrl 
-
             })
         }
         const fetchProducts = async  () =>{
@@ -59,19 +44,9 @@ export default function Search() {
             }
             if(res.ok){
                 const data = await res.json();
-
-                setProducts(data.posts);
-                setLoading(false);
-                if(data.posts.length===9){
-                    setShowMore(true);
-                }else{
-                    setShowMore(false);
-                }
-
                 setProducts(data.products);
                 setLoading(false);
                 
-
             }
 
         }
@@ -103,17 +78,6 @@ export default function Search() {
       };
 
   return (
-
-    <div>
-        <div className="">
-            <form onSubmit={handleSubmit}>
-                <div className="">
-                    <label>Search Item:</label>
-                    <TextInput placeholder="search..." id="searchTerm" type="text" value={sideBarData.searchTerm}  onChange={handleChange}/>
-                </div>
-            </form>
-        </div>
-
     <div className="flex flex-col md:flex-row">
         <div className="p-7 border-b md:border-r md:min-h-screen border-gray-500">
             <form onSubmit={handleSubmit} className="flex flex-col gap-8">
@@ -167,7 +131,6 @@ export default function Search() {
                 }
             </div>
         </div>
-
     </div>
   )
 }

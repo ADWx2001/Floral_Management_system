@@ -15,8 +15,6 @@ const rootReducer = combineReducers({
     theme:themeReducer,
     product:productSlice
 
-    theme:themeReducer
-
 
     });
 const persistConfig = {
