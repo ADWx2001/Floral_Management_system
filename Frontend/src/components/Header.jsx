@@ -1,23 +1,21 @@
 import { Avatar, Button, Dropdown, DropdownDivider, DropdownHeader, DropdownItem, Navbar, TextInput } from "flowbite-react";
-import { Link , useLocation } from "react-router-dom";
+import { Link , useLocation, useNavigate } from "react-router-dom"; 
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon , FaSun} from 'react-icons/fa';
 import { useSelector , useDispatch } from 'react-redux';
 import { toggleTheme } from "../redux/theme/themeSlice";
 import { signOut } from "../redux/user/userSlice";
 import { useEffect, useState } from "react";
-
+import { getCartTotal } from "../redux/cart/cartSlice"; 
 
 export default function Header() {
     const path = useLocation().pathname;
-    
-    const dispatch = useDispatch()
-    const {currentUser} = useSelector((state) => state.user);  
-    const {theme} = useSelector((state) => state.theme); 
+    const navigate = useNavigate(); 
+    const dispatch = useDispatch();
+    const { currentUser } = useSelector((state) => state.user);  
+    const { theme } = useSelector((state) => state.theme); 
     const [searchTerm, setSearchTerm] = useState("");
-    console.log(searchTerm);
-
-    const { cartTotalQuantity } = useSelector(state => state.cart)
+    const { cartTotalQuantity } = useSelector(state => state.cart);
   
     useEffect(() => {
         const urlParams = new URLSearchParams(location.search);
@@ -25,13 +23,15 @@ export default function Header() {
         if(searchTermFromUrl) {
             setSearchTerm(searchTermFromUrl);
         }
-    }, [location.search]);
+        // Dispatch getCartTotal action to update cart total
+        dispatch(getCartTotal());
+    }, [dispatch, location.search]);
 
     const handleSignOut = async () => {
         try {
             await fetch('/api/user/signout');
             dispatch(signOut());
-            history.push('/signin');
+            navigate('/');
         } catch (error) {
             console.log(error);
         }
@@ -42,7 +42,7 @@ export default function Header() {
         const urlParams = new URLSearchParams(location.search);
         urlParams.set('searchTerm', searchTerm);
         const searchQuery = urlParams.toString();
-        history.push(`/search?${searchQuery}`);
+        navigate(`/search?${searchQuery}`); 
     }
 
     return (
