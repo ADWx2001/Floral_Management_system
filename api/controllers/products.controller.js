@@ -30,10 +30,16 @@ export const getProducts = async (req,res,next)=>{
   try {
     const startIndex = parseInt(req.query.startIndex) || 0;
     const limit = parseInt(req.query.limit) || 9;
+
+    const sortDirection = req.query.order === 'asc' ? 1 : -1;
+    const products = await Product.find({
+      ...(req.query.userId && { userId: req.query.userId }),
+
     const sortDirection = req.query.sort === 'asc' ? 1 : -1;
     const products = await Product.find({
       ...(req.query.userId && { userId: req.query.userId }),
       ...(req.query.category && { category: req.query.category }),
+
       ...(req.query.description && { category: req.query.category }),
       ...(req.query.slug && { slug: req.query.slug }),
       ...(req.query.productId && { _id: req.query.productId }),

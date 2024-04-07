@@ -15,9 +15,13 @@ export default function DashProduct() {
 
     useEffect(() => {
 
+      const fetchProducts = async () => {
+
+
      
 
       const fetchProducts = async () => {
+
 
 
         try {
@@ -37,9 +41,13 @@ export default function DashProduct() {
       };
     
 
+      fetchProducts(); 
+
+
 
 
       fetchProducts(); 
+
 
 
     }, []);
@@ -199,5 +207,9 @@ export default function DashProduct() {
       </Modal>
     </div>
   )
+
 }
+
+}
+
 

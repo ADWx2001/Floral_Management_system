@@ -4,6 +4,9 @@ import About from "./pages/About"
 import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
 
+
+import Events from "./pages/Events"
+
 import Event from "./pages/Event";
 
 import Events from "./pages/Events"
@@ -17,6 +20,12 @@ import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute"
 import AddProducts from "./pages/AddProducts"
 import UpdateProducts from "./pages/UpdateProduct"
 import DashBoard from "./pages/Dashboard"
+
+import PostProduct from "./pages/PostProduct"
+import ScrollToTop from "./components/ScrollToTop"
+import UpdateReviews from "./pages/UpdateReviews"
+import ReplyReview from "./pages/ReplyReview"
+
 import Addsuppliers from "./pages/AddSuppliers"
 import Addstaff from "./pages/Addstaff"
 import Addevents from "./pages/AddEvents"
@@ -33,11 +42,15 @@ import Addrestockrec from "./pages/addStockrecords"
 
 
 
-
 export default function App() {
   return (
+
+    <BrowserRouter>
+    <ScrollToTop/>
+
     <>
     <BrowserRouter>
+
       <Header/>
       <Routes>
         <Route path="/" element={<Home/>}/>
@@ -45,12 +58,27 @@ export default function App() {
         <Route path="/sign-in" element={<SignIn/>}/>
         <Route path="/sign-up" element={<SignUp/>}/>
         <Route path="/search" element={<Search/>}/>
+
         <Route path="/event-home" element={<Event/>}/>
+
         <Route element={<PrivateRoute/>}>
            <Route path="/dashboard" element={<DashBoard/>}/> 
         </Route>
         <Route element={<OnlyAdminPrivateRoute/>}>
            <Route path="/add-product" element={<AddProducts/>}/>
+
+           <Route path="/update-product/:productId" element={<UpdateProducts/>}/>  
+           <Route path="/reply-review/:reviewId" element={<ReplyReview/>}/> 
+        </Route>
+        <Route path="/events" element={<Events/>}/>
+        <Route path="/product/:productSlug" element={<PostProduct/>}/>
+        <Route path="/update-review/:reviewId" element={<UpdateReviews/>}/>  
+       
+      </Routes>
+
+      <Footer/>
+    </BrowserRouter>
+
            <Route path="/update-product/:productId" element={<UpdateProducts/>}/> 
            <Route path="/add-suppliers" element={<Addsuppliers/>}/>
            <Route path="/add-staff" element={<Addstaff/>}/>
@@ -79,5 +107,6 @@ export default function App() {
     </BrowserRouter>
 
     </>
+
   )
 }

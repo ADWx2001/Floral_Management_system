@@ -1,7 +1,10 @@
 import { Sidebar } from "flowbite-react";
 import { useEffect, useState } from "react";
 
+
+
 import { HiArrowSmRight, HiGift, HiOutlineUserGroup, HiUser, HiTruck, HiArchive, HiBookmark } from 'react-icons/hi';
+
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { signOut } from "../redux/user/userSlice";
@@ -45,6 +48,9 @@ export default function DashSideBar() {
                 Profile
              </Sidebar.Item>
            </Link>
+
+          {currentUser.isAdmin && (
+
         
             {currentUser.isAdmin && (
             <Link to='/dashboard?tab=users'>
@@ -58,6 +64,7 @@ export default function DashSideBar() {
             </Link>
           )}
             {currentUser.isAdmin && (
+
             <Link to='/dashboard?tab=products'>
               <Sidebar.Item
                 active={tab === 'products'}
@@ -68,6 +75,16 @@ export default function DashSideBar() {
               </Sidebar.Item>
             </Link>
           )}
+
+            {currentUser.isAdmin && (
+            <Link to='/dashboard?tab=users'>
+              <Sidebar.Item
+                active={tab === 'users'}
+                icon={HiOutlineUserGroup}
+                as='div'
+              >
+                Users
+
            {currentUser.isAdmin && (
             <Link to='/dashboard?tab=events'>
               <Sidebar.Item
@@ -87,10 +104,23 @@ export default function DashSideBar() {
                 as='div'
               >
                 Satff members
+
               </Sidebar.Item>
             </Link>
           )}
           {currentUser.isAdmin && (
+
+            <Link to='/dashboard?tab=reviews'>
+              <Sidebar.Item
+                active={tab === 'reviews'}
+                icon={HiStar}
+                as='div'
+              >
+                Reviews & Ratings
+              </Sidebar.Item>
+            </Link>
+          )}
+
             <Link to='/dashboard?tab=suppliers'>
               <Sidebar.Item
                 active={tab === 'suppliers'}
