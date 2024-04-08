@@ -3,7 +3,6 @@ import userReducer from './user/userSlice';
 import themeReducer from './theme/themeSlice';
 import {persistReducer, persistStore} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-
 import productSlice from './product/productSlice';
 import productsReducer from './product/productSlice';
 import { productFetch } from './product/productSlice';
@@ -12,7 +11,6 @@ import cartReducer, { getCartTotal } from './cart/cartSlice';
 
 const rootReducer = combineReducers({
     user:userReducer,
-
     theme:themeReducer,
     product:productSlice,
     products: productsReducer,
