@@ -88,8 +88,8 @@ export default function DashOrders() {
     <>
     <Table hoverable className='shadow-md'>
       <Table.Head>
-        <Table.HeadCell>User ID</Table.HeadCell>
         <Table.HeadCell>Order ID</Table.HeadCell>
+        <Table.HeadCell>Order Items</Table.HeadCell>
         <Table.HeadCell>First Name</Table.HeadCell>
         <Table.HeadCell>Last Name</Table.HeadCell>
         <Table.HeadCell>Email</Table.HeadCell>
@@ -105,19 +105,25 @@ export default function DashOrders() {
           <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
 
             <Table.Cell>
-              {orders.userId}
+              {orders._id}
             </Table.Cell>
 
-            <Table.Cell>
+            <Table.Cell >
               {/* <img
                 src={order.profilePicture}
                 alt={order.username}
                 className='w-10 h-10 object-cover bg-gray-500 rounded-full'
               /> */}
-              {orders.productsId}
+              {orders.productsId.map((product)=>(
+                <div key={product.title} className="w-40">
+                  <p className="font-semibold">Name : {product.title}</p>
+                  <p className="font-semibold">Quantity: x{product.quantity}</p>
+                  <br/>
+                </div>
+              ))}
             </Table.Cell>
 
-            <Table.Cell>{orders.first_name},{orders.createdAt}</Table.Cell>
+            <Table.Cell>{orders.first_name}</Table.Cell>
 
             <Table.Cell>{orders.last_name}</Table.Cell>
 
