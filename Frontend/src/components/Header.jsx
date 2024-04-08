@@ -3,7 +3,7 @@ import { Link , useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon , FaSun} from 'react-icons/fa';
 import { useSelector , useDispatch } from 'react-redux';
-import { toggleTheme } from "../redux/theme/themeSlice";
+import { toggleTheme } from '../redux/theme/themeSlice';
 import { signOut } from "../redux/user/userSlice";
 import { useEffect, useState } from "react";
 import { getCartTotal } from "../redux/cart/cartSlice"; 
@@ -64,9 +64,9 @@ export default function Header() {
                 <AiOutlineSearch/>
             </Button>
             <div className="flex gap-2 md:order-2 font-cinzel">
-                <Button className="w-12 h-10 hidden sm:inline" color="gray" pill onClick={() => dispatch(toggleTheme())}>
-                    {theme === 'light' ? <FaSun/> : <FaMoon/>}
-                </Button>
+            <Button className='w-12 h-10 hidden sm:inline'color='gray'pill onClick={() => dispatch(toggleTheme())}>
+             {theme === 'light' ? <FaSun /> : <FaMoon />}
+            </Button>
                 {currentUser ? (
                     <Dropdown arrowIcon={false} inline label={
                         <Avatar alt="user" img={currentUser.profilePicture} rounded />
