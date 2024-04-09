@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { useSelector} from "react-redux";
+import { useSelector, useDispatch} from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { clearCart } from "../redux/cart/cartSlice";
 import md5 from 'crypto-js/md5';
 
 export default function Ordersummary() {
       const [publishError, setPublishError] = useState(null);
       const cart = useSelector((state) => state.cart);
+      const dispatch = useDispatch();
 
       const navigate = useNavigate();
 
@@ -15,7 +17,10 @@ export default function Ordersummary() {
 
     const [payHereFormData, setpayHereFormData] = useState({
         userId:currentUser._id,
-        productsId:cart.cartItems?.map((cartItem) => (cartItem.title)),
+        productsId: cart.cartItems?.map((cartItem) => ({
+          title: cartItem.title,
+          quantity: cartItem.cartTotalQuantity
+        })),
         first_name: "",
         last_name: "",
         email: "",
@@ -48,6 +53,7 @@ export default function Ordersummary() {
           setPublishError(null);
           
           // Redirect user to homepage 
+          dispatch(clearCart());
           navigate('/');
         } catch (error) {
           
@@ -213,14 +219,7 @@ export default function Ordersummary() {
                   <p className="text-2xl font-semibold text-gray-900">Rs.{cart.cartTotalAmount + deliveryfee}</p>
               </div>
               </div><br />
-              {cart.cartItems?.map((cartItem) => (
-                // Ensure each input has a unique key
-                <input key={cartItem.id} type="text" value={cartItem._id} onChange={() => setpayHereFormData(prevState => ({
-                  ...prevState,
-                  // Append the _id of each cartItem to productsId array
-                  productsId: [...prevState.productsId, cartItem._id]
-                }))} />
-              ))}
+              
 
               <button type="submit" onClick={handleSubmit} className="rounded-full w-full  py-3 px-6 text-center justify-center items-center bg-indigo-600 font-semibold text-lg text-white flex transition-all duration-500 hover:bg-indigo-700">Place Order</button>
 
