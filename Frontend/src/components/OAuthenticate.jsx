@@ -26,7 +26,6 @@ export default function OAuthenticate() {
                 body :JSON.stringify({
                     name: result.user.displayName,
                     email : result.user.email,
-
                     photo : result.user.photoURL
 
                 })
