@@ -1,6 +1,6 @@
-import { Button, Modal, Table } from "flowbite-react";
+import { Button, Modal, Table, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { HiOutlineCurrencyDollar, HiOutlineCurrencyRupee, HiOutlineExclamationCircle, HiOutlineShoppingBag} from "react-icons/hi";
 import { useSelector } from "react-redux";
 import 'boxicons/css/boxicons.min.css';
 import { Link } from "react-router-dom";
@@ -14,8 +14,9 @@ export default function DashOrders() {
 
     const [totalOrders, setTotalOrders] = useState(0);
     const [totalSale, setTotalSale] = useState(0);
+    const [searchName, setSearchName] = useState('');
 
-
+    const deliveryfee = 300;
 
   //get total sales
   const calculateTotalSale = () => {
@@ -79,13 +80,106 @@ export default function DashOrders() {
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
       <div className="flex flex-wrap gap-5">
-        <p>Total orders:{totalOrders}</p>
-        <p>Total Sales:Rs.{totalSale}.00</p>
-        <p>Created at: </p>
+    
+        <div className='flex-wrap flex gap-4 justify-center'>
+          <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
+            <div className='flex justify-between'>
+              <div className=''>
+                <h3 className='text-gray-500 text-md uppercase'>Total Orders</h3>
+                <p className='text-2xl'>{totalOrders}</p>
+              </div>
+
+              <HiOutlineShoppingBag className='bg-green-600 text-white rounded-full text-5xl p-3 shadow-lg' />
+
+            </div>
+            <div className='flex gap-2 text-sm'>
+              <span className='text-green-500 flex items-center'>
+                <HiOutlineShoppingBag/>
+                {totalSale}
+              </span>
+              <div className='text-gray-500'>Total Sales</div>
+            </div>
+          </div>
+          <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
+            <div className='flex justify-between'>
+              <div className=''>
+                <h3 className='text-gray-500 text-md uppercase'>
+                  Total Sales
+                </h3>
+                <p className='text-2xl'>Rs. {totalSale}.00</p>
+              </div>
+
+              <HiOutlineCurrencyDollar className='bg-green-600 text-white rounded-full text-5xl p-3 shadow-lg' />
+
+            </div>
+            <div className='flex gap-2 text-sm'>
+              <span className='text-green-500 flex items-center'>
+                <HiOutlineCurrencyDollar />
+                {totalSale}.00
+              </span>
+              <div className='text-gray-500'>Currently</div>
+            </div>
+          </div>
+
+          <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
+            <div className='flex justify-between'>
+              <div className=''>
+                <h3 className='text-gray-500 text-md uppercase'>
+                  Total Profit
+                </h3>
+                <p className='text-2xl'>{totalSale}.00 - 300 x {totalOrders}</p>
+              </div>
+
+              <HiOutlineCurrencyDollar className='bg-green-600 text-white rounded-full text-5xl p-3 shadow-lg' />
+
+            </div>
+            <div className='flex gap-2 text-sm'>
+              <span className='text-green-500 flex items-center'>
+                <HiOutlineCurrencyDollar />
+               {} {totalSale-deliveryfee * totalOrders}.00
+              </span>
+              <div className='text-gray-500'>All the time</div>
+            </div>
+          </div>
+
+          <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
+            <div className='flex justify-between'>
+              <div className=''>
+                <h3 className='text-gray-500 text-md uppercase'>
+                  Total Profit
+                </h3>
+                <p className='text-2xl'>{totalSale}.00 - 300 x {totalOrders}</p>
+              </div>
+
+              <HiOutlineCurrencyDollar className='bg-green-600 text-white rounded-full text-5xl p-3 shadow-lg' />
+
+            </div>
+            <div className='flex gap-2 text-sm'>
+              <span className='text-green-500 flex items-center'>
+                <HiOutlineCurrencyDollar />
+               {} {totalSale-deliveryfee * totalOrders}.00
+              </span>
+              <div className='text-gray-500'>All the time</div>
+            </div>
+          </div>
+
+          
+          
+        </div>
       </div>
       <h1 className="pt-6 px-4 font-semibold">Orders recieved</h1>
     { Array.isArray(Orders) && Orders.length > 0 ? (
     <>
+    <TextInput
+          type='text'
+          placeholder='Search a order by (Order ID or Name)'
+          required
+          id='title'
+          className='flex-1'
+          style={{ width: 700, marginTop: 30, marginBottom: 30, marginLeft: 250 }}
+          onChange={(e) => setSearchName(e.target.value)}
+        />
+
     <Table hoverable className='shadow-md'>
       <Table.Head>
         <Table.HeadCell>Order ID</Table.HeadCell>
@@ -100,7 +194,17 @@ export default function DashOrders() {
         <Table.HeadCell>Payment</Table.HeadCell>
         <Table.HeadCell>Action</Table.HeadCell>
       </Table.Head>
-      {Orders.map((orders)=>(
+
+      {Orders.filter((orders) => {
+        const searchQuery = searchName.toLowerCase();
+        const firstNameMatch = orders.first_name.toLowerCase().includes(searchQuery);
+        const lastNameMatch = orders.last_name.toLowerCase().includes(searchQuery);
+        const orderIdMatch = orders._id.toLowerCase().includes(searchQuery);
+
+        // Return true if any of the search criteria match
+        return firstNameMatch || lastNameMatch || orderIdMatch;
+        }).map((orders) => (
+
         <Table.Body className='divide-y' key={orders._id}>
           <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
 
@@ -179,7 +283,7 @@ export default function DashOrders() {
     
   </>
       ):(
-        <p>Haven't any orders to show</p>
+        <p>You have not any orders yet</p>
       )}
 
       <Modal show={showModel} onClose={()=>setShowModel(false)} popup size='md'>
