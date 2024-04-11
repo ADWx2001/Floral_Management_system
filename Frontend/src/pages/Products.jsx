@@ -2,10 +2,15 @@
 import { useGetAllProductsQuery } from "../redux/product/productApi";
 import { addToCart } from "../redux/cart/cartSlice";
 import  { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 export default function Products() {
   const dispatch = useDispatch();
-  const {data, error, isLoading} = useGetAllProductsQuery();
+  const {data, error, isLoading, refetch} = useGetAllProductsQuery();
+
+  useEffect(() => {
+    refetch();
+  }, []); 
    
   if (isLoading) {
     return <p>Loading...</p>;
@@ -13,6 +18,7 @@ export default function Products() {
   if (error) {
     return <p>Error: {error.message}</p>;
   }
+  
 
   console.log(data);
   const productsArray = data.products;

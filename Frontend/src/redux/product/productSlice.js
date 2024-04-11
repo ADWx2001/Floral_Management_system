@@ -8,13 +8,29 @@ const initialState = {
 };
 
 
-export const productFetch = createAsyncThunk(
-    "products/productsFetch",
-    async (_, { signal }) => {
-      const response = await fetch("/api/products/getproducts", { signal });
-      return response?.data;
-    }
+// export const productFetch = createAsyncThunk(
+//     "products/productsFetch",
+//     async (_, { signal }) => {
+//       const response = await fetch("/api/products/getproducts", { signal });
+//       return response?.data;
+//     }
     
+// );
+
+export const productFetch = createAsyncThunk(
+  "products/productsFetch",
+  async (_, { signal, rejectWithValue }) => {
+    try {
+      const response = await fetch("/api/products/getproducts", { signal });
+      if (!response.ok) {
+        throw new Error("Failed to fetch products");
+      }
+      const data = await response.json(); // Parse JSON response
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message); // Pass error message to rejected action
+    }
+  }
 );
 
 const productsSlice = createSlice({
