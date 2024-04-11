@@ -54,7 +54,7 @@ export default function DashProduct() {
 
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
-      <div className='flex-wrap flex gap-4 justify-center'>
+      <div className='flex-wrap flex gap-4 justify-center p-3'>
         <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
           <div className='flex justify-between'>
             <div className=''>
@@ -95,7 +95,7 @@ export default function DashProduct() {
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                   <Table.Cell>{new Date(product.updatedAt).toLocaleDateString()}</Table.Cell>
                   <Table.Cell>
-                    <Link to={`/product/${product._id}`}>
+                    <Link to={`/product/${product.slug}`}>
                       <img
                         src={product.image}
                         alt={product.title}
