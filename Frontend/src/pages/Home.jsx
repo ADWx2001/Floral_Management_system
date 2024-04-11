@@ -32,6 +32,7 @@ export default function Home() {
   // console.log(data);
 
   return (
+    
     <div className="mx-auto">
         <Slider/>
       <div className="text-left pt-14 px-28">
