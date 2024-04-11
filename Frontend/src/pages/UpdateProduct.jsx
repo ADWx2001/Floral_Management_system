@@ -6,14 +6,15 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/
 import { app } from "../firebase";
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { useNavigate , useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+
 export default function UpdateProducts() {
-  const[file,setFile]=useState(null);
-  const[imageUploadProgress,setImageUploadProgress] = useState(null);
-  const[imageUploadError,setImageUploadError] = useState(null);
-  const [formData , setFormData] = useState({});
+  const [file, setFile] = useState(null);
+  const [imageUploadProgress, setImageUploadProgress] = useState(null);
+  const [imageUploadError, setImageUploadError] = useState(null);
+  const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
   const { productId } = useParams();
 
@@ -21,8 +22,8 @@ export default function UpdateProducts() {
   const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
-    try {
-      const fetchProduct = async () => {
+    const fetchProduct = async () => {
+      try {
         const res = await fetch(`/api/products/getproducts?productId=${productId}`);
         const data = await res.json();
         if (!res.ok) {
@@ -32,65 +33,66 @@ export default function UpdateProducts() {
         }
         if (res.ok) {
           setPublishError(null);
-          setFormData(data.products[0]);
+          const product = data.products[0];
+         
+          if (product.description) {
+            setFormData({ ...product });
+          } else {
+            setFormData({ ...product, description: '' }); 
+          }
         }
-      };
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
 
-      fetchProduct();
-    } catch (error) {
-      console.log(error.message);
-    }
+    fetchProduct();
   }, [productId]);
- 
-  const handleUploadImage = () =>{
+
+  const handleUploadImage = () => {
     try {
-      if(!file){
-        setImageUploadError('please select an image');
+      if (!file) {
+        setImageUploadError('Please select an image');
         return;
       }
       setImageUploadError(null);
       const storage = getStorage(app);
-      const fileName = new Date().getTime()+'-'+file.name;
-      const storageRef = ref(storage,fileName);
-      const uploadTask = uploadBytesResumable(storageRef,file);
+      const fileName = new Date().getTime() + '-' + file.name;
+      const storageRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(storageRef, file);
       uploadTask.on(
         "state_changed",
         (snapshot) => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           setImageUploadProgress(progress.toFixed(0));
         },
-        
         (error) => {
           setImageUploadError("Image upload failed");
           console.error("Upload error:", error);
           setImageUploadProgress(null);
-         
         },
         () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>{
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setImageUploadProgress(null);
             setImageUploadError(null);
-            setFormData({...formData, image: downloadURL});
-          }
-           
-          );
+            setFormData({ ...formData, image: downloadURL });
+          });
         }
       );
-
     } catch (error) {
       setImageUploadError('Failed to upload image');
       setImageUploadProgress(null);
       console.log(error);
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const res = await fetch(`/api/products/updateproduct/${formData._id}/${currentUser._id}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
+      const res = await fetch(`/api/products/updateproduct/${formData._id}/${currentUser._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
@@ -108,55 +110,66 @@ export default function UpdateProducts() {
       setPublishError('Something went wrong');
     }
   };
+
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen">
-        <h1 className="text-center text-3xl my-7 font-semibold">Update Products</h1>
-        <form className="flex flex-col  gap-4" onSubmit={handleSubmit}>
+      <h1 className="text-center text-3xl my-7 font-semibold">Update Products</h1>
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-          <TextInput type='text'placeholder='Title'required id='title'className='flex-1'  onChange={(e) =>
-              setFormData({ ...formData, title: e.target.value })
-            } value={formData.title}/>
-          <Select  onChange={(e) =>setFormData({ ...formData, category: e.target.value })
-            } value={formData.category}>
+          <TextInput type='text' placeholder='Title' required id='title' className='flex-1' onChange={(e) =>
+            setFormData({ ...formData, title: e.target.value })
+          } value={formData.title || ''} />
+          <Select onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+            value={formData.category || ''}>
             <option value='uncategorized'>Select a category</option>
             <option value='arrangements'>Arrangements</option>
             <option value='bouquets'>Bouquets</option>
             <option value='singleflowers'>Single Flowers</option>
           </Select>
-         </div>
-         <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
-            <FileInput type='file'accept='image/*' onChange={(e)=>setFile(e.target.files[0])}/>
-            <Button onClick={handleUploadImage} type='button'gradientDuoTone='purpleToBlue'size='sm' outline disabled={imageUploadProgress}>
-              {
-                imageUploadProgress ?(
-                <div className="w-16 h-16" >
-                  <CircularProgressbar value={imageUploadProgress} text={`${imageUploadProgress || 0}`}/>
-                </div>
-                ) :('Upload Image')
-
-              }
-            </Button>
+        </div>
+        <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
+          <FileInput type='file' accept='image/*' onChange={(e) => setFile(e.target.files[0])} />
+          <Button onClick={handleUploadImage} type='button' gradientDuoTone='purpleToBlue' size='sm' outline disabled={imageUploadProgress}>
+            {imageUploadProgress ? (
+              <div className="w-16 h-16">
+                <CircularProgressbar value={imageUploadProgress} text={`${imageUploadProgress || 0}`} />
+              </div>
+            ) : ('Upload Image')}
+          </Button>
         </div>
         {imageUploadError && (
           <Alert color='failure'>{imageUploadError}</Alert>
         )}
         {formData.image && (
-          <img src={formData.image} alt="upload" className="w-full h-82 object-cover"/>
+          <img src={formData.image} alt="upload" className="w-full h-82 object-cover" />
         )}
-        <ReactQuill theme="snow" placeholder="Description..." className="h-52 mb-12" onChange={(value)=>{setFormData({...formData,description:value})}} value={formData.description}/>
+     <ReactQuill
+        theme="snow"
+        placeholder="Description..."
+        className="h-52 mb-12"
+        onChange={(value) => {
+          const cleanedValue = value.replace(/<\/?p>/g, ''); 
+          setFormData({ ...formData, description: cleanedValue , });
+       
+        }}
+        
+     
+      />
+
+
         <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-            <TextInput type="number" placeholder="Price" id="price"  onChange={(e) =>
-              setFormData({ ...formData, price: e.target.value })
-            } value={formData.price}/>
-            <TextInput type="number" placeholder="Quantity" id="stockQuantity"  onChange={(e) =>
-              setFormData({ ...formData, quantity: e.target.value } )
-            } value={formData.quantity}/>
-            <TextInput type="text" placeholder="Delivery Time" id="deliveryTime"  onChange={(e) =>
-              setFormData({ ...formData, deliveryTime: e.target.value })
-            } value={formData.deliveryTime}/>
-            <TextInput type="text" placeholder="Supplier" id="supplier"  onChange={(e) =>
-               setFormData({ ...formData, supplier: e.target.value })
-            } value={formData.supplier}/>
+          <TextInput type="number" placeholder="Price" id="price" onChange={(e) =>
+            setFormData({ ...formData, price: e.target.value })
+          } value={formData.price || ''} />
+          <TextInput type="number" placeholder="Quantity" id="stockQuantity" onChange={(e) =>
+            setFormData({ ...formData, quantity: e.target.value })
+          } value={formData.quantity || ''} />
+          <TextInput type="text" placeholder="Delivery Time" id="deliveryTime" onChange={(e) =>
+            setFormData({ ...formData, deliveryTime: e.target.value })
+          } value={formData.deliveryTime || ''} />
+          <TextInput type="text" placeholder="Supplier" id="supplier" onChange={(e) =>
+            setFormData({ ...formData, supplier: e.target.value })
+          } value={formData.supplier || ''} />
         </div>
         <Button type='submit' gradientDuoTone='purpleToBlue'>Update</Button>
         {publishError && (
@@ -164,7 +177,7 @@ export default function UpdateProducts() {
             {publishError}
           </Alert>
         )}
-        </form>
+      </form>
     </div>
-  )
+  );
 }

@@ -114,7 +114,15 @@ export default function AddProducts() {
         {formData.image && (
           <img src={formData.image} alt="upload" className="w-full h-82 object-cover" />
         )}
-        <ReactQuill theme="snow" placeholder="Description..." className="h-52 mb-12" onChange={(value) => { setFormData({ ...formData, description: value }) }} />
+        <ReactQuill
+          theme="snow"
+          placeholder="Description..."
+          className="h-52 mb-12"
+          onChange={(value) => {
+          const text = value.replace(/<[^>]+>/g, ''); 
+          setFormData({ ...formData, description: text });
+          }}
+        />
         <div className='flex flex-col gap-4 sm:flex-row justify-between'>
           <TextInput type="number" placeholder="Price" id="price" onChange={(e) => setFormData({ ...formData, price: e.target.value })} />
           <TextInput type="number" placeholder="Quantity" id="stockQuantity" onChange={(e) => setFormData({ ...formData, quantity: e.target.value })} />
