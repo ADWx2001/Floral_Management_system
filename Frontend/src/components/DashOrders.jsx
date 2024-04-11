@@ -197,12 +197,12 @@ export default function DashOrders() {
 
       {Orders.filter((orders) => {
         const searchQuery = searchName.toLowerCase();
-        const firstNameMatch = orders.first_name.toLowerCase().includes(searchQuery);
-        const lastNameMatch = orders.last_name.toLowerCase().includes(searchQuery);
-        const orderIdMatch = orders._id.toLowerCase().includes(searchQuery);
+        const firstName = orders.first_name.toLowerCase().includes(searchQuery);
+        const lastName = orders.last_name.toLowerCase().includes(searchQuery);
+        const orderId = orders._id.toLowerCase().includes(searchQuery);
 
         // Return true if any of the search criteria match
-        return firstNameMatch || lastNameMatch || orderIdMatch;
+        return firstName || lastName || orderId;
         }).map((orders) => (
 
         <Table.Body className='divide-y' key={orders._id}>
