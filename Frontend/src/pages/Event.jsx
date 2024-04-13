@@ -3,19 +3,19 @@ import EventSlider from "../components/EventSlider";
 export default function Event() {
     return (
      <>
-       <div id="default-carousel" className="relative w-full">
+       <div id="default-carousel" className="relative w-full dark:bg-gray-800">
   
-        <div className="relative h-64 overflow-hidden rounded-lg md:h-96">
+        <div className="relative h-64 overflow-hidden rounded-lg md:h-96 ">
   
-            <div className="ease-in-out" data-carousel-item>
+            <div className="ease-in-out " data-carousel-item>
                 <EventSlider/>
             </div>
         </div>
         </div>    
   
   
-         <div className="text-center pt-8">
-            <h1 className="text-3xl text-black-600 font-semibold italic">Let Your Events Bloom with Floral Elegance!</h1>
+         <div className="text-center pt-8 dark:bg-gray-800">
+            <h1 className="text-3xl text-black-600 font-semibold italic dark:bg-gray-800">Let Your Events Bloom with Floral Elegance!</h1>
           <div>
       
                  
@@ -26,12 +26,12 @@ export default function Event() {
   
   
         
-          <div className="flex justify-between">
-    <div className="w-2/10">
+          <div className="flex justify-between dark:bg-gray-800">
+    <div className="w-2/10 ">
     <div>
-            <div className="flex h-screen w-full flex-col items-center justify-center gap-y-2">
-                <div className="w-[600px] rounded-xl border border-gray-200 bg-white py-4 px-2 shadow-md shadow-gray-100">
-                  <div className="flex items-center justify-between px-2 text-base font-medium text-gray-700">
+            <div className="flex h-screen w-full flex-col items-center justify-center gap-y-2 dark:bg-gray-800">
+                <div className="w-[600px] rounded-xl border border-gray-200 bg-white py-4 px-2 shadow-md shadow-gray-100 dark:bg-gray-800">
+                  <div className="flex items-center justify-between px-2 text-base font-medium text-gray-400">
                     <div>Event models</div>
                   </div>
                   <div className="mt-4">
@@ -40,7 +40,7 @@ export default function Event() {
                         <div className="flex h-11 w-11 items-center rounded-lg bg-gray-200 text-black group-hover:bg-pink-200">
                         <span className="tag w-full text-center text-lg font-medium text-gray-700 group-hover:text-green-900">1</span>
                         </div>
-                        <div className="flex flex-col items-start justify-between font-light text-gray-600">
+                        <div className="flex flex-col items-start justify-between font-light text-gray-500">
                           <p className="text-[18px]">Weddings</p>
                           
                         </div>
@@ -49,7 +49,7 @@ export default function Event() {
                         <div className="flex h-11 w-11 items-center rounded-lg bg-gray-200 text-black group-hover:bg-green-200">
                         <span className="tag w-full text-center text-lg font-medium text-gray-700 group-hover:text-green-900">2</span>
                         </div>
-                        <div className="flex flex-col items-start justify-between font-light text-gray-600">
+                        <div className="flex flex-col items-start justify-between font-light text-gray-500">
                           <p className="text-[18px]">Birthday parties</p>
                           
                         </div>
@@ -58,7 +58,7 @@ export default function Event() {
                         <div className="flex h-11 w-11 items-center rounded-lg bg-gray-200 text-black group-hover:bg-pink-200">
                           <span className="tag w-full text-center text-lg font-medium text-gray-700 group-hover:text-green-900">3</span>
                         </div>
-                        <div className="flex flex-col items-start justify-between font-light text-gray-600">
+                        <div className="flex flex-col items-start justify-between font-light text-gray-500">
                           <p className="text-[18px]">Baby shower</p>
                           
                         </div>
@@ -67,16 +67,16 @@ export default function Event() {
                         <div className="flex h-11 w-11 items-center rounded-lg bg-gray-200 text-black group-hover:bg-green-200">
                           <span className="tag w-full text-center text-lg font-medium text-gray-700 group-hover:text-green-900">4</span>
                         </div>
-                        <div className="flex flex-col items-start justify-between font-light text-gray-600">
+                        <div className="flex flex-col items-start justify-between font-light text-gray-500">
                           <p className="text-[18px]">Religious events</p>
                           
                         </div>
                       </button>
                       <button className="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-pink-100">
                         <div className="flex h-11 w-11 items-center rounded-lg bg-gray-200 text-black group-hover:bg-pink-200">
-                          <span className="tag w-full text-center text-lg font-medium text-gray-700 group-hover:text-green-900">5</span>
+                          <span className="tag w-full text-center text-lg font-medium text-gray-700 group-hover:text-green-900 text-gray-500">5</span>
                         </div>
-                        <div className="flex flex-col items-start justify-between font-light text-gray-600">
+                        <div className="flex flex-col items-start justify-between font-light text-gray-500">
                           <p className="text-[18px]">Corporate events </p>
                           
                         </div>
@@ -86,19 +86,19 @@ export default function Event() {
   
                       <button className="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-green-100">
                         <div className="flex h-11 w-11 items-center rounded-lg bg-gray-200 text-black group-hover:bg-green-200">
-                          <span className="tag w-full text-center text-lg font-medium text-gray-700 group-hover:text-green-900">6</span>
+                          <span className="tag w-full text-center text-lg font-medium text-gray-700 group-hover:text-green-900 text-gray-500">6</span>
                         </div>
-                        <div className="flex flex-col items-start justify-between font-light text-gray-600">
-                          <p className="text-[18px]">Anniversary parties</p>
+                        <div className="flex flex-col items-start justify-between font-light text-gray-500">
+                          <p className="text-[18px] text-gray-500">Anniversary parties</p>
                           
                         </div>
                       </button>
                       <button className="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-pink-100">
                         <div className="flex h-11 w-11 items-center rounded-lg bg-gray-200 text-black group-hover:bg-pink-200">
-                          <span className="tag w-full text-center text-lg font-medium text-gray-700 group-hover:text-green-900">7</span>
+                          <span className="tag w-full text-center text-lg font-medium text-gray-700 group-hover:text-green-900 text-gray-500">7</span>
                         </div>
-                        <div className="flex flex-col items-start justify-between font-light text-gray-600">
-                          <p className="text-[18px]">Bridal shower</p>
+                        <div className="flex flex-col items-start justify-between font-light text-gray-500">
+                          <p className="text-[18px] ">Bridal shower</p>
                           
                         </div>
                       </button>
@@ -114,7 +114,7 @@ export default function Event() {
     <div className="w-8/10">
   
       
-    <section className="h-20 w-700 bg-gradient-to-br bg-white p-8">
+    <section className="h-20 w-700 bg-gradient-to-br bg-white p-8 dark:bg-gray-800">
   
               <div className="grid justify-center md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-7 my-10">
                 
@@ -131,13 +131,13 @@ export default function Event() {
   </div>
   
   <div>
-  <div className="flex justify-between">
-    <div className="w-3/4">
-    <div className="flex items-center justify-center p-12">
+  <div className="flex justify-between ">
+    <div className="w-3/4 ">
+    <div className="flex items-center justify-center p-12 ">
               <div className="mx-auto w-full max-w-[550px]">
                 <form action="https://formbold.com/s/FORM_ID" method="POST">
                   <div className="mb-5">
-                  <h3 className="text-2xl text-gray-900 font-semibold p-1">Contact us</h3>
+                  <h3 className="text-2xl text-gray-500 font-semibold p-1">Contact us</h3>
                   
                     <label
                       htmlFor="name"
@@ -150,13 +150,13 @@ export default function Event() {
                       name="name"
                       id="name"
                       placeholder="Enter your Name"
-                      className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                      className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md text-gray-500"
                     />
                   </div>
                   <div className="mb-5">
                     <label
                       htmlFor="email"
-                      className="mb-3 block text-base font-medium text-[#07074D]"
+                      className="mb-3 block text-base font-medium text-[#07074D] text-gray-500"
                     >
                       Your Email Address
                     </label>
@@ -165,13 +165,13 @@ export default function Event() {
                       name="email"
                       id="email"
                       placeholder="example@domain.com"
-                      className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                      className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md text-gray-500"
                     />
                   </div>
                   <div className="mb-5">
                     <label
                       htmlFor="message"
-                      className="mb-3 block text-base font-medium text-[#07074D]"
+                      className="mb-3 block text-base font-medium text-[#07074D] text-gray-500"
                     >
                       Description
                     </label>
@@ -180,7 +180,7 @@ export default function Event() {
                       name="message"
                       id="message"
                       placeholder="Small description about your event"
-                      className="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                      className="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md text-gray-500"
                     ></textarea>
                   </div>
                   <div>

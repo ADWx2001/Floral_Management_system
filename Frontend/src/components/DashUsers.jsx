@@ -122,7 +122,7 @@ export default function DashUsers() {
             <th>Username</th>
             <th>Email</th>
             <th>Mobile</th>
-            <th>Address</th>
+            <th></th>
             <th>Admin</th>
           </tr>
         </thead>
