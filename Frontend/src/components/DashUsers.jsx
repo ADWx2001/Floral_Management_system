@@ -88,21 +88,41 @@ export default function DashUsers() {
 
   const generatePDFReport = () => {
     const content = `
+      <style>
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        th, td {
+          padding: 8px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+        }
+        th {
+          background-color: #f2f2f2;
+          font-size: 14px; /* Adjust font size */
+        }
+        td {
+          font-size: 12px; /* Adjust font size */
+        }
+      </style>
       <h1><b>User Details Report</b></h1>
-        <p>Total Customers: ${totalCustomers}
-        <p>Last Month Customers : ${lastMonthCustomers}
-        <p>Total Admins : ${totalAdmins}
-        <p>Last Month Admins : ${lastMonthAdmin}
-        <p>Total User (Admin + Customers) : ${totalUsers}
-        <p>Last Month User (Admin + Customers) : ${lastMonthUsers}
-        <br>
-        <br>
+      <p>Total Customers: ${totalCustomers}</p>
+      <p>Last Month Customers : ${lastMonthCustomers}</p>
+      <p>Total Admins : ${totalAdmins}</p>
+      <p>Last Month Admins : ${lastMonthAdmin}</p>
+      <p>Total User (Admin + Customers) : ${totalUsers}</p>
+      <p>Last Month User (Admin + Customers) : ${lastMonthUsers}</p>
+      <br>
+      <br>
       <table>
         <thead>
           <tr>
             <th>Created At</th>
             <th>Username</th>
             <th>Email</th>
+            <th>Mobile</th>
+            <th>Address</th>
             <th>Admin</th>
           </tr>
         </thead>
@@ -112,14 +132,16 @@ export default function DashUsers() {
               <td>${new Date(user.createdAt).toLocaleDateString()}</td>
               <td>${user.username}</td>
               <td>${user.email}</td>
+              <td>${user.mobile}</td>
+              <td>${user.adress}</td>
               <td>${user.isAdmin ? 'Yes' : 'No'}</td>
             </tr>
           `).join('')}
         </tbody>
       </table>
     `;
-  
-    html2pdf().from(content).save();
+
+    html2pdf().from(content).set({ margin: 1, filename: 'user_report.pdf' }).save();
   };
   
   const handleGenerateReport = () => {
