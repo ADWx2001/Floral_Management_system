@@ -10,7 +10,7 @@ export const signup = async (req, res, next) => {
 
   
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const mobileRegex = /^(071|076|077|075|078|070|074)\d{7}$/;
+  const mobileRegex = /^(071|076|077|075|078|070|074|072)\d{7}$/;
   const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{5,}$/;
 
   if (!username || !email || !password || !mobile || !adress ||
