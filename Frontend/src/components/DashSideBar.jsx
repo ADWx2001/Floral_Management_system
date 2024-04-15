@@ -140,8 +140,19 @@ export default function DashSideBar() {
                   Delivery
                 </Sidebar.Item>
               </Link>
+             
             </>
           )}
+
+              <Link to='/dashboard?tab=myorders' key="myorders">
+                <Sidebar.Item
+                  active={tab === 'myorders'}
+                  icon={HiGift}
+                  as='div'
+                >
+                  My Orders
+                </Sidebar.Item>
+              </Link>
 
           <Sidebar.Item 
             icon={HiArrowSmRight} 

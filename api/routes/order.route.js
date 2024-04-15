@@ -1,5 +1,5 @@
 import express from 'express'
-import { createOrder, deleteOrder, getAllOrders, updateOrder, getOrder, testOrder, placeRequestRecord,getOneRequestRecord,getRequestRecords, updateRequestRecord, deleteRequestRecord } from '../controllers/order.controller.js';
+import { createOrder, deleteOrder, getAllOrders, updateOrder, getOrder, testOrder, placeRequestRecord,getOneRequestRecord,getRequestRecords, updateRequestRecord, deleteRequestRecord, getOrdersByCustomerId } from '../controllers/order.controller.js';
 
 const router = express.Router();
 
@@ -17,6 +17,8 @@ router.get("/get-request/:id", getOneRequestRecord)
 router.get("/get-item-requests" ,getRequestRecords);
 router.put("/updaterequest/:id", updateRequestRecord)
 router.delete("/delete/seller-item-request/:id", deleteRequestRecord);
+router.get("/customer/:id", getOrdersByCustomerId);
+
 
 
 export default router;

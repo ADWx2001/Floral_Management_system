@@ -217,3 +217,16 @@ export const deleteRequestRecord = async(req, res, next)=>{
         next(error);
       }
 }
+
+
+export const getOrdersByCustomerId = async (req, res, next) => {
+    try {
+      const customerId = req.params.id;
+      const orders = await Order.find({ userId: customerId });
+      
+      res.json(orders);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
