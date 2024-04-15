@@ -50,7 +50,7 @@ export const updateUser = async (req,res,next) => {
           }
 
           if (req.body.mobile) {
-            const mobileRegex = /^(071|076|077|075|078|070|074)\d{7}$/;
+            const mobileRegex = /^(071|076|077|075|078|070|074|072)\d{7}$/;
             if (!mobileRegex.test(req.body.mobile)) {
                 return next(errorHandler(400, 'Invalid mobile number format.'));
             }
@@ -107,11 +107,6 @@ export const getUsers = async (req, res, next) => {
     const limit = parseInt(req.query.limit) || 9;
     const sortDirection = req.query.sort === 'asc' ? 1 : -1;
 
-
-   
-
-    
-
     const searchTerm = req.query.searchTerm || '';
 
     const usersQuery = User.find({
@@ -119,7 +114,6 @@ export const getUsers = async (req, res, next) => {
     });
 
     const users = await usersQuery
-
 
       .sort({ createdAt: sortDirection })
       .skip(startIndex)
@@ -164,12 +158,12 @@ export const getUsers = async (req, res, next) => {
       lastMonthAdmin,
       lastMonthUsers
 
-
     });
   } catch (error) {
     next(error);
   }
 };
+
 
 export const forgetpassword = async (req, res, next) => {
   const { email } = req.body;
@@ -257,4 +251,20 @@ export const updateResetPassword = async (req, res, next) => {
   } catch (error) {
       res.status(500).json({ status: 500, error: error.message });
   }
+
 };
+
+export const getUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user) {
+      return next(errorHandler(404, 'User not found'));
+    }
+    const { password, ...rest } = user._doc;
+    res.status(200).json(rest);
+  } catch (error) {
+    next(error);
+  }
+};
+
+

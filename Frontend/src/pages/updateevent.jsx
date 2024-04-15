@@ -75,13 +75,9 @@ export default function Updateevents() {
   
 
 
- 
-
-
-
-      useEffect(() => {
+   useEffect(() => {
         try {
-          const fetchsupplier= async () => {
+          const fetchevent= async () => {
             const res = await fetch(`/api/events/getevent/${id}`);
             const data = await res.json();
             if (!res.ok) {
@@ -101,7 +97,7 @@ export default function Updateevents() {
              }
           };
     
-          fetchsupplier();
+          fetchevent();
         } catch (error) {
           console.log(error.message[0]);
         }

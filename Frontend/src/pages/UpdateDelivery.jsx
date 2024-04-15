@@ -1,4 +1,3 @@
-import React from 'react'
 import { Alert, Button, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import 'react-quill/dist/quill.snow.css';
@@ -137,3 +136,4 @@ export default function UpdateDelivery() {
     </div>
   )
 }
+

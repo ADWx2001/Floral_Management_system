@@ -3,12 +3,14 @@ import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
+
+
 export const signup = async (req, res, next) => {
   const { username, email, password, mobile, adress } = req.body;
 
   
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const mobileRegex = /^(071|076|077|075|078|070|074)\d{7}$/;
+  const mobileRegex = /^(071|076|077|075|078|070|074|072)\d{7}$/;
   const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{5,}$/;
 
   if (!username || !email || !password || !mobile || !adress ||
@@ -34,6 +36,7 @@ export const signup = async (req, res, next) => {
       next(err);
   }
 };
+
 
 
 export const signin = async(req,res,next)=>{

@@ -1,40 +1,39 @@
 import Product from "../models/product.model.js";
 import { errorHandler } from "../utils/error.js";
 
-export const create = async(req,res,next)=>{
+export const create = async (req, res, next) => {
+  try {
     if (!req.user.isAdmin) {
-        return next(errorHandler(403, 'You are not allowed to create a post'));
-      }
-      if (!req.body.title || !req.body.description || !req.body.price || !req.body.quantity || !req.body.supplier || !req.body.deliveryTime ) {
-        return next(errorHandler(400, 'Please provide all required fields'));
-      }
-      const slug = req.body.title.split(' ').join('-').toLowerCase().replace(/[^a-zA-Z0-9-]/g, '');
-      const newProduct = new Product({
-        ...req.body,
-        slug,
-        userId: req.user.id,
-      });
+      return next(errorHandler(403, 'You are not allowed to create a post'));
+    }
+    if (!req.body.title || !req.body.description || !req.body.price || !req.body.quantity ||!req.body.deliveryTime ) {
+      return next(errorHandler(400, 'Please provide all required fields'));
+    }
 
-      try {
-        const savedProduct = await newProduct.save();
-        res.status(201).json(savedProduct);
-      } catch (error) {
-        next(error);
-      }
+    const slug = req.body.title.split(' ').join('-').toLowerCase().replace(/[^a-zA-Z0-9-]/g, '');
+    const newProduct = new Product({
+      ...req.body,
+      slug,
+      userId: req.user.id,
+    });
 
-
-
+    const savedProduct = await newProduct.save();
+    res.status(201).json(savedProduct);
+  } catch (error) {
+    next(error);
+  }
 }
 
-export const getProducts = async (req,res,next)=>{
+export const getProducts = async (req, res, next) => {
   try {
     const startIndex = parseInt(req.query.startIndex) || 0;
-    const limit = parseInt(req.query.limit) || 9;
-    const sortDirection = req.query.sort === 'asc' ? 1 : -1;
-    const products = await Product.find({
+    const limit = parseInt(req.query.limit);
+
+    const sortDirection = req.query.order === 'asc' ? 1 : -1;
+    const queryOptions = {
       ...(req.query.userId && { userId: req.query.userId }),
       ...(req.query.category && { category: req.query.category }),
-      ...(req.query.description && { category: req.query.category }),
+      ...(req.query.description && { description: req.query.description }),
       ...(req.query.slug && { slug: req.query.slug }),
       ...(req.query.productId && { _id: req.query.productId }),
       ...(req.query.searchTerm && {
@@ -43,7 +42,12 @@ export const getProducts = async (req,res,next)=>{
           { description: { $regex: req.query.searchTerm, $options: 'i' } },
         ],
       }),
-    }) .sort({ updatedAt: sortDirection }).skip(startIndex).limit(limit);
+    };
+
+    const products = await Product.find(queryOptions)
+      .sort({ updatedAt: sortDirection })
+      .skip(startIndex)
+      .limit(limit);
 
     const totalProducts = await Product.countDocuments();
     const now = new Date();
@@ -62,18 +66,16 @@ export const getProducts = async (req,res,next)=>{
       totalProducts,
       lastMonthProducts,
     });
-
-
   } catch (error) {
     next(error);
   }
 }
 
 export const deleteproduct = async (req, res, next) => {
-  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
-    return next(errorHandler(403, 'You are not allowed to delete this post'));
-  }
   try {
+    if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+      return next(errorHandler(403, 'You are not allowed to delete this post'));
+    }
     await Product.findByIdAndDelete(req.params.productId);
     res.status(200).json('The product has been deleted');
   } catch (error) {
@@ -82,10 +84,10 @@ export const deleteproduct = async (req, res, next) => {
 };
 
 export const updateproduct = async (req, res, next) => {
-  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
-    return next(errorHandler(403, 'You are not allowed to update this post'));
-  }
   try {
+    if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+      return next(errorHandler(403, 'You are not allowed to update this post'));
+    }
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.productId,
       {
@@ -94,11 +96,10 @@ export const updateproduct = async (req, res, next) => {
           description: req.body.description,
           category: req.body.category,
           image: req.body.image,
-          price : req.body.price,
-          deliveryTime:req.body.deliveryTime,
-          quantity:req.body.quantity,
-          supplier:req.body.supplier
-
+          price: req.body.price,
+          deliveryTime: req.body.deliveryTime,
+          quantity: req.body.quantity,
+          supplier: req.body.supplier
         },
       },
       { new: true }

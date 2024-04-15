@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { HiArrowNarrowUp, HiOutlineExclamationCircle, HiOutlineUserGroup, HiUser } from 'react-icons/hi';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import html2pdf from 'html2pdf.js';
 
 export default function DashUsers() {
   const { currentUser } = useSelector((state) => state.user);
@@ -59,7 +60,9 @@ export default function DashUsers() {
     } catch (error) {
       console.log(error.message);
     }
+    
   };
+  
 
   const handleDeleteUser = async () => {
     try {
@@ -80,18 +83,91 @@ export default function DashUsers() {
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
+    setShowMore(true);
+  };
+
+  const generatePDFReport = () => {
+    const content = `
+      <style>
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        th, td {
+          padding: 8px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+        }
+        th {
+          background-color: #f2f2f2;
+          font-size: 14px; /* Adjust font size */
+        }
+        td {
+          font-size: 12px; /* Adjust font size */
+        }
+      </style>
+      <h1><b>User Details Report</b></h1>
+      <p>Total Customers: ${totalCustomers}</p>
+      <p>Last Month Customers : ${lastMonthCustomers}</p>
+      <p>Total Admins : ${totalAdmins}</p>
+      <p>Last Month Admins : ${lastMonthAdmin}</p>
+      <p>Total User (Admin + Customers) : ${totalUsers}</p>
+      <p>Last Month User (Admin + Customers) : ${lastMonthUsers}</p>
+      <br>
+      <br>
+      <table>
+        <thead>
+          <tr>
+            <th>Created At</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th></th>
+            <th>Admin</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${users.map((user) => `
+            <tr>
+              <td>${new Date(user.createdAt).toLocaleDateString()}</td>
+              <td>${user.username}</td>
+              <td>${user.email}</td>
+              <td>${user.mobile}</td>
+              <td>${user.adress}</td>
+              <td>${user.isAdmin ? 'Yes' : 'No'}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+
+    html2pdf().from(content).set({ margin: 1, filename: 'user_report.pdf' }).save();
+  };
+  
+  const handleGenerateReport = () => {
+    generatePDFReport();
+  
   };
 
   return (
     <div className='p-3 md:mx-auto'>
-      <div className="mb-4">
-        <input
+      <div className="mb-4 flex items-center justify-between">
+      <input
           type="text"
-          placeholder="Search users..."
+          placeholder="Search Users..."
           value={searchTerm}
           onChange={handleSearch}
-          className="px-3 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-        />
+          className="px-3 py-2 w-150 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mr-2 h-10 dark:bg-slate-800  placeholder-gray-500"
+       />
+
+        <Button
+          gradientDuoTone='purpleToBlue'
+          outline
+          onClick={handleGenerateReport}
+          className=""
+        >
+          Generate Report
+        </Button>
       </div>
 
       <div className='flex-wrap flex gap-4 justify-center'>
@@ -101,8 +177,7 @@ export default function DashUsers() {
               <h3 className='text-gray-500 text-md uppercase'>Total Users</h3>
               <p className='text-2xl'>{totalCustomers}</p>
             </div>
-
-            <HiOutlineUserGroup className='bg-red-600  text-white rounded-full text-5xl p-3 shadow-lg' />
+            <HiOutlineUserGroup className='bg-red-600 text-white rounded-full text-5xl p-3 shadow-lg' />
           </div>
           <div className='flex gap-2 text-sm'>
             <span className='text-green-500 flex items-center'>
@@ -120,8 +195,7 @@ export default function DashUsers() {
               </h3>
               <p className='text-2xl'>{totalAdmins}</p>
             </div>
-
-            <HiUser className='bg-lime-600  text-white rounded-full text-5xl p-3 shadow-lg' />
+            <HiUser className='bg-lime-600 text-white rounded-full text-5xl p-3 shadow-lg' />
           </div>
           <div className='flex gap-2 text-sm'>
             <span className='text-green-500 flex items-center'>
@@ -137,8 +211,7 @@ export default function DashUsers() {
               <h3 className='text-gray-500 text-md uppercase'>Total Users (Admin+Customers)</h3>
               <p className='text-2xl'>{totalUsers}</p>
             </div>
-
-            <HiOutlineUserGroup className='bg-indigo-600  text-white rounded-full text-5xl p-3 shadow-lg' />
+            <HiOutlineUserGroup className='bg-indigo-600 text-white rounded-full text-5xl p-3 shadow-lg' />
           </div>
           <div className='flex gap-2 text-sm'>
             <span className='text-green-500 flex items-center'>
@@ -149,7 +222,7 @@ export default function DashUsers() {
           </div>
         </div>
       </div>
-  
+
       <div className='table-auto overflow-x-scroll mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
         {currentUser.isAdmin && users.length > 0 ? (
           <>
@@ -211,31 +284,32 @@ export default function DashUsers() {
         ) : (
           <p>You have no users yet!</p>
         )}
-        <Modal
-          show={showModal}
-          onClose={() => setShowModal(false)}
-          popup
-          size='md'
-        >
-          <Modal.Header />
-          <Modal.Body>
-            <div className='text-center'>
-              <HiOutlineExclamationCircle className='h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto' />
-              <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'>
-                Are you sure you want to delete this user?
-              </h3>
-              <div className='flex justify-center gap-4'>
-                <Button color='failure' onClick={handleDeleteUser}>
-                  Yes, I am sure
-                </Button>
-                <Button color='gray' onClick={() => setShowModal(false)}>
-                  No, cancel
-                </Button>
-              </div>
-            </div>
-          </Modal.Body>
-        </Modal>
       </div>
+
+      <Modal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        popup
+        size='md'
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className='text-center'>
+            <HiOutlineExclamationCircle className='h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto' />
+            <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'>
+              Are you sure you want to delete this user?
+            </h3>
+            <div className='flex justify-center gap-4'>
+              <Button color='failure' onClick={handleDeleteUser}>
+                Yes, I am sure
+              </Button>
+              <Button color='gray' onClick={() => setShowModal(false)}>
+                No, cancel
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }

@@ -10,7 +10,7 @@ export const testOrder = (req, res) => {
 
 //create new order
 export const createOrder = async (req, res,next)=>{
-    if (!req.body.first_name || !req.body.last_name || !req.body.email || !req.body.phone || !req.body.address ||!req.body.state || !req.body.zip  || !req.body.subtotal || !req.body.deliveryfee || !req.body.totalcost ) {
+    if (!req.body.userId || !req.body.productsId || !req.body.first_name || !req.body.last_name || !req.body.email || !req.body.phone || !req.body.address ||!req.body.state || !req.body.zip  || !req.body.subtotal || !req.body.deliveryfee || !req.body.totalcost ) {
         return next(errorHandler(400, 'Please provide all required fields'));
       }
 

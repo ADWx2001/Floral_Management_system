@@ -1,5 +1,5 @@
 import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
@@ -14,8 +14,25 @@ export default function AddProducts() {
   const[imageUploadError,setImageUploadError] = useState(null);
   const [formData , setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
-
+  const [suppliers, setSuppliers] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    async function fetchSuppliers() {
+      try {
+        const response = await fetch('/api/suppliers/get');
+        if (response.ok) {
+          const data = await response.json();
+          setSuppliers(data);
+        } else {
+          throw new Error('Failed to fetch suppliers');
+        }
+      } catch (error) {
+        console.error('Error fetching suppliers:', error);
+      }
+    }
+    fetchSuppliers();
+  }, []);
  
   const handleUploadImage = () =>{
     try {
@@ -118,7 +135,15 @@ export default function AddProducts() {
         {formData.image && (
           <img src={formData.image} alt="upload" className="w-full h-82 object-cover"/>
         )}
-        <ReactQuill theme="snow" placeholder="Description..." className="h-52 mb-12" onChange={(value)=>{setFormData({...formData,description:value})}}/>
+        <ReactQuill
+          theme="snow"
+          placeholder="Description..."
+          className="h-52 mb-12"
+          onChange={(value) => {
+            const sanitizedValue = value.replace(/<\/?[^>]+(>|$)/g, "");
+            setFormData({ ...formData, description: sanitizedValue });
+          }}
+        />
         <div className='flex flex-col gap-4 sm:flex-row justify-between'>
             <TextInput type="number" placeholder="Price" id="price"  onChange={(e) =>
               setFormData({ ...formData, price: e.target.value })
@@ -129,9 +154,12 @@ export default function AddProducts() {
             <TextInput type="text" placeholder="Delivery Time" id="deliveryTime"  onChange={(e) =>
               setFormData({ ...formData, deliveryTime: e.target.value })
             }/>
-            <TextInput type="text" placeholder="Supplier" id="supplier"  onChange={(e) =>
-               setFormData({ ...formData, supplier: e.target.value })
-            }/>
+           <Select onChange={(e) => setFormData({ ...formData, supplier: e.target.value })}>
+            <option value=''>Select a supplier</option>
+            {suppliers.map(supplier => (
+              <option key={supplier._id} value={supplier.suppliername}>{supplier.suppliername}</option>
+            ))}
+        </Select>
         </div>
         <Button type='submit' gradientDuoTone='purpleToBlue'>Add</Button>
         {publishError && (

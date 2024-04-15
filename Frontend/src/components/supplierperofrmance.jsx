@@ -187,7 +187,7 @@ export default function Supplierperfromance() {
 
 
   return (
-    <Space size={50} direction="vertical">
+    <Space size={50} direction="vertical" >
       <Typography.Title level={4} style={{
            
            marginLeft:400,
@@ -242,7 +242,7 @@ export default function Supplierperfromance() {
           title={"Total Suppliers"}
           value={scount}
         />
-        <DashboardCard
+        <DashboardCard 
           icon={
             <DollarCircleOutlined
               style={{
@@ -251,6 +251,7 @@ export default function Supplierperfromance() {
                 borderRadius: 20,
                 fontSize: 24,
                 padding: 20,
+                
               }}
             />
           }
@@ -276,7 +277,7 @@ export default function Supplierperfromance() {
              }}>
                       <span>Add Restock Records</span>
                     </Link>
-  <div className="table-wrapper">
+  <div className="table-wrapper dark:bg-slate-800 ">
  
 <>
       
@@ -310,7 +311,7 @@ export default function Supplierperfromance() {
         return(
          
      
-            <Table.Body  className='divide-y'  key={i._id} style={{
+            <Table.Body  className='divide-y dark:bg-slate-800 '   key={i._id} style={{
              
             
           

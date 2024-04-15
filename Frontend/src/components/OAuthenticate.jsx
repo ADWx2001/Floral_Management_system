@@ -17,7 +17,7 @@ export default function OAuthenticate() {
             const provider = new GoogleAuthProvider()
            const auth = getAuth(app);
             const result = await signInWithPopup(auth , provider);
-           
+
             const res = await fetch('/api/auth/google',{
                 method : 'POST',
                 headers : {
@@ -25,9 +25,9 @@ export default function OAuthenticate() {
                 },
                 body :JSON.stringify({
                     name: result.user.displayName,
-                    email : result.user.email,
-                    photo : result.user.photoURL,
-                   
+                    email: result.user.email,
+                    photo: result.user.photoURL
+
                 })
             });
             

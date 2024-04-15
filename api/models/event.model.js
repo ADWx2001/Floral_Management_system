@@ -1,4 +1,7 @@
-import mongoose from "mongoose";
+function event () {
+    console.log('Hello');
+   chgcvgvhyvjfkjierkgnkijoekwkrjfkw
+}import mongoose from "mongoose";
 
 const eventSchema = new mongoose.Schema({
 
@@ -44,3 +47,5 @@ const eventSchema = new mongoose.Schema({
 
 const Event = mongoose.model('Event',eventSchema);
 export default Event;
+
+//finished

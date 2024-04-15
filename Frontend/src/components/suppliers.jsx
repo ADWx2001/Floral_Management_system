@@ -46,7 +46,7 @@ export default function Suppliers() {
 
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
-      <Link style={{ fontSize: 18, marginLeft: 900 }} className='text-teal-500 hover:underline' to='/dashboard?tab=sperforamnce'>
+      <Link style={{ fontSize: 15, marginLeft: 900 }} className='text-teal-500 hover:underline' to='/dashboard?tab=sperforamnce'>
         <span>View Supplier Performance</span>
       </Link>
       <>
