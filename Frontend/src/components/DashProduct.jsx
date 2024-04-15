@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { HiGift, HiOutlineExclamationCircle } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import html2pdf from 'html2pdf.js';
 
 export default function DashProduct() {
   const { currentUser } = useSelector((state) => state.user);
@@ -52,12 +53,87 @@ export default function DashProduct() {
     }
   };
 
+  const generatePDFReport = () => {
+    const content = `
+      <style>
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        th, td {
+          padding: 8px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+        }
+        th {
+          background-color: #f2f2f2;
+          font-size: 14px; /* Adjust font size */
+        }
+        td {
+          font-size: 12px; /* Adjust font size */
+        }
+      </style>
+      <h1><b>User Details Report</b></h1>
+      <p>Total Products: ${totalProducts}</p>
+      <p>Last Month Products : ${lastMonthProducts}</p>
+      <br>
+      <br>
+      <table>
+        <thead>
+          <tr>
+            <th>Updated At</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Supplier</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${userProduct.map((product) => `
+            <tr>
+              <td>${new Date(product.createdAt).toLocaleDateString()}</td>
+              <td>${product.title}</td>
+              <td>${product.category}</td>
+              <td>${product.price}</td>
+              <td>${product.quantity}</td>
+              <td>${product.supplier}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+  
+    html2pdf().from(content).set({ margin: 1, filename: 'product_report.pdf' }).save();
+  };
+  
+
+  const handleGenerateReport = () => {
+    generatePDFReport();
+  
+  };
+
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
+      <div className='flex justify-between'>
+        <div></div>
+           <Button 
+                gradientDuoTone='purpleToBlue'
+                outline
+                onClick={handleGenerateReport}
+                className=""
+              >
+              Generate Report
+           </Button>
+      </div>
+      
       <div className='flex-wrap flex gap-4 justify-center p-3'>
+        
         <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
           <div className='flex justify-between'>
+            
             <div className=''>
+            
               <h3 className='text-gray-500 text-md uppercase'>Total Products</h3>
               <p className='text-2xl'>{totalProducts}</p>
             </div>
