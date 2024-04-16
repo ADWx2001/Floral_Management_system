@@ -100,10 +100,10 @@ export default function DashUsers() {
         }
         th {
           background-color: #f2f2f2;
-          font-size: 14px; /* Adjust font size */
+          font-size: 14px; 
         }
         td {
-          font-size: 12px; /* Adjust font size */
+          font-size: 12px; 
         }
       </style>
       <h1><b>User Details Report</b></h1>
