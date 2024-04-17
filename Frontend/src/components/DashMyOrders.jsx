@@ -48,13 +48,13 @@ export default function DashMyOrders() {
                 </Table.Cell>
                 <Table.Cell>
                   {order.productsId.map(product => (
-                    <span key={product._id} className="font-semibold">{product.title}</span>
+                    <p key={product._id} className="font-semibold">{product.title}</p>
                   ))}
                 </Table.Cell>
                 
                 <Table.Cell>
                   {order.productsId.map(product => (
-                    <span key={product._id} className="font-semibold">{product.quantity}</span>
+                    <p key={product._id} className="font-semibold">{product.quantity}</p>
                   ))}
                 </Table.Cell>
                 
