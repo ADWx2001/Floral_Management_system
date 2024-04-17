@@ -9,7 +9,7 @@ import OAuthenticate from "../components/OAuthenticate";
 export default function SignIn() {
     const [formData , setFormData] = useState({});
     const{loading , error} = useSelector((state)=>state.user);
-    
+    const [showPassword, setShowPassword] = useState(false); 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleChange = (e) =>{
@@ -49,6 +49,13 @@ export default function SignIn() {
        
         
       }
+
+      const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+
+
   return (
     <div className="min-h-screen mt-20">
         
@@ -69,10 +76,26 @@ export default function SignIn() {
                         <Label value="Your email"/>
                         <TextInput type="email" placeholder="name@company.com" id="email" onChange={handleChange}/>
                     </div>
-                    <div>
-                        <Label value="Your password"/>
-                        <TextInput type="password" placeholder="**********" id="password" onChange={handleChange}/>
-                    </div>
+                     <div>
+                            <Label value="Your password"/>
+                            <div className="relative">
+                                <TextInput type={showPassword ? "text" : "password"} placeholder="Password" id="password" onChange={handleChange}/>
+                                    <button type="button" className="absolute top-2 right-3 focus:outline-none" onClick={togglePasswordVisibility}>
+                                        {showPassword ? (
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.818 8.818a4 4 0 0 1 0 6.364M5.636 8.818a4 4 0 0 1 0 6.364M11.998 5.996v.01" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18.1V12a3.999 3.999 0 0 1 3.999-4 3.999 3.999 0 0 1 3.999 4v6.1c0 2.21-1.791 4-3.999 4a3.999 3.999 0 0 1-3.999-4z" />
+                                            </svg>
+                                        ) : (
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 15a7 7 0 01-7-7M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        )}
+                                    </button>
+
+                            </div>
+                        </div>
                     <Button disabled={loading} gradientDuoTone='purpleToBlue' type="submit">{loading ? (
                         <>
                             <Spinner size='sm'/>

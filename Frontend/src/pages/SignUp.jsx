@@ -1,5 +1,5 @@
-import { Alert, Button, Label, TextInput ,Spinner, Carousel } from "flowbite-react";
 import { useState } from "react";
+import { Alert, Button, Label, TextInput ,Spinner, Carousel } from "flowbite-react";
 import { Link , useNavigate } from "react-router-dom";
 import OAuthenticate from "../components/OAuthenticate";
 
@@ -7,6 +7,7 @@ export default function SignUp() {
     const [formData , setFormData] = useState({});
     const [error , setError] = useState(false);
     const [loading , setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false); 
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -44,12 +45,16 @@ export default function SignUp() {
         }
     };
 
+   
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
         <div className="min-h-screen mt-20">
             <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-20">
                 {/* left */}
                 <div className="flex-1 w-100 screen mt-35" >
-                    
                     <div className="h-150 sm:h-96 xl:h-96 2xl:h-200">
                         <Carousel
                             autoplay={true}
@@ -89,7 +94,23 @@ export default function SignUp() {
                         </div>
                         <div>
                             <Label value="Your password"/>
-                            <TextInput type="password" placeholder="Password" id="password" onChange={handleChange}/>
+                            <div className="relative">
+                                <TextInput type={showPassword ? "text" : "password"} placeholder="Password" id="password" onChange={handleChange}/>
+                                    <button type="button" className="absolute top-2 right-3 focus:outline-none" onClick={togglePasswordVisibility}>
+                                        {showPassword ? (
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.818 8.818a4 4 0 0 1 0 6.364M5.636 8.818a4 4 0 0 1 0 6.364M11.998 5.996v.01" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18.1V12a3.999 3.999 0 0 1 3.999-4 3.999 3.999 0 0 1 3.999 4v6.1c0 2.21-1.791 4-3.999 4a3.999 3.999 0 0 1-3.999-4z" />
+                                            </svg>
+                                        ) : (
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 15a7 7 0 01-7-7M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        )}
+                                    </button>
+
+                            </div>
                         </div>
                         <Button disabled={loading} gradientDuoTone='purpleToPink' type="submit">
                             {loading ? (
@@ -116,8 +137,4 @@ export default function SignUp() {
             </div>
         </div>
     )
-
 }
-
-
-
