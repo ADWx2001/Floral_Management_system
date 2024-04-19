@@ -12,6 +12,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.1.0",
     "antd": "^5.16.1",
+    "axios": "^1.6.8",
     "boxicons": "^2.1.4",
     "crypto-js": "^4.2.0",
     "firebase": "^10.7.2",

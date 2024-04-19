@@ -11,7 +11,8 @@
     "mailgen": "^2.0.28",
     "mongoose": "^8.1.0",
     "nodemailer": "^6.9.13",
-    "nodemon": "^3.0.3"
+    "nodemon": "^3.0.3",
+    "stripe": "^15.1.0"
   },
   "name": "florashop",
   "version": "1.0.0",
