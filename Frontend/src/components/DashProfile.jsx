@@ -207,7 +207,7 @@ export default function DashProfile() {
           defaultValue={currentUser.mobile} onChange={handleChange}
         />
         <div>
-                            <Label value="Your password"/>
+                           
                             <div className="relative">
                                 <TextInput type={showPassword ? "text" : "password"} placeholder="Password" id="password" onChange={handleChange}/>
                                     <button type="button" className="absolute top-2 right-3 focus:outline-none" onClick={togglePasswordVisibility}>
