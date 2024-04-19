@@ -2,17 +2,15 @@ import { useState } from "react";
 import { useSelector, useDispatch} from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { clearCart } from "../redux/cart/cartSlice";
-import md5 from 'crypto-js/md5';
+// import md5 from 'crypto-js/md5';
 
 export default function Ordersummary() {
       const [publishError, setPublishError] = useState(null);
       const cart = useSelector((state) => state.cart);
+      console.log(cart);
       const dispatch = useDispatch();
-
       const navigate = useNavigate();
-
       const deliveryfee = 300;
-      
       const {currentUser} = useSelector((state) => state.user);
 
     const [payHereFormData, setpayHereFormData] = useState({
@@ -35,13 +33,15 @@ export default function Ordersummary() {
 
       const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
-          const res = await fetch(`/api/order/create`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payHereFormData),
+
+           const res = await fetch(`/api/order/create`, {
+             method: 'POST',
+             headers: {
+               'Content-Type': 'application/json',
+             },
+             body: JSON.stringify(payHereFormData),
           });
       
           if (!res.ok) {

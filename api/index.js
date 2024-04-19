@@ -16,6 +16,7 @@ import paymentRoute from "./routes/payment.route.js";
 //import productRoute from "./routes/product.route.js"
 // test import products api Prducts.js
 import product from "./utils/Product.js";
+import stripe from "./routes/stripe.route.js";
 
 dotenv.config();
 
@@ -43,7 +44,7 @@ app.use("/api/user",userRoute);
 app.use("/api/auth",authRoute);
 app.use("/api/products",productRoute);
 app.use("/api/order",orderRoute);
-app.use("/api/notify",paymentRoute);
+app.use("/api/stripe",stripe);
 app.use("/api/delivery",deliveryRoute);
 
 // test product route
