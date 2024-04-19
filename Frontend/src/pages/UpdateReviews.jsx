@@ -109,7 +109,7 @@ export default function UpdateReviews() {
 
   const handleCancel = () => { 
     // Redirect to the product slug
-    navigate(`/product/${formData.slug}`);
+    navigate(`/product/${product.slug}`);
 };
 
 

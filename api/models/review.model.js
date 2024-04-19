@@ -10,6 +10,9 @@ const reviewSchema = new mongoose.Schema({
         required: true
        
     },
+    reviewId:{
+        type:String,
+    },
     title: {
         type: String,
        
@@ -24,7 +27,7 @@ const reviewSchema = new mongoose.Schema({
     },
     rating: {
         type: Number,
-        
+        required: true
     },
     numberofrating: {
         type: Number,

@@ -23,7 +23,7 @@ export default function Dashreviews({ productId}) {
   const [showModal, setshowModal] = useState(false);
   const [reviewToDelete, setreviewToDelete] = useState(null);
   const [showMore, setShowMore] = useState(true);
-
+ 
 
 
 
@@ -160,6 +160,8 @@ export default function Dashreviews({ productId}) {
         setReviews([data, ...reviews]);
         setRating([data, ...rating]);
       }
+
+      
     } catch (error) {
       setReviewError(error.message);
     }
@@ -209,9 +211,16 @@ export default function Dashreviews({ productId}) {
     const getreviews = async() => {
       try{
         const res = await fetch(`/api/reviews/getProductReview/${productId}`);
+        const resdash = await fetch(`/api/reviews/getreviews?limit=9`);
         if(res.ok){
           const data = await res.json();
           setReviews(data);
+          
+        }
+
+        if(resdash.ok){
+          const data5 = await resdash.json();
+          setFivestar(data5.Fivestar);
         }
       }
       catch(error){
@@ -277,7 +286,7 @@ const handleDelete = async(reviewId) => {
           <form className=' gap-10 border border-teal-500 rounded-xl p-3' onSubmit={handleSubmit}>
              <div className='p-2'>
                 <label className='pr-1 text-gray-500'>Rating</label>
-                <select className='m-2 p-1 rounded-md text-gray-600 ' onChange={(e) => setRating(e.target.value)}value={rating}>    
+                <select className='m-2 p-1 rounded-md text-gray-600 dark:bg-slate-800 ' onChange={(e) => setRating(e.target.value)}value={rating}>    
                     <option value="">Select</option>
                     <option value="1">1- Bad</option>
                     <option value="2">2- Fair</option>
@@ -312,7 +321,7 @@ const handleDelete = async(reviewId) => {
                 <Alert color='failure'>{imageUploadError}</Alert>
               )}
             </div>
-            <button   type='submit' className="gap-8 m-2 border bg-slate-300 border-teal-500 rounded-xl p-1">Submit</button>
+            <button   type='submit' className="gap-8 m-2 dark:bg-slate-800 border bg-slate-300 border-teal-500 rounded-xl p-1">Submit</button>
           </form>
         )
       }
@@ -328,6 +337,7 @@ const handleDelete = async(reviewId) => {
             <p className='font-semibold'>{reviews.length}</p>
           </div>
         </div> 
+        
         {
           reviews.map(review =>(
             <Reviews 

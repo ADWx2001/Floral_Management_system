@@ -1,4 +1,4 @@
-import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
+import { Alert, Button, FileInput, Select, TextInput, Textarea } from "flowbite-react";
 import { useEffect, useState } from "react";
 import 'react-quill/dist/quill.snow.css';
 import 'react-circular-progressbar/dist/styles.css';
@@ -65,23 +65,23 @@ export default function ReplyReview() {
 
   const handleCancel = () => {
     // Redirect to the product slug
-    navigate(`/product/${formData.slug}`);
+    navigate(`/dashboard?tab=reviews`);
 };
 
 
   return (
-    <div className="p-3 max-w-3xl mx-auto min-h-screen border border-teal-500 rounded-xl ">
+    <div className="p-3 m-6 max-w-xl mx-auto  border border-teal-500 rounded-xl ">
         <h1 className="text-center text-3xl my-7 font-semibold">Reply Reviews</h1>
         <form className="flex flex-col  gap-4" onSubmit={handleSubmit}>
         <div className='flex flex-col gap-4 sm:flex-row justify-between '>
 
-            <TextInput className="w-96" type='text'placeholder='reply'required id='reply'  onChange={(e) =>
+            <Textarea className="w-96 w-full" type='text'placeholder='reply-text'required id='reply'  onChange={(e) =>
               setFormData({ ...formData, reply: e.target.value })
             } value={formData.reply}/>
           
          </div>
          
-        <Button type='submit' gradientDuoTone='purpleToBlue'>Update</Button>
+        <Button type='submit' gradientDuoTone='purpleToBlue'>Reply</Button>
         <button className='font-normal  text-gray-400 hover:text-blue-500'  type='button'
                         onClick={handleCancel}>
                         Cancel

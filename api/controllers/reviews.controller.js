@@ -106,10 +106,15 @@ export const getReviews = async(req,res,next) => {
             .skip(startIndex)
             .limit(limit);
             const totalReviews = await Review.countDocuments();
+            const Fivestar = await Review.countDocuments({rating:5});
+            const Fourstar = await Review.countDocuments({rating:4});
+            const Threestar = await Review.countDocuments({rating:3});
+            const Twostar = await Review.countDocuments({rating:2});
+            const Onestar = await Review.countDocuments({rating:1});
             const now = new Date();
             const oneMonthAgo = new Date(now.getFullYear(),now.getMonth() -1,now.getDate());
             const lastMonthReviews = await Review.countDocuments({createdAt: {$gte: oneMonthAgo}});
-            res.status(200).json({reviews,totalReviews,lastMonthReviews});
+            res.status(200).json({reviews,totalReviews,lastMonthReviews,Fivestar,Fourstar,Threestar,Twostar,Onestar});
     } catch (error) {
         next(error);
     }

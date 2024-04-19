@@ -14,7 +14,7 @@
     "nodemailer": "^6.9.13",
     "nodemon": "^3.0.3",
     "strip": "^3.0.0",
-    "stripe": "^15.1.0"
+    "stripe": "^15.3.0"
   },
   "name": "florashop",
   "version": "1.0.0",
