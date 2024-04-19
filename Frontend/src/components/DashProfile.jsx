@@ -1,4 +1,4 @@
-import { Alert, Button, Modal, TextInput } from "flowbite-react";
+import { Alert, Button, Label, Modal, TextInput } from "flowbite-react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
@@ -22,6 +22,7 @@ export default function DashProfile() {
   const [updateUserError , setUpdateUserError]=useState(null);
   const [showModel , setShowModel] = useState(false);
   const filePickerRef = useRef(null);
+  const [showPassword, setShowPassword] = useState(false); 
  
 
 
@@ -133,6 +134,9 @@ export default function DashProfile() {
       console.log(error);
     }
   };
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+};
 
   return (
     <div className='max-w-lg mx-auto p-3 w-full'>
@@ -202,11 +206,26 @@ export default function DashProfile() {
           placeholder='mobile'
           defaultValue={currentUser.mobile} onChange={handleChange}
         />
-        <TextInput
-          type='password'
-          id='password'
-          placeholder='password'onChange={handleChange}
-        />
+        <div>
+                            <Label value="Your password"/>
+                            <div className="relative">
+                                <TextInput type={showPassword ? "text" : "password"} placeholder="Password" id="password" onChange={handleChange}/>
+                                    <button type="button" className="absolute top-2 right-3 focus:outline-none" onClick={togglePasswordVisibility}>
+                                        {showPassword ? (
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.818 8.818a4 4 0 0 1 0 6.364M5.636 8.818a4 4 0 0 1 0 6.364M11.998 5.996v.01" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18.1V12a3.999 3.999 0 0 1 3.999-4 3.999 3.999 0 0 1 3.999 4v6.1c0 2.21-1.791 4-3.999 4a3.999 3.999 0 0 1-3.999-4z" />
+                                            </svg>
+                                        ) : (
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 15a7 7 0 01-7-7M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        )}
+                                    </button>
+
+                            </div>
+                        </div>
         <Button
           type='submit'
           gradientDuoTone='purpleToBlue'
@@ -250,6 +269,18 @@ export default function DashProfile() {
               outline
             >
               Add Suppliers
+            </Button>
+          </Link>
+        )} 
+          {currentUser.isAdmin && (
+          <Link to='/add-staff'>
+            <Button
+              type='button'
+              gradientDuoTone='purpleToPink'
+              className='w-full'
+              outline
+            >
+              Add Staff Members
             </Button>
           </Link>
         )} 

@@ -106,33 +106,33 @@ export default function Home() {
 
       <div className="pb-10 pt-20">
         <h1 className="text-3xl text-rose-700 uppercase font-semibold mb-5 px-28">Gallery</h1>
-        <div className="flex flex-wrap justify-center bg-white gap-12 pb-7 pt-8">
+        <div className="flex flex-wrap justify-center bg-white gap-12 pb-7 pt-8 dark:bg-slate-800">
 
-          <div className="w-52">
+          <div className="w-52 ">
             <div >
               <img src="/gallery/2.jpg" alt="" className="rounded-xl"/>
             </div>
           </div>
 
-          <div className="w-52">
+          <div className="w-52 ">
             <div >
               <img src="/gallery/3.jpg" alt="" className="rounded-xl"/>
             </div>
           </div>
 
-          <div className="w-52">
+          <div className="w-52 ">
             <div >
               <img src="/gallery/5.jpg" alt="" className="rounded-xl"/>
             </div>
           </div>
 
-          <div className="w-52">
+          <div className="w-52 ">
             <div>
               <img src="/gallery/1.jpg" alt="" className="rounded-xl"/>
             </div>
           </div>
 
-          <div className="w-52">
+          <div className="w-52 ">
             <div>
               <img src="/gallery/9.jpg" alt="" className="rounded-xl"/>
             </div>
@@ -140,7 +140,7 @@ export default function Home() {
 
         </div> 
 
-        <div className="flex flex-wrap justify-center bg-white gap-12">
+        <div className="flex flex-wrap justify-center bg-white gap-12 dark:bg-slate-800">
 
           <div className="w-52">
             <div >

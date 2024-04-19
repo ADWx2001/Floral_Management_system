@@ -17,6 +17,7 @@ import Supplierperfromance from "../components/supplierperofrmance";
 
 import DashDeliveries from "../components/DashDeliveries";
 import DashOrders from "../components/DashOrders";
+import DashMyOrders from "../components/DashMyOrders";
 
 
 
@@ -51,6 +52,7 @@ export default function DashBoard() {
       {tab == 'orders' && <DashOrders/>}
 
       {tab === 'sperforamnce' && <Supplierperfromance/>}
+      {tab === 'myorders' && <DashMyOrders/>}
 
       
 

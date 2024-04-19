@@ -62,10 +62,10 @@ useEffect(() => {
 
 
   return (
-    <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
+    <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300  dark:scrollbar-thumb-slate-500'>
     
     <>
-          <Table hoverable className="shadow-md">
+          <Table hoverable className="shadow-md ">
             <Table.Head>
               <Table.HeadCell>Name</Table.HeadCell>
               <Table.HeadCell> Image</Table.HeadCell>
@@ -86,7 +86,7 @@ useEffect(() => {
         return(
          
      
-            <Table.Body  className='divide-y'  key={i._id}>
+            <Table.Body  className='divide-y '  key={i._id}>
                   <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                     <Table.Cell>{i.Eventname}</Table.Cell>
                     <Table.Cell>

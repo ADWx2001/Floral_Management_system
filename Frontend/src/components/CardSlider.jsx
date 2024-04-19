@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { Carousel } from 'flowbite-react'
 
 export default function CardSlider() {

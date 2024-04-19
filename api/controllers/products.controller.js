@@ -6,7 +6,7 @@ export const create = async (req, res, next) => {
     if (!req.user.isAdmin) {
       return next(errorHandler(403, 'You are not allowed to create a post'));
     }
-    if (!req.body.title || !req.body.description || !req.body.price || !req.body.quantity || !req.body.supplier || !req.body.deliveryTime ) {
+    if (!req.body.title || !req.body.description || !req.body.price || !req.body.quantity ||!req.body.deliveryTime ) {
       return next(errorHandler(400, 'Please provide all required fields'));
     }
 
@@ -27,7 +27,7 @@ export const create = async (req, res, next) => {
 export const getProducts = async (req, res, next) => {
   try {
     const startIndex = parseInt(req.query.startIndex) || 0;
-    const limit = parseInt(req.query.limit) || 9;
+    const limit = parseInt(req.query.limit);
 
     const sortDirection = req.query.order === 'asc' ? 1 : -1;
     const queryOptions = {

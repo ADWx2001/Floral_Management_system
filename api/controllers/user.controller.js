@@ -50,7 +50,7 @@ export const updateUser = async (req,res,next) => {
           }
 
           if (req.body.mobile) {
-            const mobileRegex = /^(071|076|077|075|078|070|074)\d{7}$/;
+            const mobileRegex = /^(071|076|077|075|078|070|074|072)\d{7}$/;
             if (!mobileRegex.test(req.body.mobile)) {
                 return next(errorHandler(400, 'Invalid mobile number format.'));
             }
