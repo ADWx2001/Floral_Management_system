@@ -1,9 +1,10 @@
 import { Button, Modal, Table, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { HiOutlineCurrencyDollar, HiOutlineCurrencyRupee, HiOutlineExclamationCircle, HiOutlineShoppingBag} from "react-icons/hi";
+import { HiOutlineCurrencyDollar, HiOutlineExclamationCircle, HiOutlineShoppingBag} from "react-icons/hi";
 import { useSelector } from "react-redux";
 import 'boxicons/css/boxicons.min.css';
 import { Link } from "react-router-dom";
+import html2pdf from 'html2pdf.js';
 
 export default function DashOrders() {
     const { currentUser } = useSelector((state) => state.user);
@@ -76,12 +77,109 @@ export default function DashOrders() {
       }
     };
 
+    const generatePDFReport = () => {
+      const content = `
+        <style>
+          table {
+            margin:0 auto;
+            width: 90%;
+            border-collapse: collapse;
+          }
+          th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+          }
+          th {
+            background-color: #f2f2f2;
+            font-size: 10px; 
+          }
+          td {
+            font-size: 10px; 
+          }
+          .report-title{
+            text-align:center;
+            font-size:18px;
+          }
+          .details{
+            margin-top:50px;
+            margin-left:30px;
+
+          }
+        </style>
+
+        <h1 class="report-title"><b>Order Details Report</b></h1>
+        <div class="details">
+          <p>Total Orders: ${totalOrders}</p>
+          <p>Total Sales : Rs.${totalSale}.00</p>
+          <p>Total Profit: Rs.${totalSale - 300 * totalOrders}.00</p>
+        </div>
+        <br>
+        <br>
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Order Items</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Subtotal</th>
+              <th>Delivery Fee</th>
+              <th>Payment</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${Orders.map((order) => `
+              <tr>
+                <td>${order._id}</td>
+                <td>
+                  ${order.productsId.map((product) => `
+                      <p>Name: ${product.title}</p>
+                      <p>Quantity: x${product.quantity}</p>
+                  `).join('')}
+                </td>
+                <td>${order.email}</td>
+                <td>${order.phone}</td>
+                <td>${order.address}, ${order.state}, ${order.zip}</td>
+                <td>Rs. ${order.subtotal}.00</td>
+                <td>Rs. ${order.deliveryfee}.00</td>
+                <td>Rs. ${order.totalcost}.00</td>
+                <td>${order.isAdmin ? 'Yes' : 'No'}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    
+      html2pdf().from(content).set({ margin: 1, filename: 'orders_report.pdf' }).save();
+    };
+    
+    
+    const handleGenerateReport = () => {
+      generatePDFReport();
+    
+    };
+
   
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
       <div className="flex flex-wrap gap-5">
-    
+      
+      <div className="">
+        <Button
+            gradientDuoTone='purpleToBlue'
+            outline
+            onClick={handleGenerateReport}
+            className=""
+          >
+            Generate Report
+        </Button>
+      </div>
+
         <div className='flex-wrap flex gap-4 justify-center'>
+          
           <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
             <div className='flex justify-between'>
               <div className=''>
@@ -136,7 +234,7 @@ export default function DashOrders() {
             <div className='flex gap-2 text-sm'>
               <span className='text-green-500 flex items-center'>
                 <HiOutlineCurrencyDollar />
-               {} {totalSale-deliveryfee * totalOrders}.00
+               {totalSale-deliveryfee * totalOrders}.00
               </span>
               <div className='text-gray-500'>All the time</div>
             </div>
@@ -170,7 +268,8 @@ export default function DashOrders() {
       <h1 className="pt-6 px-4 font-semibold">Orders recieved</h1>
     { Array.isArray(Orders) && Orders.length > 0 ? (
     <>
-    <TextInput
+    <div className="flex ">
+      <TextInput
           type='text'
           placeholder='Search a order by (Order ID or Name)'
           required
@@ -179,6 +278,8 @@ export default function DashOrders() {
           style={{ width: 700, marginTop: 30, marginBottom: 30, marginLeft: 250 }}
           onChange={(e) => setSearchName(e.target.value)}
         />
+
+    </div>
 
     <Table hoverable className='shadow-md'>
       <Table.Head>
