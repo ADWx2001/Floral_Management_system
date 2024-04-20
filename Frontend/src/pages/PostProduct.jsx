@@ -7,7 +7,7 @@ import  {RatingStar}  from 'flowbite-react';
 import { HiStar } from 'react-icons/hi';
 
 export default function PostProduct() {
-  const { productSlug } = useParams();
+  const { productSlug ,productId} = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [product, setProduct] = useState(null);
@@ -22,16 +22,7 @@ export default function PostProduct() {
       try {
         setLoading(true);
         const res = await fetch(`/api/products/getproducts?slug=${productSlug}`);
-        const resStar = await fetch(`/api/reviews/getreviews`);
-
-        if(resStar.ok){
-          const starfilter = await resStar.json();
-          setFivestar(starfilter.Fivestar);
-          setFourstar(starfilter.Fourstar);
-          setThreestar(starfilter.Threestar);
-          setTwostar(starfilter.Twostar);
-          setOnestar(starfilter.Onestar);
-        }
+        
         if (!res.ok) {
           setError(true);
           setLoading(false);
@@ -51,6 +42,30 @@ export default function PostProduct() {
     };
     fetchProducts();
   }, [productSlug]);
+
+  useEffect(() =>{
+    const getModreviews = async() => {
+      try{
+        const resStar = await fetch(`/api/reviews/getModarateRating/${productId}`);
+        
+       
+        if(resStar.ok){
+          const starfilter = await resStar.json();
+          setFivestar(starfilter.Fivestar);
+          setFourstar(starfilter.Fourstar);
+          setThreestar(starfilter.Threestar);
+          setTwostar(starfilter.Twostar);
+          setOnestar(starfilter.Onestar);
+        }
+
+      }
+      catch(error){
+        console.log(error.message);
+      }
+    };
+    getModreviews();
+  },[productId])
+
 
   if (loading) {
     return (
@@ -82,9 +97,9 @@ export default function PostProduct() {
             <div className='lg:w-1/2 p-16 '>
               <div className='lg:flex lg:flex-row float-left'> 
                 <div className='flex flex-col'>
-                  <h1 className='p-1 font-serif'>Price: Rs. {product && product.price}</h1>
-                  <h1 className='p-1 font-serif'>Category: {product && product.category}</h1>
-                  <h1 className='p-1 font-serif'>Description: {product && product.description}</h1>
+                  <h1 className='p-1 font-serif'><span className='font-bold text-lg  font-cinzel'>Price : Rs.</span> {product && product.price}</h1>
+                  <h1 className='p-1 font-serif'><span className='font-bold text-lg  font-cinzel'>Category :</span> {product && product.category}</h1>
+                  <h1 className='p-1 font-serif'><span className='font-bold text-lg  font-cinzel'>Description :</span> {product && product.description}</h1>
                 </div>
 
               </div>

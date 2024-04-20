@@ -1,4 +1,4 @@
-import { Modal, Table, Button } from 'flowbite-react';
+import { Modal, Table, Button ,TextInput} from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { HiArrowNarrowUp, HiOutlineExclamationCircle, HiAnnotation ,HiStar} from 'react-icons/hi';
@@ -10,7 +10,7 @@ import html2pdf from 'html2pdf.js';
 export default function ReviewsAdminDash() {
   const { currentUser } = useSelector((state) => state.user);
   const [reviews, setReviews] = useState([]);
-  const [showMore, setShowMore] = useState(true);
+  /*const [showMore, setShowMore] = useState(true);*/
   const [totalReviews, settotalReviews] = useState(0);
   const [lastMonthReviews, setlastMonthReviews] = useState(0);
   const [Fivestar, setFivestar] = useState(0);
@@ -18,6 +18,8 @@ export default function ReviewsAdminDash() {
   const [Threestar, setThreestar] = useState(0);
   const [Twostar, setTwostar] = useState(0);
   const [Onestar, setOnestar] = useState(0);
+  const [search, setSearch] = useState('');
+
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -46,7 +48,7 @@ export default function ReviewsAdminDash() {
     }
   }, [currentUser._id]);
 
-  const handleShowMore = async () => {
+  /*const handleShowMore = async () => {
     const startIndex = reviews.length;
     try {
       const res = await fetch(`/api/reviews/getreviews?startIndex=${startIndex}`);
@@ -60,10 +62,8 @@ export default function ReviewsAdminDash() {
     } catch (error) {
       console.log(error.message);
     }
-  };
+  };*/
 
-
-  
 
   const generatePDFReport = () => {
     const contentr = `
@@ -124,11 +124,14 @@ export default function ReviewsAdminDash() {
   
   };
 
+  
+
   return (
     
     <div className='table-auto overflow-x-scroll md:mx-auto p-2 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
       <div className='flex justify-between'>
         <div></div>
+        
            <Button 
                 gradientDuoTone='purpleToBlue'
                 outline
@@ -183,6 +186,18 @@ export default function ReviewsAdminDash() {
               
           </div>
         </div>
+
+        <div >
+        <TextInput
+          type='text'
+          placeholder='Search product.....'
+          required
+          id='title'
+          className="p-3 dark:bg-slate-800  placeholder-gray-500"
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        </div>
+        
           
 
       {currentUser.isAdmin && reviews.length > 0 ? (
@@ -198,7 +213,7 @@ export default function ReviewsAdminDash() {
               <Table.HeadCell>Reply</Table.HeadCell>
               
             </Table.Head>
-            {reviews.map((review) => (
+            {reviews.filter((review) => search.toLowerCase() === '' ? review : review.productId.toLowerCase().includes(search)).map((review) => (
               <Table.Body className='divide-y' key={review._id}>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                   <Table.Cell>
@@ -229,14 +244,7 @@ export default function ReviewsAdminDash() {
               </Table.Body>
             ))}
           </Table>
-          {showMore && (
-            <button
-              onClick={handleShowMore}
-              className='w-full text-teal-500 self-center text-sm py-7'
-            >
-              Show more
-            </button>
-          )}
+        
         </>
       ) : (
         <p>You have no reviews yet!</p>

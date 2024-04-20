@@ -56,7 +56,7 @@ export default function ReplyReview() {
 
       if (res.ok) {
         setPublishError(null);
-        navigate('/dashboard?tab=products');
+        navigate('/dashboard?tab=reviews');
       }
     } catch (error) {
       setPublishError('Something went wrong');

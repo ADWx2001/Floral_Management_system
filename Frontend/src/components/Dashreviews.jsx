@@ -211,7 +211,7 @@ export default function Dashreviews({ productId}) {
     const getreviews = async() => {
       try{
         const res = await fetch(`/api/reviews/getProductReview/${productId}`);
-        const resdash = await fetch(`/api/reviews/getreviews?limit=9`);
+        
         if(res.ok){
           const data = await res.json();
           setReviews(data);
@@ -286,7 +286,7 @@ const handleDelete = async(reviewId) => {
           <form className=' gap-10 border border-teal-500 rounded-xl p-3' onSubmit={handleSubmit}>
              <div className='p-2'>
                 <label className='pr-1 text-gray-500'>Rating</label>
-                <select className='m-2 p-1 rounded-md text-gray-600 dark:bg-slate-800 ' onChange={(e) => setRating(e.target.value)}value={rating}>    
+                <select className='m-2 p-1 rounded-md text-gray-600 dark:bg-slate-800 ' required onChange={(e) => setRating(e.target.value)}value={rating}>    
                     <option value="">Select</option>
                     <option value="1">1- Bad</option>
                     <option value="2">2- Fair</option>

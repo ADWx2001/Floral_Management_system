@@ -3,7 +3,7 @@ import { errorHandler } from "../utils/error.js";
 
 export const addreview = async (req, res, next) => {
     try {
-        const { content, productId, userId, reviewimage ,productname,username,rating} = req.body;
+        const { content, productId, userId, reviewimage ,productname,username,rating,reply} = req.body;
 
         if (userId !== req.user.id) {
             return next(errorHandler(403, 'You are not allowed to add reviews'));
@@ -17,6 +17,7 @@ export const addreview = async (req, res, next) => {
             productname,
             username, 
             rating,
+            reply,
             
         });
 
@@ -46,7 +47,23 @@ export const getProductReview = async (req, res, next) => {
 };
 
 
-
+export const getModarateRating = async (req, res, next) => {
+    try {
+        
+        const reviews = await Review.find({ productId: req.params.productId })
+        const totalReviews = await Review.countDocuments();
+        const Fivestar = await Review.countDocuments({rating:5});
+        const Fourstar = await Review.countDocuments({rating:4});
+        const Threestar = await Review.countDocuments({rating:3});
+        const Twostar = await Review.countDocuments({rating:2});
+        const Onestar = await Review.countDocuments({rating:1});
+      
+        res.status(200).json({reviews,totalReviews,Fivestar,Fourstar,Threestar,Twostar,Onestar});
+        
+    } catch (error) {
+        next(error);
+    }
+};
 
 export const UpdateReview = async(req,res,next) => {
     try{
@@ -99,12 +116,11 @@ export const getReviews = async(req,res,next) => {
         return next(errorHandler(403,'Your not allow to see all th reviews'));
     try {
         const startIndex = parseInt(req.query.startIndex) || 0;
-        const limit = parseInt(req.query.limit) || 9;
         const sortDirection = req.query.sort === 'asc' ? 1 : -1;
         const reviews = await Review.find()
             .sort({createdAt: sortDirection})
             .skip(startIndex)
-            .limit(limit);
+            
             const totalReviews = await Review.countDocuments();
             const Fivestar = await Review.countDocuments({rating:5});
             const Fourstar = await Review.countDocuments({rating:4});
@@ -129,16 +145,19 @@ export const adminReply = async(req,res,next) =>{
         }
         
         if(review.userId !== req.user.id && !req.user.isAdmin){
-            return next(errorHandler(403,'you are not allow to edit reviews'));
+            return next(errorHandler(403,'you are not allow to reply reviews'));
         }
         
-        const { reply } = req.body;
-
-        // Update the review with the reply
-        review.reply = reply;
-
-        await adminReply.save();
-        res.status(200).json(adminReply);
+        const replyReview = await Review.updateOne(
+            req.params.reviewId,
+            {$set:{
+                reply:req.body.reply,
+                
+            }
+            },
+            {new:true}
+            );
+            res.status(200).json(replyReview)
         
     } catch (error) {
         next(error);
