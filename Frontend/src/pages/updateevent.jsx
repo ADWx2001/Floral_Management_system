@@ -1,6 +1,5 @@
-import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
+import { Alert, Button, FileInput, Select, TextInput, Textarea } from "flowbite-react";
 import { useEffect, useState } from "react";
-import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { app } from "../firebase";
@@ -171,9 +170,12 @@ export default function Updateevents() {
         {image && (
           <img src={image} alt="upload" className="w-full h-82 object-cover"/>
         )}
-        <ReactQuill theme="snow" placeholder="Description..." className="h-52 mb-12" onChange={(value)=>{setFormData({...formData,description:value})}} 
-       value={des}
-          />
+        <Textarea
+          placeholder="Description..."
+          className="h-52 mb-12"
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+          defaultValue={des}
+        />
         
         <Button type='submit' gradientDuoTone='purpleToBlue'>Update</Button>
         {publishError && (

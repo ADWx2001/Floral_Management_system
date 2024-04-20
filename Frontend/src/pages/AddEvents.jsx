@@ -122,7 +122,15 @@ return(
         {formData.image && (
           <img src={formData.image} alt="upload" className="w-full h-82 object-cover"/>
         )}
-        <ReactQuill theme="snow" placeholder="Description..." className="h-52 mb-12" onChange={(value)=>{setFormData({...formData,description:value})}}/>
+         <ReactQuill
+          theme="snow"
+          placeholder="Description..."
+          className="h-52 mb-12"
+          onChange={(value) => {
+            const sanitizedValue = value.replace(/<\/?[^>]+(>|$)/g, "");
+            setFormData({ ...formData, description: sanitizedValue });
+          }}
+        />
         
         <Button type='submit' gradientDuoTone='purpleToBlue'>Add</Button>
         {publishError && (
