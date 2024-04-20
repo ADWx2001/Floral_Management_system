@@ -427,7 +427,7 @@ const handleGenerateReport = async(id) => {
          
      
             <Table.Body  className='divide-y'  key={i._id} style={{
-             height:550,
+             
             
           
             
