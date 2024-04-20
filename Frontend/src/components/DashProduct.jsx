@@ -86,7 +86,7 @@ export default function DashProduct() {
             <th>Category</th>
             <th>Unit Price</th>
             <th>Quantity</th>
-            
+
             <th>Supplier</th>
           </tr>
         </thead>
@@ -172,15 +172,15 @@ export default function DashProduct() {
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                   <Table.Cell>{new Date(product.updatedAt).toLocaleDateString()}</Table.Cell>
                   <Table.Cell>
-                    <Link to={`/product/${product.slug}`}>
-                      <img
-                        src={product.image}
-                        alt={product.title}
-                        className="w-20 h-10 object-cover bg-gray-500"
-                      />
-                    </Link>
-                  </Table.Cell>
-                  <Table.Cell>
+                      <Link to={`/product/${product.slug}`}>
+                        <img
+                          src={product.image}
+                          alt={product.title}
+                          className="w-20 h-10 object-cover bg-gray-500"
+                        />
+                      </Link>
+                    </Table.Cell>
+                    <Table.Cell>
                     <Link className='font-medium text-gray-900 dark:text-white' to={`/product/${product.slug}`}>
                       {product.title}
                     </Link>
