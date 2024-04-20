@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {useSelector} from 'react-redux';
 import {useNavigate } from "react-router-dom";
 
@@ -9,6 +8,7 @@ const PayButton = ({cartItems}) =>{
     // const cart = useSelector((state) => state.cart);
 
     const handleCheckout = async () => {
+        console.log(currentUser._id);
         try {
             const res = await fetch(`/api/stripe/create-checkout-session`, {
                 method: 'POST',

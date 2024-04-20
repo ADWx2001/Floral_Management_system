@@ -52,9 +52,9 @@ export default function Ordersummary() {
           // If response is okay, clear any previous error state
           setPublishError(null);
           
-          // Redirect user to homepage 
-          dispatch(clearCart());
-          navigate('/');
+          // Redirect user to success page
+          
+          navigate('/order-pay-success');
         } catch (error) {
           
           setPublishError(error.message || 'Something went wrong');

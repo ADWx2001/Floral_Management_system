@@ -265,7 +265,17 @@ export default function Cart() {
                     </button>
                   </Link>
                   <div >
-                    <PayButton cartItems={cart.cartItems}/>
+                    {/* <PayButton cartItems={cart.cartItems}/> */}
+                    <Link to='/ordersummary'>
+                    <button
+                        className="rounded-full py-4 px-6 w-full max-w-[280px]  flex items-center bg-indigo-50 justify-center transition-all duration-500 hover:bg-indigo-100">
+                        <span className="px-2 font-semibold text-lg leading-8 text-indigo-600">Continue shopping</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                            <path d="M8.25324 5.49609L13.7535 10.9963L8.25 16.4998" stroke="#4F46E5" strokeWidth="1.6"
+                                strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </button>
+                  </Link>
                   </div>
               </div>
           </div>
