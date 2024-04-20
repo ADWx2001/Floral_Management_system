@@ -11,6 +11,7 @@ import { Sendmail } from '../controllers/supplier.controller.js';
 import { addstocksrec } from '../controllers/supplier.controller.js';
 import { getstocksrec } from '../controllers/supplier.controller.js';
 import { deleteSrec } from '../controllers/supplier.controller.js';
+import { Getprintdetails } from '../controllers/supplier.controller.js';
 
 
 
@@ -24,6 +25,7 @@ router.post('/add',add);
 router.post('/addstockrecords',addstocksrec);
 router.get('/getstockrecords',getstocksrec);
 router.delete('/deletestockrecords/:id',deleteSrec);
+router.get('/getprintstck/:id',Getprintdetails);
 router.post('/sendmail',Sendmail);
 router.get('/get',get);
 router.delete('/delete/:id',Delete);
