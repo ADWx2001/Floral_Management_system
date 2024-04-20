@@ -86,6 +86,7 @@ export default function DashProduct() {
             <th>Category</th>
             <th>Unit Price</th>
             <th>Quantity</th>
+            
             <th>Supplier</th>
           </tr>
         </thead>
