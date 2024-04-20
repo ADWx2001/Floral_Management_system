@@ -36,6 +36,7 @@ import Updatesuppliers from "./pages/Updatesupplier"
 import ForgetPassword from "./pages/ForgetPassword"
 import ResetPassword from "./pages/ResetPassword"
 import Addrestockrec from "./pages/addStockrecords"
+import ContactSup from "./pages/ContactSupplier"
 import CheckoutSuccess from "./pages/CheckoutSuccess"
 
 export default function App() {
@@ -83,6 +84,7 @@ export default function App() {
             <Route path="/ordersummary" element= {<Ordersummary/>} />
             <Route path="/checkout" element={<Checkout/>}/>
             <Route path="/order-pay-success" element={<CheckoutSuccess/>}/>
+            <Route path="/contactsup/:id" element={<ContactSup/>}/>
           </Routes>
         <Footer/>
       </>
