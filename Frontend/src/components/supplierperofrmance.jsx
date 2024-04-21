@@ -61,12 +61,7 @@ export default function Supplierperfromance() {
   const [cost,setcost]= useState();
   const [dstatsu,setdstatus]= useState();
   
-  
-  
-
-
-  
-  const options = {
+   const options = {
     responsive: true,
     plugins: {
       legend: {
@@ -82,7 +77,9 @@ export default function Supplierperfromance() {
   const generatePDFReport = () => {
     const content = `
       <style>
-    
+    div{
+      height:800px;
+    }
 
       h1{
         padding-left:30%;
@@ -95,6 +92,7 @@ export default function Supplierperfromance() {
           padding-left:30px;
           padding-top:30px;
           padding-right:30px;
+          pading-bottom:80px;
         }
         th, td {
           padding: 8px;
@@ -108,6 +106,12 @@ export default function Supplierperfromance() {
         td {
           font-size: 12px; /* Adjust font size */
         }
+        p{
+          font-size: 14px;
+
+        }
+
+
       </style>
       <div>
       <h1><b>Sonduru Mal Pvt ltd</b></h1>
@@ -140,11 +144,18 @@ export default function Supplierperfromance() {
           
         </tbody>
       </table>
-
-      <h4>Company Address</h4>
-      <p>xxxxxxxxxxxxxxxx</p>
-      <p>xxxxxxxxxxxxxxxx</p>
-      <p>xxxxxxxxx</p>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <p>- - - - - - - - - - - -</p>
+      <p>Owner signature</p><br>
+      <h4>Sonduru Mal pvt ltd</h4>
+      <p>Wanduragala, Kurunegala ,SL</p>
+      <p>+ 01 234 567 89</p>
+      <p>  flora@info.com</p>
+  
 
       </div>
     `;
@@ -168,14 +179,13 @@ const handleGenerateReport = async(id) => {
      setcost(data.cost)
      setdstatus(data.Deliverystatus)
      setquantity(data.quantity)
-      console.log(data.supplier)
-      setdate(data.Date)
-      generatePDFReport();
+     console.log(data.supplier)
+     setdate(data.Date)
+     generatePDFReport();
 
   }
     
-  
-  };
+   };
 
  
 
@@ -285,6 +295,10 @@ const handleGenerateReport = async(id) => {
         console.log(data.message); 
         window.location.href='/dashboard?tab=sperforamnce';
       } 
+      if (res.ok) {
+    
+        window.location.href='/dashboard?tab=sperforamnce';
+      } 
     } catch (error) {
       console.log(error.message);
     }}
@@ -326,7 +340,7 @@ const handleGenerateReport = async(id) => {
             />
           }
           title={"Total Orders"}
-          value={123}
+          value={0}
         />
         <DashboardCard
           icon={
@@ -341,7 +355,7 @@ const handleGenerateReport = async(id) => {
             />
           }
           title={"Late Deliveries"}
-          value={123}
+          value={0}
         />
         <DashboardCard
           icon={
@@ -371,7 +385,7 @@ const handleGenerateReport = async(id) => {
             />
           }
           title={"Total cost"}
-          value={123}
+          value={0}
         />
      
       </Space>

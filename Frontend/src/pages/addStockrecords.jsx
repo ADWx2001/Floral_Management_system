@@ -104,10 +104,10 @@ export default function Addrestockrec() {
               setFormData({ ...formData, itemname: e.target.value })
             }/>
 
-<TextInput type='text'placeholder='Total Cost'required id='Total Cost'className='flex-1'  onChange={(e) =>
+<TextInput type='number'placeholder='Total Cost'required id='Total Cost'className='flex-1'  onChange={(e) =>
               setFormData({ ...formData, cost: e.target.value })
             }/>
-            <TextInput type='text'placeholder='Quantity'required id='Quantity'className='flex-1'  onChange={(e) =>
+            <TextInput type='number'placeholder='Quantity'required id='Quantity'className='flex-1'  onChange={(e) =>
               setFormData({ ...formData, qan: e.target.value })
             }/>
             <TextInput type='Date'placeholder='Date'required id='Date'className='flex-1'  onChange={(e) =>

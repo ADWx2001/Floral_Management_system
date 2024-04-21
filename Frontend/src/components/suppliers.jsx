@@ -5,6 +5,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+
 export default function Suppliers() {
 
     const { currentUser } = useSelector((state) => state.user);
@@ -50,6 +51,10 @@ export default function Suppliers() {
             console.log(data.message); 
             window.location.href='/dashboard?tab=suppliers';
           } 
+          if (res.ok) {
+        
+            window.location.href='/dashboard?tab=suppliers';
+          } 
         } catch (error) {
           console.log(error.message);
         }}
@@ -59,7 +64,7 @@ export default function Suppliers() {
 
 
       <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
-    
+ 
     <Link style={{
               fontSize:18,
                marginLeft:900,

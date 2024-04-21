@@ -7,7 +7,16 @@ import Restocks from "../models/Restockrecords.model.js";
 export const add = async (req, res, next) => {
   const { SupplierName, CompanyName, PhoneNumber, EmailAddress, Address, Paymentmethod, category, CommunicationMethod, image } = req.body;
 
-  const newSupplier = new Supplier({
+
+ 
+  const mobileRegex = /^(071|076|077|075|078|070|074|072)\d{7}$/;
+ 
+
+ if (!mobileRegex.test(PhoneNumber)) {
+      return next(errorHandler(400, 'Invalid mobile number format'));
+  } else {
+
+const newSupplier = new Supplier({
     suppliername: SupplierName,
     comapnyname: CompanyName,
     phonenumber: Number(PhoneNumber),
@@ -25,6 +34,8 @@ export const add = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+
+}
 }
 
 export const addstocksrec = async (req, res, next) => {
@@ -45,6 +56,7 @@ export const addstocksrec = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+
 }
 
 export const getstocksrec = async (req, res, next) => {
@@ -86,7 +98,7 @@ export const getCount = async (req, res, next) => {
 
 export const Sendmail = async (req, res, next) => {
   const { email, subject, massege } = req.body;
-  console.log(email, subject, massege);
+  //console.log(email, subject, massege);
   
   try {
     let transporter = nodemailer.createTransport({
@@ -100,7 +112,7 @@ export const Sendmail = async (req, res, next) => {
     let MailGenerator = new Mailgen({
       theme: "default",
       product: {
-        name: "Mailgen",
+        name: "SonduruMal pvt ltd",
         link: 'https://mailgen.js/'
       }
     });
@@ -114,7 +126,7 @@ export const Sendmail = async (req, res, next) => {
             {
               item: "Nodemailer Stack Book",
               description: "A Backend application",
-              price: "$10.99",
+              price: "000",
             }
           ]
         },
@@ -126,7 +138,7 @@ export const Sendmail = async (req, res, next) => {
 
     let message = {
       from: 'pesaraicc@gmail.com',
-      to: email,
+      to:'pesara.us@gmail.com',
       subject: subject,
       html: mail
     };
@@ -166,7 +178,7 @@ export const Getuser = async (req, res, next) => {
 
 export const Getprintdetails= async(req,res,next)=>{
   const Id= req.params.id;
-  console.log(Id);
+
   Restocks.findOne({_id:Id}).then((Restocks)=>{
 
     if (Restocks){
@@ -193,7 +205,11 @@ export const Getprintdetails= async(req,res,next)=>{
 
 export const updatesupplier = async (req, res, next) => {
   const { SupplierName, CompanyName, PhoneNumber, EmailAddress, Address, Paymentmethod, category, CommunicationMethod, image, Damageditem } = req.body;
-  
+  const mobileRegex = /^(071|076|077|075|078|070|074|072)\d{7}$/;
+ 
+
+
+ 
   try {
     const updatesupplier = await Supplier.findByIdAndUpdate(
       req.params.id,
@@ -216,5 +232,5 @@ export const updatesupplier = async (req, res, next) => {
     res.status(200).json(updatesupplier);
   } catch (error) {
     next(error);
-  }
-};
+  
+}};

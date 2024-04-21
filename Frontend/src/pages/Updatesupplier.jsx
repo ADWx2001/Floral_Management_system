@@ -109,9 +109,9 @@ export default function Updatesuppliers() {
              setnumber(data.phonenumber)
              setpaytype(data.paymenttype)
              setemail(data.email)
-      setimage(data.profilePicture)
+             setimage(data.profilePicture)
 
-      setcount(data.damageditemcount)
+              setcount(data.damageditemcount)
 
              setFile(data.profilePicture)
              console.log(data.paymenttype)
@@ -232,11 +232,11 @@ export default function Updatesuppliers() {
             <TextInput type='email'placeholder='Email Address:'required id='Email Address:'className='flex-1'  onChange={(e) =>
               setFormData({ ...formData, EmailAddress: e.target.value })
             } defaultValue={Email}/>
-            <TextInput type='text'placeholder='Damaged item count'required id='count'className='flex-1'  onChange={(e) =>
+            <TextInput type='number'placeholder='Damaged item count' id='count'className='flex-1'  onChange={(e) =>
               setFormData({ ...formData, Damageditem: e.target.value })
-            } defaultValue={count}/>
+            } defaultValue={count} />
 
-            <TextInput type='text'placeholder='Email Address:'required id='Email Address:'className='flex-1'  onChange={(e) =>
+            <TextInput type='email'placeholder='Email Address:'required id='Email Address:'className='flex-1'  onChange={(e) =>
               setFormData({ ...formData, EmailAddress: e.target.value })
             } defaultValue={Email}/>
 
