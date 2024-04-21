@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import EventSlider from "../components/EventSlider";
 import { useEffect, useState } from "react";
 export default function Event() {
@@ -23,11 +23,9 @@ export default function Event() {
   
 
     fetchPosts();
-}, []); // Empty dependency array
+}, []); 
 
-const handleDetailsClick = (slug) => {
-  return <Navigate to={`/event/${slug}`} />;
-}
+
 
 
   return (
@@ -71,7 +69,7 @@ const handleDetailsClick = (slug) => {
                   <div className="px-6 py-4">
                     <div className="font-bold text-xl mb-2">{event.Eventname}</div>
                     <div className="flex justify-between gap-4 pt-4">
-                      <button className="p-2 bg-gray-300 hover:bg-gray-400 rounded-lg" onClick={() => handleDetailsClick(event.slug)}>More</button>
+                      <Link to={`/event/${event.slug}`} className="p-2 bg-gray-300 hover:bg-gray-400 rounded-lg">More</Link>
                       <button className="p-2 bg-blue-800 hover:bg-blue-900 rounded-lg text-white">Book Now</button>
                     </div>
                   </div>

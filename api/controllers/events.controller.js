@@ -99,4 +99,18 @@ res.status (500). send({status: "Error with deleting data", error: err.message})
 })
 }
 
+export const getEventBySlug = async (req, res, next) => {
+  const slug = req.params.slug; 
+  try {
+      const event = await Event.findOne({ slug }); 
+      if (event) {
+          res.json(event);
+      } else {
+          res.status(404).json({ error: "Event not found" });
+      }
+  } catch (error) {
+      next(error);
+  }
+};
+
 //finished
