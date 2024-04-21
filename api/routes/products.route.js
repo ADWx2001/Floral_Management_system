@@ -1,4 +1,4 @@
-import express from 'express';
+ import express from 'express';
 import { verifyToken } from '../utils/verifyUser.js';
 import { create, deleteproduct, getProducts, updateproduct } from '../controllers/products.controller.js';
 

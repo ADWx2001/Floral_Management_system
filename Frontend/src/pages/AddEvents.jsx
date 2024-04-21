@@ -98,9 +98,15 @@ return(
           <Select  onChange={(e) =>setFormData({ ...formData, category: e.target.value })
             }>
             <option value='uncategorized'>Select a category</option>
-            <option value='cat 1'>cat 1</option>
-            <option value='cat 2'>cat 2</option>
-            <option value='cat 3'>cat 3</option>3
+            <option value='Wedding'>Wedding</option>
+            <option value='Birthday Party'>Birthday Party</option>
+            <option value='Baby Shower'>Baby Shower</option>
+            <option value='Religious'>Religious</option>
+            <option value='Corporate'>Corporate</option>
+            <option value='Anniversary'>Anniversary</option>
+            
+
+
           </Select>
          </div>
          <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
@@ -122,7 +128,15 @@ return(
         {formData.image && (
           <img src={formData.image} alt="upload" className="w-full h-82 object-cover"/>
         )}
-        <ReactQuill theme="snow" placeholder="Description..." className="h-52 mb-12" onChange={(value)=>{setFormData({...formData,description:value})}}/>
+         <ReactQuill
+          theme="snow"
+          placeholder="Description..."
+          className="h-52 mb-12"
+          onChange={(value) => {
+            const sanitizedValue = value.replace(/<\/?[^>]+(>|$)/g, "");
+            setFormData({ ...formData, description: sanitizedValue });
+          }}
+        />
         
         <Button type='submit' gradientDuoTone='purpleToBlue'>Add</Button>
         {publishError && (

@@ -163,6 +163,34 @@ export const Getuser = async (req, res, next) => {
   }
 }
 
+
+export const Getprintdetails= async(req,res,next)=>{
+  const Id= req.params.id;
+  console.log(Id);
+  Restocks.findOne({_id:Id}).then((Restocks)=>{
+
+    if (Restocks){
+        res.json(Restocks)
+       } else {
+        res.status(401);
+        console.log("error")
+        
+      }
+
+})
+
+}
+
+
+
+
+
+
+
+
+
+
+
 export const updatesupplier = async (req, res, next) => {
   const { SupplierName, CompanyName, PhoneNumber, EmailAddress, Address, Paymentmethod, category, CommunicationMethod, image, Damageditem } = req.body;
   

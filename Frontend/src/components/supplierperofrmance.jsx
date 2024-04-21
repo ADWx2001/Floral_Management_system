@@ -1,7 +1,8 @@
-/* eslint-disable react/prop-types */
 import {
   DollarCircleOutlined,
+  OrderedListOutlined,
   ShoppingCartOutlined,
+  ShoppingOutlined,
   UserOutlined,
   WarningFilled,
 } from "@ant-design/icons";
@@ -19,6 +20,8 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import  html2pdf from "html2pdf.js";
+
 
 ChartJS.register(
   CategoryScale,
@@ -40,15 +43,25 @@ import { Content } from "antd/es/layout/layout";
 export default function Supplierperfromance() {
 
   
- 
+  const [orders, setOrders] = useState(0);
   const { currentUser } = useSelector((state) => state.user);
-
+  const [inventory, setInventory] = useState(0);
+  const [customers, setCustomers] = useState(0);
+  const [revenue, setRevenue] = useState(0);
   const[scount,setscount]=useState(0);
   const [Suppliers,setsuppliers] = useState ([])
   const [reveneuData, setReveneuData] = useState({labels: [],datasets: [],});
   const [srecords,setrecords] = useState ([])
   const [showModel , setShowModel] = useState(false);
   const [IdToDelete, setIdToDelete] = useState('');
+  const [rsuppliername,setrsuppliername]= useState();
+  const [itemname,setitemname]= useState();
+  const [quantity,setquantity]= useState();
+  const [date,setdate]= useState();
+  const [cost,setcost]= useState();
+  const [dstatsu,setdstatus]= useState();
+  
+  
   
 
 
@@ -65,6 +78,108 @@ export default function Supplierperfromance() {
       },
     },
   };
+
+  const generatePDFReport = () => {
+    const content = `
+      <style>
+    
+
+      h1{
+        padding-left:30%;
+        font-size:40px;
+        padding-bottum:50px;
+      }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          padding-left:30px;
+          padding-top:30px;
+          padding-right:30px;
+        }
+        th, td {
+          padding: 8px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+        }
+        th {
+          background-color: #f2f2f2;
+          font-size: 14px; /* Adjust font size */
+        }
+        td {
+          font-size: 12px; /* Adjust font size */
+        }
+      </style>
+      <div>
+      <h1><b>Sonduru Mal Pvt ltd</b></h1>
+      <p>Supplier Name:${rsuppliername}</p>
+      <p>Owner name : Flower shop owner</p>
+    
+      <br>
+      <br>
+      <table>
+        <thead>
+          <tr>
+       
+            <th>Item name</th>
+            <th>Quantity</th>
+            <th>Total cost</th>
+            <th>Date</th>
+            <th>Delivery status</th>
+          </tr>
+        </thead>
+        <tbody>
+      
+            <tr>
+            
+              <td>${itemname}</td>
+              <td>${quantity}</td>
+              <td>${cost}</td>
+              <td>${date}</td>
+              <td>${dstatsu}</td>
+            </tr>
+          
+        </tbody>
+      </table>
+
+      <h4>Company Address</h4>
+      <p>xxxxxxxxxxxxxxxx</p>
+      <p>xxxxxxxxxxxxxxxx</p>
+      <p>xxxxxxxxx</p>
+
+      </div>
+    `;
+
+    html2pdf().from(content).set({ margin: 1, filename: 'supplies_report.pdf' }).save();
+  };
+
+
+
+const handleGenerateReport = async(id) => {
+  const res = await fetch(`/api/suppliers/getprintstck/${id}`);
+  const data = await res.json();
+  if (!res.ok) {
+    console.log("error")
+
+    return;
+  }
+  if (res.ok) {
+     setrsuppliername(data.supplier)
+     setitemname(data.itemname)
+     setcost(data.cost)
+     setdstatus(data.Deliverystatus)
+     setquantity(data.quantity)
+      console.log(data.supplier)
+      setdate(data.Date)
+      generatePDFReport();
+
+  }
+    
+  
+  };
+
+ 
+
+
 
 
   useEffect(() => {
@@ -187,13 +302,14 @@ export default function Supplierperfromance() {
 
 
   return (
-    <Space size={50} direction="vertical" >
+    <Space size={50} direction="vertical">
       <Typography.Title level={4} style={{
            
            marginLeft:400,
            fontSize:13,
            marginTop:20,
            color:"grey",
+           fontSize:30,
             }}>Supplier Performance Analysis</Typography.Title>
       <Space direction="horizontal">
         <DashboardCard 
@@ -242,7 +358,7 @@ export default function Supplierperfromance() {
           title={"Total Suppliers"}
           value={scount}
         />
-        <DashboardCard 
+        <DashboardCard
           icon={
             <DollarCircleOutlined
               style={{
@@ -251,7 +367,6 @@ export default function Supplierperfromance() {
                 borderRadius: 20,
                 fontSize: 24,
                 padding: 20,
-                
               }}
             />
           }
@@ -268,7 +383,7 @@ export default function Supplierperfromance() {
 </Space>
        <Space>
      
-       <div className="outer-wrapper" style={{  paddingBottom:50,}}>
+       <div class="outer-wrapper" style={{  paddingBottom:50,}}>
        <Link className='text-teal-500 hover:underline'to={`/add-srecords`} style={{
              marginLeft:500,
       
@@ -277,7 +392,7 @@ export default function Supplierperfromance() {
              }}>
                       <span>Add Restock Records</span>
                     </Link>
-  <div className="table-wrapper dark:bg-slate-800 ">
+  <div class="table-wrapper">
  
 <>
       
@@ -311,7 +426,7 @@ export default function Supplierperfromance() {
         return(
          
      
-            <Table.Body  className='divide-y dark:bg-slate-800 '   key={i._id} style={{
+            <Table.Body  className='divide-y'  key={i._id} style={{
              
             
           
@@ -340,6 +455,11 @@ export default function Supplierperfromance() {
                       Remove
                     </span></Table.Cell>
                     <Table.Cell><span className='text-teal-500 hover:underline'
+                     onClick={() => {
+                     
+                      handleGenerateReport(i._id);
+                     
+                    }} 
                         
                     >
                       Print
@@ -414,3 +534,4 @@ function DashboardCard({ title, value, icon }) {
     </Card>
   );
 }
+

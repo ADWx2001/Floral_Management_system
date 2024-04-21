@@ -36,7 +36,9 @@ import Updatesuppliers from "./pages/Updatesupplier"
 import ForgetPassword from "./pages/ForgetPassword"
 import ResetPassword from "./pages/ResetPassword"
 import Addrestockrec from "./pages/addStockrecords"
+import ContactSup from "./pages/ContactSupplier"
 import CheckoutSuccess from "./pages/CheckoutSuccess"
+import PostEvent from "./pages/PostEvent"
 
 export default function App() {
   return (
@@ -64,6 +66,7 @@ export default function App() {
             <Route path="/update-delivery/:deliveryId" element={<UpdateDelivery/>}></Route>
             <Route path="/reply-review/:reviewId" element={<ReplyReview/>}/> </Route>
             <Route path="/product/:productSlug" element={<PostProduct/>}/>
+            <Route path="/event/:eventSlug" element={<PostEvent/>}/> 
             <Route path="/update-review/:reviewId" element={<UpdateReviews/>}/>  
             <Route path="/add-suppliers" element={<Addsuppliers/>}/>
             <Route path="/add-staff" element={<Addstaff/>}/>
@@ -83,6 +86,7 @@ export default function App() {
             <Route path="/ordersummary" element= {<Ordersummary/>} />
             <Route path="/checkout" element={<Checkout/>}/>
             <Route path="/order-pay-success" element={<CheckoutSuccess/>}/>
+            <Route path="/contactsup/:id" element={<ContactSup/>}/>
           </Routes>
         <Footer/>
       </>

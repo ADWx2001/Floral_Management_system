@@ -14,6 +14,7 @@ export default function UpdateProducts() {
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
+  const [suppliers, setSuppliers] = useState([]);
   const { productId } = useParams();
 
   const navigate = useNavigate();
@@ -46,6 +47,23 @@ export default function UpdateProducts() {
 
     fetchProduct();
   }, [productId]);
+
+  useEffect(() => {
+    const fetchSuppliers = async () => {
+      try {
+        const response = await fetch('/api/suppliers/get');
+        if (response.ok) {
+          const data = await response.json();
+          setSuppliers(data);
+        } else {
+          throw new Error('Failed to fetch suppliers');
+        }
+      } catch (error) {
+        console.error('Error fetching suppliers:', error);
+      }
+    };
+    fetchSuppliers();
+  }, []);
 
   const handleUploadImage = () => {
     try {
@@ -141,7 +159,7 @@ export default function UpdateProducts() {
         {formData.image && (
           <img src={formData.image} alt="upload" className="w-full h-82 object-cover" />
         )}
-       <Textarea
+        <Textarea
           placeholder="Description..."
           className="h-52 mb-12"
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -158,9 +176,12 @@ export default function UpdateProducts() {
           <TextInput type="text" placeholder="Delivery Time" id="deliveryTime" onChange={(e) =>
             setFormData({ ...formData, deliveryTime: e.target.value })
           } value={formData.deliveryTime || ''} />
-          <TextInput type="text" placeholder="Supplier" id="supplier" onChange={(e) =>
-            setFormData({ ...formData, supplier: e.target.value })
-          } value={formData.supplier || ''} />
+          <Select onChange={(e) => setFormData({ ...formData, supplier: e.target.value })}>
+            <option value=''>Select a supplier</option>
+            {suppliers.map(supplier => (
+              <option key={supplier._id} value={supplier.suppliername}>{supplier.suppliername}</option>
+            ))}
+          </Select>
         </div>
         <Button type='submit' gradientDuoTone='purpleToBlue'>Update</Button>
         {publishError && (

@@ -1,4 +1,4 @@
-import { Alert, Button, Label, Modal, TextInput } from "flowbite-react";
+import { Alert, Button,  Modal, TextInput } from "flowbite-react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
@@ -38,7 +38,7 @@ export default function DashProfile() {
     if (image) {
       uploadImage();
     }
-  }, [image]);
+  }, [image])
 
   const uploadImage = async () => {
     const storage = getStorage(app);
@@ -207,7 +207,7 @@ export default function DashProfile() {
           defaultValue={currentUser.mobile} onChange={handleChange}
         />
         <div>
-                            <Label value="Your password"/>
+                           
                             <div className="relative">
                                 <TextInput type={showPassword ? "text" : "password"} placeholder="Password" id="password" onChange={handleChange}/>
                                     <button type="button" className="absolute top-2 right-3 focus:outline-none" onClick={togglePasswordVisibility}>
@@ -245,7 +245,7 @@ export default function DashProfile() {
               Add products
             </Button>
           </Link>
-        )}
+        )}   
 
        {currentUser.isAdmin && (
           <Link to='/create-event'>

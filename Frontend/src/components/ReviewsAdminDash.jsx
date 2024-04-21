@@ -1,16 +1,25 @@
-import { Modal, Table, Button } from 'flowbite-react';
+import { Modal, Table, Button ,TextInput} from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { HiArrowNarrowUp, HiOutlineExclamationCircle, HiAnnotation } from 'react-icons/hi';
+import { HiArrowNarrowUp, HiOutlineExclamationCircle, HiAnnotation ,HiStar} from 'react-icons/hi';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { Link } from "react-router-dom";
+import html2pdf from 'html2pdf.js';
+
 
 export default function ReviewsAdminDash() {
   const { currentUser } = useSelector((state) => state.user);
   const [reviews, setReviews] = useState([]);
-  const [showMore, setShowMore] = useState(true);
+  /*const [showMore, setShowMore] = useState(true);*/
   const [totalReviews, settotalReviews] = useState(0);
   const [lastMonthReviews, setlastMonthReviews] = useState(0);
+  const [Fivestar, setFivestar] = useState(0);
+  const [Fourstar, setFourstar] = useState(0);
+  const [Threestar, setThreestar] = useState(0);
+  const [Twostar, setTwostar] = useState(0);
+  const [Onestar, setOnestar] = useState(0);
+  const [search, setSearch] = useState('');
+
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -19,6 +28,13 @@ export default function ReviewsAdminDash() {
         const data = await res.json();
         if (res.ok) {
           setReviews(data.reviews);
+          settotalReviews(data.totalReviews);
+          setlastMonthReviews(data.lastMonthReviews);
+          setFivestar(data.Fivestar);
+          setFourstar(data.Fourstar);
+          setThreestar(data.Threestar);
+          setTwostar(data.Twostar);
+          setOnestar(data.Onestar);
           if (data.reviews.length < 9) {
             setShowMore(false);
           }
@@ -32,49 +48,103 @@ export default function ReviewsAdminDash() {
     }
   }, [currentUser._id]);
 
-  const handleShowMore = async () => {
+  /*const handleShowMore = async () => {
     const startIndex = reviews.length;
     try {
       const res = await fetch(`/api/reviews/getreviews?startIndex=${startIndex}`);
       const data = await res.json();
       if (res.ok) {
         setReviews((prev) => [...prev, ...data.reviews]);
-        if (data.users.length < 9) {
+        if (data.reviews.length < 9) {
           setShowMore(false);
         }
       }
     } catch (error) {
       console.log(error.message);
     }
-  };
+  };*/
 
 
-  useEffect(() => {
-  const fetchReviewsDash =async () => {
-    try {
-      const resdash = await fetch(`/api/reviews/getreviews?limit=9`);
-      const data = await resdash.json();
-      if (resdash.ok) {
-        setReviews(data.reviews);
-        settotalReviews(data.totalReviews);
-        setlastMonthReviews(data.lastMonthReviews);
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
+  const generatePDFReport = () => {
+    const contentr = `
+      <style>
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        th, td {
+          padding: 8px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+        }
+        th {
+          background-color: #f2f2f2;
+          font-size: 14px; 
+        }
+        td {
+          font-size: 12px; 
+        }
+      </style>
+      <h1><b>Review & Rating Report</b></h1>
+      <p>Total Reviews: ${totalReviews}</p>
+      <p>Last Month Total Reviews : ${lastMonthReviews}</p>
+      
+      <br>
+      <br>
+      <table>
+        <thead>
+          <tr>
+            <th>Created At</th>
+            <th>Review content</th>
+            <th>Rating No</th>
+            <th>Username</th>
+            <th>ProductName</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${reviews.map((review) => `
+            <tr>
+              <td>${new Date(review.createdAt).toLocaleDateString()}</td>
+              <td>"${review.content}"</td>
+              <td>${review.rating}</td>
+              <td>${review.username}</td>
+              <td>${review.productId}</td>
+              
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+
+    html2pdf().from(contentr).set({ margin: 1, filename: 'Review & Rating_Report.pdf' }).save();
   };
-  if(currentUser.isAdmin){
-    fetchReviewsDash();
-  }
-  },[currentUser]);
+  
+  const handleGenerateReport = () => {
+    generatePDFReport();
+  
+  };
+
   
 
   return (
     
     <div className='table-auto overflow-x-scroll md:mx-auto p-2 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
-   
-    <div className='flex flex-col p-3 mb-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
+      <div className='flex justify-between'>
+        <div></div>
+        
+           <Button 
+                gradientDuoTone='purpleToBlue'
+                outline
+                onClick={handleGenerateReport}
+                className=""
+              >
+              Generate Report
+           </Button>
+      </div>
+      <div className='flex-wrap flex gap-4 justify-start p-3'>
+        <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
           <div className='flex justify-between'>
+            
             <div className=''>
               <h3 className='text-gray-500 text-md uppercase'>
                 Total Reviews
@@ -92,6 +162,44 @@ export default function ReviewsAdminDash() {
           </div>
         </div>
 
+        <div className='flex-wrap flex  dark:bg-slate-800 gap-1 items-center p-3 md:w-80  w-full shadow-md  rounded-md '>
+       
+              <div >
+                  <div className=' bg-gray-100  dark:bg-slate-700 w-12 items-center p-1 m-1 rounded-md text-lg'><HiStar className='text-yellow-300 text-2xl'/>5[{Fivestar}]</div>
+              </div>
+
+              <div >
+                  <div className=' bg-gray-100  dark:bg-slate-700 w-12 items-center p-1 m-1 rounded-md text-lg'><HiStar className='text-yellow-300 text-2xl' />4[{Fourstar}]</div>
+              </div>
+
+              <div >
+                  <div className=' bg-gray-100  dark:bg-slate-700 w-12 items-center p-1 m-1 rounded-md text-lg'><HiStar className='text-yellow-300 text-2xl'/>3[{Threestar}]</div>
+              </div>
+
+              <div >
+                  <div className=' bg-gray-100  dark:bg-slate-700 w-12 items-center p-1 m-1 rounded-md text-lg'><HiStar className='text-yellow-300 text-2xl' />2[{Twostar}]</div>
+              </div>
+
+              <div >
+                  <div className=' bg-gray-100  dark:bg-slate-700 w-12 items-center p-1 m-1 rounded-md text-lg'><HiStar className='text-yellow-300 text-2xl' />1[{Onestar}]</div>
+              </div>
+              
+          </div>
+        </div>
+
+        <div >
+        <TextInput
+          type='text'
+          placeholder='Search product.....'
+          required
+          id='title'
+          className="p-3 dark:bg-slate-800  placeholder-gray-500"
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        </div>
+        
+          
+
       {currentUser.isAdmin && reviews.length > 0 ? (
         <>
           <Table hoverable className='shadow-md'>
@@ -105,7 +213,7 @@ export default function ReviewsAdminDash() {
               <Table.HeadCell>Reply</Table.HeadCell>
               
             </Table.Head>
-            {reviews.map((review) => (
+            {reviews.filter((review) => search.toLowerCase() === '' ? review : review.productId.toLowerCase().includes(search)).map((review) => (
               <Table.Body className='divide-y' key={review._id}>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                   <Table.Cell>
@@ -136,14 +244,7 @@ export default function ReviewsAdminDash() {
               </Table.Body>
             ))}
           </Table>
-          {showMore && (
-            <button
-              onClick={handleShowMore}
-              className='w-full text-teal-500 self-center text-sm py-7'
-            >
-              Show more
-            </button>
-          )}
+        
         </>
       ) : (
         <p>You have no reviews yet!</p>
