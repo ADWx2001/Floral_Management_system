@@ -141,10 +141,10 @@ export default function Addsuppliers() {
             <TextInput type='text'placeholder='Address'required id='Address'className='flex-1'  onChange={(e) =>
               setFormData({ ...formData, Address: e.target.value })
             }/>
-            <TextInput type='text'placeholder='Phone Number:'required id='Phone Number:'className='flex-1'  onChange={(e) =>
+            <TextInput type='number'placeholder='Phone Number:'required id='Phone Number:'className='flex-1'  onChange={(e) =>
               setFormData({ ...formData, PhoneNumber: e.target.value })
             }/>
-            <TextInput type='text'placeholder='Email Address:'required id='Email Address:'className='flex-1'  onChange={(e) =>
+            <TextInput type='email'placeholder='Email Address:'required id='Email Address:'className='flex-1'  onChange={(e) =>
               setFormData({ ...formData, EmailAddress: e.target.value })
             }/>
         <Button type='submit' gradientDuoTone='purpleToBlue'>Add</Button>
