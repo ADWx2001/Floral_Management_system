@@ -88,6 +88,7 @@ export default function DashDeliveries() {
       <Table.Head>
         <Table.HeadCell>User ID</Table.HeadCell>
         <Table.HeadCell>Order ID</Table.HeadCell>
+        <Table.HeadCell>Items</Table.HeadCell>
         <Table.HeadCell>First Name</Table.HeadCell>
         <Table.HeadCell>Last Name</Table.HeadCell>
         <Table.HeadCell>Email</Table.HeadCell>
@@ -115,7 +116,7 @@ export default function DashDeliveries() {
               /> */}
               {delivery.orderId}
             </Table.Cell>
-
+              <Table.Cell>{delivery.items} <br /></Table.Cell>
             <Table.Cell>{delivery.first_name}</Table.Cell>
 
             <Table.Cell>{delivery.last_name}</Table.Cell>

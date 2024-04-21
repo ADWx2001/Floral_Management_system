@@ -5,8 +5,9 @@ import { errorHandler } from "../utils/error.js";
 //create new deliery record
 export const createDeliverRecord = async (req, res,next)=>{
     if (!req.body.userId || !req.body.orderId || !req.body.items|| !req.body.first_name || !req.body.last_name || !req.body.email || !req.body.phone || !req.body.address ||!req.body.state || !req.body.zip || !req.body.trackingnumber|| !req.body.status || !req.body. deliveryservice || !req.body.deliverycontactno ) {
+        console.log("hiii from controller");
         console.log(req.body);
-        // return next(errorHandler(400, 'Please provide all required fields'));
+        return next(errorHandler(400, 'Please provide all required fields'));
       }
 
       const userId = req.body.userId;

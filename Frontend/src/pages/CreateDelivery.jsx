@@ -6,7 +6,9 @@ import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate , useParams} from "react-router-dom";
 
 export default function CreateDelivery() {
-    const [formData , setFormData] = useState({});
+    const [formData , setFormData] = useState({productsId:[],});
+
+    // const formattedItems = formData.productsId.map(item => ` ${item.title}: x${item.quantity}`).join('\n');
     const [publishError, setPublishError] = useState(null);
     const { orderId } = useParams();
 
@@ -64,12 +66,20 @@ export default function CreateDelivery() {
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+          const formattedItems = formData.productsId.map(item => `${item.title}: x${item.quantity}`).join(', ');
+
+          const deliveryData = {
+            ...formData,
+            items: formattedItems // Include the formatted items in the request body
+          };
+
+
             const res = await fetch(`/api/delivery/create-delivery-record`, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify(deliveryData),
           });
           const data = await res.json();
           if (!res.ok) {
@@ -98,7 +108,16 @@ export default function CreateDelivery() {
                     <label>Order ID</label>
                     <TextInput type='text' required id='orderId' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, orderId: e.target.value })} value={formData._id} placeholder="Order ID" readOnly/>
                     <label>Items</label>
-                    <TextInput type='text' required id='items' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, items: e.target.value })}  placeholder="Items" />
+                    <TextInput
+                      type='text'
+                      required
+                      id='items'
+                      className='p-2 mb-2'
+                      onChange={(e) => setFormData({ ...formData, productsId: [{ title: e.target.value }] })}
+                      value={formData.productsId.map(item => `${item.title}: x${item.quantity}`).join(', ')}
+                      placeholder="Items"
+                    />
+
                     <label>First Name</label>
                     <TextInput type='text' required id='first_name' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, first_name: e.target.value })} value={formData.first_name} placeholder="First Name" readOnly/>
                     <label>Last Name</label>
