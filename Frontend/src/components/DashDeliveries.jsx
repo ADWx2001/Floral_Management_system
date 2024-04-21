@@ -1,4 +1,4 @@
-import { Button, Modal, Table } from "flowbite-react";
+import { Button, Modal, Table, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useSelector } from "react-redux";
@@ -11,6 +11,8 @@ export default function DashDeliveries() {
     const [showMore, setShowMore] = useState(true);
     const [showModel , setShowModel] = useState(false);
     const [deliverIdToDelete, setDeliverIdToDelete] = useState('');
+
+    const [searchName, setSearchName] = useState('');
 
     // const [totalOrders, setTotalOrders] = useState(0);
     // const [totalSale, setTotalSale] = useState(0);
@@ -84,6 +86,19 @@ export default function DashDeliveries() {
       <h1 className="pt-6 px-4 font-semibold">Deliveries created</h1>
     { Array.isArray(Deliveries) && Deliveries.length > 0 ? (
     <>
+    <div className="flex ">
+      <TextInput
+          type='text'
+          placeholder='Search a order by (Order ID or User ID)'
+          required
+          id='title'
+          className='flex-1'
+          style={{ width: 700, marginTop: 30, marginBottom: 30, marginLeft: 250 }}
+          onChange={(e) => setSearchName(e.target.value)}
+        />
+
+    </div>
+
     <Table hoverable className='shadow-md'>
       <Table.Head>
         <Table.HeadCell>User ID</Table.HeadCell>
@@ -100,7 +115,18 @@ export default function DashDeliveries() {
         <Table.HeadCell>Contact No</Table.HeadCell>
         <Table.HeadCell>Action</Table.HeadCell>
       </Table.Head>
-      {Deliveries.map((delivery)=>(
+
+      {Deliveries.filter((delivery) => {
+        const searchQuery = searchName.toLowerCase();
+        const id = delivery._id.toLowerCase().includes(searchQuery);
+        const userId = delivery.userId.toLowerCase().includes(searchQuery);
+        
+
+        // Return true if any of the search criteria match
+        return id || userId;
+        }).map((delivery) => (
+
+        
         <Table.Body className='divide-y' key={delivery._id}>
           <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
 
@@ -114,7 +140,7 @@ export default function DashDeliveries() {
                 alt={order.username}
                 className='w-10 h-10 object-cover bg-gray-500 rounded-full'
               /> */}
-              {delivery.orderId}
+              {delivery._id}
             </Table.Cell>
               <Table.Cell>{delivery.items} <br /></Table.Cell>
             <Table.Cell>{delivery.first_name}</Table.Cell>
