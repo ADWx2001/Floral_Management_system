@@ -73,7 +73,7 @@ export default function DashProduct() {
           font-size: 12px; /* Adjust font size */
         }
       </style>
-      <h1><b>User Details Report</b></h1>
+      <h1><b>Product Details Report</b></h1>
       <p>Total Products: ${totalProducts}</p>
       <p>Last Month Products : ${lastMonthProducts}</p>
       <br>

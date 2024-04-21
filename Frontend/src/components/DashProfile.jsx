@@ -245,7 +245,7 @@ export default function DashProfile() {
               Add products
             </Button>
           </Link>
-        )}
+        )}   
 
        {currentUser.isAdmin && (
           <Link to='/create-event'>
