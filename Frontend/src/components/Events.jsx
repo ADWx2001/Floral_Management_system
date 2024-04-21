@@ -1,4 +1,4 @@
-import { Button, Modal, Table } from "flowbite-react";
+import { Button, Modal, Table, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useSelector } from "react-redux";
@@ -9,6 +9,8 @@ export default function Events() {
   const [events, setEvents] = useState([]);
   const [showModel, setShowModel] = useState(false);
   const [eventIdToDelete, setEventIdToDelete] = useState('');
+  //Search function
+  const [searchName, setSearchName] = useState('');
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -50,6 +52,30 @@ export default function Events() {
 
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-500'>
+      <div className="">
+        <Button
+            gradientDuoTone='purpleToBlue'
+            outline
+            onClick
+            className=""
+          >
+            Generate Report
+        </Button>
+      </div>
+
+      <div className="flex ">
+      <TextInput
+          type='text'
+          placeholder='Search a event (by event name)'
+          required
+          id='title'
+          className='flex-1'
+          style={{ width: 700, marginTop: 30, marginBottom: 30, marginLeft: 250 }}
+          onChange={(e) => setSearchName(e.target.value)}
+        />
+
+    </div>
+
       <Table hoverable className="shadow-md">
         <Table.Head>
           <Table.HeadCell>Name</Table.HeadCell>
@@ -59,7 +85,15 @@ export default function Events() {
           <Table.HeadCell>Delete</Table.HeadCell>
           <Table.HeadCell>Edit</Table.HeadCell>
         </Table.Head>
-        {events.map(event => (
+
+         {events.filter((event) => {
+          const searchQuery = searchName.toLowerCase();
+          const eventName = event.Eventname.toLowerCase().includes(searchQuery);
+        
+        // Return true if any of the search criteria match
+        return eventName;
+        }).map((event) => (
+
           <Table.Body key={event._id}>
             <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
               <Link className='font-medium text-gray-900 dark:text-white' to={`/event/${event.slug}`}>
