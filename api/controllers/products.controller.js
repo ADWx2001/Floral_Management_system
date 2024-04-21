@@ -88,6 +88,10 @@ export const updateproduct = async (req, res, next) => {
     if (!req.user.isAdmin || req.user.id !== req.params.userId) {
       return next(errorHandler(403, 'You are not allowed to update this post'));
     }
+    if (!req.body.title || !req.body.description || !req.body.price || !req.body.quantity ||!req.body.deliveryTime ) {
+      return next(errorHandler(400, 'Please provide all required fields'));
+    }
+
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.productId,
       {
