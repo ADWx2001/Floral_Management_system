@@ -12,7 +12,7 @@ export default function Event() {
           const data = await res.json();
           if (res.ok) {
               // Slice the data array to include only the first 5 items
-              const limitedData = data.slice(0, 5);
+              const limitedData = data.slice(0, 6);
               console.log(limitedData);
               setEvents(limitedData);
           }

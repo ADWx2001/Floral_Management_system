@@ -103,6 +103,7 @@ return(
             <option value='Baby Shower'>Baby Shower</option>
             <option value='Religious'>Religious</option>
             <option value='Corporate'>Corporate</option>
+            <option value='Anniversary'>Anniversary</option>
             
 
 
