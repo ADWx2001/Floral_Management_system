@@ -105,7 +105,7 @@ export default function PostProduct() {
               </div>
             </div>
             
-            </div>
+          </div>
             <div className='flex-wrap flex gap-1  p-2'>
               <div className='flex justify-between '>
                   <div className=' bg-gray-100  dark:bg-slate-800 w-11 items-center p-1 m-1 rounded-md'><HiStar className='text-yellow-300 text-2xl'/>5[{Fivestar}]</div>

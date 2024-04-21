@@ -98,9 +98,14 @@ return(
           <Select  onChange={(e) =>setFormData({ ...formData, category: e.target.value })
             }>
             <option value='uncategorized'>Select a category</option>
-            <option value='cat 1'>cat 1</option>
-            <option value='cat 2'>cat 2</option>
-            <option value='cat 3'>cat 3</option>3
+            <option value='Wedding'>Wedding</option>
+            <option value='Birthday Party'>Birthday Party</option>
+            <option value='Baby Shower'>Baby Shower</option>
+            <option value='Religious'>Religious</option>
+            <option value='Corporate'>Corporate</option>
+            
+
+
           </Select>
          </div>
          <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>

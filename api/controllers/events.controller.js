@@ -1,27 +1,24 @@
 import Event from "../models/event.model.js";
 import { errorHandler } from "../utils/error.js";
 
-
-
-
-
-
-
 export const Create = async(req,res,next)=>{
-   
+
     const Eventname =req.body.title;
     const descreption=req.body.description;
     const category=req.body.category;;
     const Picture=req.body.image;
+    const slug = req.body.title.split(' ').join('-').toLowerCase().replace(/[^a-zA-Z0-9-]/g, '');
        const newevent = new Event({
         Eventname,
         descreption,
         category,
         Picture,
+        slug
        
   });
  
        try {
+        
          const savedevent = await newevent.save();
          res.status(201).json(savedevent);
        
@@ -30,13 +27,10 @@ export const Create = async(req,res,next)=>{
         
        }
  
- 
- 
  }
 
  export const getevents = async(req,res,next)=>{
    
-
     Event.find().then((events)=>{
       res.json(events)
      
@@ -44,9 +38,6 @@ export const Create = async(req,res,next)=>{
       console.log(err);
   })
   
- 
-
-
 }
 
 export const Getevents= async(req,res,next)=>{
