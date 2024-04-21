@@ -1,9 +1,10 @@
 import { Button, Modal, Table, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { HiOutlineCurrencyDollar, HiOutlineExclamationCircle, HiOutlineShoppingBag} from "react-icons/hi";
 import { useSelector } from "react-redux";
 import 'boxicons/css/boxicons.min.css';
 import { Link } from "react-router-dom";
+import html2pdf from 'html2pdf.js';
 
 export default function DashDeliveries() {
     const { currentUser } = useSelector((state) => state.user);
@@ -11,15 +12,15 @@ export default function DashDeliveries() {
     const [showMore, setShowMore] = useState(true);
     const [showModel , setShowModel] = useState(false);
     const [deliverIdToDelete, setDeliverIdToDelete] = useState('');
-
     const [searchName, setSearchName] = useState('');
+    const [totalDeliveries, setTotalDeliveries] = useState(0);
+    const [processingItems, setProcessingItems] = useState(0);
+    const [shippedItems, setShippedItems] = useState(0);
+    const [deliveredItems, setDeliveredItems] = useState(0);
 
-    // const [totalOrders, setTotalOrders] = useState(0);
-    // const [totalSale, setTotalSale] = useState(0);
 
 
-
-  //fetch all the orders from database
+  //fetch all the deliveries from database
     useEffect(() => {
 
       const fetchDeliveries = async () => {
@@ -31,28 +32,143 @@ export default function DashDeliveries() {
         //   setTotalOrders(length);
           if (res.ok) {
             setDeliveries(data);
+
+            let total = 0;
+            let processing = 0;
+            let shipped = 0;
+            let delivered = 0;
+
+            data.forEach((delivery) => {
+              const status = delivery.status.toLowerCase();
+              total++;
+              switch (status) {
+                case 'processing':
+                  console.log(status);
+                  processing++;
+                  break;
+                case 'shipped':
+                  console.log(status);
+                  shipped++;
+                  break;
+                case 'delivered':
+                  console.log(status);
+                  delivered++;
+                  break;
+                default:
+                  break;
+              }
+            });
+
+          console.log('Total Deliveries:', total);
+          console.log('Processing Items:', processing);
+          console.log('Shipped Items:', shipped);
+          console.log('Delivered Items:', delivered);
+
+
+          setTotalDeliveries(total);
+          setProcessingItems(processing);
+          setShippedItems(shipped);
+          setDeliveredItems(delivered);
+
+
+
             if (data.length < 9) {  
               setShowMore(false);
 
             }
           }
+
         } catch (error) {
           console.log("error in fetching", error);
         }
-
-        // const calculateTotalSale = () => {
-        //   const total = Orders.reduce((accumulator, currentOrder) => {
-        //     return accumulator + parseFloat(currentOrder.totalcost);
-        //   }, 0);
-        //   setTotalSale(total);
-        // };
-    
-        // calculateTotalSale();
       };
       if (currentUser) {
         fetchDeliveries();
       }
     } ,[currentUser]);
+
+    const generatePDFReport = () => {
+      const content = `
+        <style>
+          table {
+            margin:0 auto;
+            width: 90%;
+            border-collapse: collapse;
+          }
+          th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+          }
+          th {
+            background-color: #f2f2f2;
+            font-size: 10px; 
+          }
+          td {
+            font-size: 10px; 
+          }
+          .report-title{
+            text-align:center;
+            font-size:18px;
+          }
+          .details{
+            margin-top:50px;
+            margin-left:30px;
+
+          }
+        </style>
+
+        <h1 class="report-title"><b>Delivery Details Report</b></h1>
+        <div class="details">
+          <p>Total Deliveries: ${totalDeliveries}</p>
+          <p>Total Processing  : ${processingItems}</p>
+          <p>Total Shipped: ${shippedItems}</p>
+          <p>Total Delivered: ${deliveredItems}</p>
+        </div>
+        <br>
+        <br>
+        <table>
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Items</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Address</th>
+              <th>Tracking</th>
+              <th>Status</th>
+              <th>Service</th>
+              <th>Contact</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${Deliveries.map((delivery) => `
+              <tr>
+                <td>${delivery._id}</td>
+                <td>
+                  ${delivery.items}
+                </td>
+                <td>${delivery.first_name}</td>
+                <td>${delivery.last_name}</td>
+                <td>${delivery.address}, ${delivery.state}, ${delivery.zip}</td>
+                <td>${delivery.trackingnumber}</td>
+                <td>${delivery.status}</td>
+                <td>${delivery.deliveryservice}</td>
+                <td>${delivery.deliverycontactno}</</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    
+      html2pdf().from(content).set({ margin: 1, filename: 'delivery_report.pdf' }).save();
+    };
+    
+    
+    const handleGenerateReport = () => {
+      generatePDFReport();
+    
+    };
 
     //delete order by id
     const handleDeleteOrder = async () => {
@@ -80,6 +196,104 @@ export default function DashDeliveries() {
   
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
+      <div className="flex flex-wrap gap-5">
+      
+      <div className="">
+        <Button
+            gradientDuoTone='purpleToBlue'
+            outline
+            onClick={handleGenerateReport}
+            className=""
+          >
+            Generate Report
+        </Button>
+      </div>
+
+        <div className='flex-wrap flex gap-4 justify-center'>
+          
+          <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
+            <div className='flex justify-between'>
+              <div className=''>
+                <h3 className='text-gray-500 text-md uppercase'>Total Deliveries</h3>
+                <p className='text-2xl'>{totalDeliveries}</p>
+              </div>
+
+              <HiOutlineShoppingBag className='bg-green-600 text-white rounded-full text-5xl p-3 shadow-lg' />
+
+            </div>
+            <div className='flex gap-2 text-sm'>
+              <span className='text-green-500 flex items-center'>
+                <HiOutlineShoppingBag/>
+              </span>
+              <div className='text-gray-500'>Processing</div>
+            </div>
+          </div>
+          
+          <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
+            <div className='flex justify-between'>
+              <div className=''>
+                <h3 className='text-gray-500 text-md uppercase'>
+                  Processing Items
+                </h3>
+                <p className='text-2xl'>{processingItems}</p>
+              </div>
+
+              <HiOutlineCurrencyDollar className='bg-green-600 text-white rounded-full text-5xl p-3 shadow-lg' />
+
+            </div>
+            <div className='flex gap-2 text-sm'>
+              <span className='text-green-500 flex items-center'>
+                <HiOutlineCurrencyDollar />
+                
+              </span>
+              <div className='text-gray-500'></div>
+            </div>
+          </div>
+
+          <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
+            <div className='flex justify-between'>
+              <div className=''>
+                <h3 className='text-gray-500 text-md uppercase'>
+                  Shipped Items
+                </h3>
+                <p className='text-2xl'>{shippedItems}</p>
+              </div>
+
+              <HiOutlineCurrencyDollar className='bg-green-600 text-white rounded-full text-5xl p-3 shadow-lg' />
+
+            </div>
+            <div className='flex gap-2 text-sm'>
+              <span className='text-green-500 flex items-center'>
+                <HiOutlineCurrencyDollar />
+               
+              </span>
+              <div className='text-gray-500'>All the time</div>
+            </div>
+          </div>
+
+          <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
+            <div className='flex justify-between'>
+              <div className=''>
+                <h3 className='text-gray-500 text-md uppercase'>
+                  Delivered Items
+                </h3>
+                <p className='text-2xl'>{deliveredItems}</p>
+              </div>
+
+              <HiOutlineCurrencyDollar className='bg-green-600 text-white rounded-full text-5xl p-3 shadow-lg' />
+
+            </div>
+            <div className='flex gap-2 text-sm'>
+              <span className='text-green-500 flex items-center'>
+                <HiOutlineCurrencyDollar />
+               
+              </span>
+              <div className='text-gray-500'>All the time</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="flex flex-wrap gap-5">
         
       </div>

@@ -264,6 +264,7 @@ export default function DashOrders() {
           
           
         </div>
+        
       </div>
       <h1 className="pt-6 px-4 font-semibold">Orders recieved</h1>
     { Array.isArray(Orders) && Orders.length > 0 ? (
