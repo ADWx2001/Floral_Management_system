@@ -3,7 +3,7 @@ import { errorHandler } from "../utils/error.js";
 
 export const addreview = async (req, res, next) => {
     try {
-        const { content, productId, userId, reviewimage ,productname,username,rating,reply} = req.body;
+        const { content, productId,reviewId, userId, reviewimage ,productname,username,rating,reply} = req.body;
 
         if (userId !== req.user.id) {
             return next(errorHandler(403, 'You are not allowed to add reviews'));
@@ -17,13 +17,13 @@ export const addreview = async (req, res, next) => {
             productname,
             username, 
             rating,
-            reply,
             
         });
 
         await newReview.save();
 
         res.status(200).json(newReview);
+        
     } catch (error) {
         next(error);
     }
@@ -57,8 +57,26 @@ export const getModarateRating = async (req, res, next) => {
         const Threestar = await Review.countDocuments({rating:3});
         const Twostar = await Review.countDocuments({rating:2});
         const Onestar = await Review.countDocuments({rating:1});
+
+        const ratingValue = {
+            5: 5,
+            4: 4,
+            3: 3,
+            2: 2,
+            1: 1
+        };
+
+        // Calculate the sum of the rating values
+        const totalratingValue = (Fivestar * ratingValue[5]) + (Fourstar * ratingValue[4]) + (Threestar * ratingValue[3]) + (Twostar * ratingValue[2]) + (Onestar * ratingValue[1]);
+
+        // Calculate the number of total ratings
+        const totalRatings = Fivestar + Fourstar + Threestar + Twostar + Onestar;
+
+        // Calculating the moderate rating
+        const moderateRating = totalRatings !== 0 ? (totalratingValue / totalRatings).toFixed(1) : 0;
+
       
-        res.status(200).json({reviews,totalReviews,Fivestar,Fourstar,Threestar,Twostar,Onestar});
+        res.status(200).json({reviews,totalReviews,Fivestar,Fourstar,Threestar,Twostar,Onestar,moderateRating});
         
     } catch (error) {
         next(error);
@@ -82,7 +100,7 @@ export const UpdateReview = async(req,res,next) => {
             content:req.body.content,
             rating:req.body.rating,
             reviewimage:req.body.reviewimage,
-            
+            reply:req.body.reply,
         }
         },
         {new:true}

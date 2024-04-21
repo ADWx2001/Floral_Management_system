@@ -37,7 +37,7 @@ export default function ReplyReview() {
  
   
 
-  const handleSubmit = async (e) => {
+  const handleReply = async (e) => {
     e.preventDefault();
     try {
         const res = await fetch(`/api/reviews/adminReply/${reviewId}`, {
@@ -72,7 +72,7 @@ export default function ReplyReview() {
   return (
     <div className="p-3 m-6 max-w-xl mx-auto  border border-teal-500 rounded-xl ">
         <h1 className="text-center text-3xl my-7 font-semibold">Reply Reviews</h1>
-        <form className="flex flex-col  gap-4" onSubmit={handleSubmit}>
+        <form className="flex flex-col  gap-4" onSubmit={handleReply}>
         <div className='flex flex-col gap-4 sm:flex-row justify-between '>
 
             <Textarea className="w-96 w-full" type='text'placeholder='reply-text'required id='reply'  onChange={(e) =>

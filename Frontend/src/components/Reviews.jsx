@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import UpdateReviews from '../pages/UpdateReviews.jsx';
+import { HiStar } from 'react-icons/hi';
 
 export default function Reviews({ review, onUpdate, onDelete }) {
     const [user, setUser] = useState({});
@@ -65,9 +66,12 @@ export default function Reviews({ review, onUpdate, onDelete }) {
                     <UpdateReviews review={review} onSave={handleSave} onCancel={() => setIsUpdating(false)} />
                 ) : (
                     <>
-                        <div className='text-gray-500 pb-2 text-xl'>{review.rating}</div>
+                        <div className='text-gray-500 pb-2 text-xl flex flex-wrap items-center'>
+                            <HiStar className='text-yellow-300 text-xl'/>
+                            <span className='text-xl pl-2 '> {review.rating} </span>
+                        </div>
                         <p className='text-gray-500 pb-2'>{review.content}</p>
-                        <div className='mt-2'>
+                        <div className='mt-2 p-1'>
                             <img src={review.reviewimage} alt='' className='w-20 h-10 object-fill bg-gray-500' />
                         </div>
                         <div>
@@ -92,10 +96,21 @@ export default function Reviews({ review, onUpdate, onDelete }) {
                             )}
                         </div>
                         
-                        <div className='pl-16'>
-                            <div className=' bg-slate-200 rounded-md'>
-                                <p className='text-justify pl-6 '> {review.reply}</p>
+                        <div className='pl-16 '>
+                            {review.reply && (
+                                <>
+                                <div className=' bg-slate-100 rounded-md p-1'>
+                                <div className='flex flex-wrap items-center mb-3 '>
+                                 <span className='font-semibold mr-1 text-xs truncate'>{user ? `@${user.username}` : 'Anonymous user'} </span>
+                                 <span className='text-xs font-semibold text-blue-600'> ADMIN </span>
+                                 <HiStar className='text-blue-700 text-lg'/>
+                               </div>
+
+                                <p className='text-justify pl-6 '>  Reply : {review.reply}</p>
                             </div>
+                                </>
+                            )}
+                            
                         </div>
                     </>
                 )}
@@ -104,9 +119,3 @@ export default function Reviews({ review, onUpdate, onDelete }) {
     );
 }
 
-// Add prop type validation
-Reviews.propTypes = {
-    review: PropTypes.object.isRequired, // Ensure 'review' prop is an object and is required
-    onUpdate: PropTypes.func.isRequired, // Ensure 'onUpdate' prop is a function and is required
-    onDelete: PropTypes.func.isRequired // Ensure 'onDelete' prop is a function and is required
-};
