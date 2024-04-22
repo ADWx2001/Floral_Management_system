@@ -213,7 +213,7 @@ export default function ReviewsAdminDash() {
               <Table.HeadCell>Reply</Table.HeadCell>
               
             </Table.Head>
-            {reviews.filter((review) => search.toLowerCase() === '' ? review : review.productId.toLowerCase().includes(search)).map((review) => (
+            {reviews.filter((review) => search.toLowerCase() === '' ? review : review.rating.toint().includes(search)).map((review) => (
               <Table.Body className='divide-y' key={review._id}>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                   <Table.Cell>

@@ -102,7 +102,13 @@ export const getUsers = async (req, res, next) => {
     const searchTerm = req.query.searchTerm || '';
 
     const usersQuery = User.find({
-      username: { $regex: searchTerm, $options: 'i' } 
+
+      $or: [
+        { username: { $regex: searchTerm, $options: 'i' } },
+        { email: { $regex: searchTerm, $options: 'i' } },
+       
+      ]
+     
     });
 
     const users = await usersQuery
@@ -258,5 +264,17 @@ export const getUser = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getAdmins = async (req, res, next) => {
+  try {
+    
+    const admins = await User.find({ isAdmin: true });
+    res.status(200).json({ admins });
+  } catch (error) {
+    console.error("Error in getAdmins controller:", error);
+    res.status(500).json({ status: 500, message: "Internal server error" });
+  }
+};
+
 
 
