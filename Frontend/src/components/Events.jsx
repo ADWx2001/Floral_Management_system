@@ -127,6 +127,7 @@ export default function Events() {
           </Table.Body>
         ))}
       </Table>
+      
       <Modal show={showModel} onClose={() => setShowModel(false)} popup size='md'>
         <Modal.Header />
         <Modal.Body>
