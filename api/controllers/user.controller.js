@@ -276,5 +276,35 @@ export const getAdmins = async (req, res, next) => {
   }
 };
 
+export const assignAdmin = async (req, res, next) =>{
+  const { id } = req.params;
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return next(errorHandler(404, 'User not found'));
+    }
+    user.isAdmin = true;
+    await user.save();
+    res.status(200).json({ message: 'User assigned admin privileges successfully' });
+  } catch (error) {
+    next(error);
+  }
 
+};
+export const resignAdmin = async (req, res, next) =>{
 
+  const { id } = req.params;
+
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return next(errorHandler(404, 'User not found'));
+    }
+    user.isAdmin = false;
+    await user.save();
+    res.status(200).json({ message: 'User resigned admin privileges successfully' });
+  } catch (error) {
+    next(error);
+  }
+  
+};

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Table, Button, Modal } from 'flowbite-react';
 import { HiArrowNarrowUp, HiOutlineExclamationCircle, HiOutlineUserGroup, HiUser } from 'react-icons/hi';
-import { FaCheck, FaTimes } from 'react-icons/fa';
+import { FaCheck,FaTimes } from 'react-icons/fa';
 import html2pdf from 'html2pdf.js';
 
 export default function DashUsers() {
@@ -11,6 +11,8 @@ export default function DashUsers() {
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState('');
+  const [userIdToAssignAdmin, setUserIdToAssignAdmin] = useState('');
+  const [userIdToResignAdmin, setUserIdToResignAdmin] = useState('');
   const [totalCustomers, setTotalCustomers] = useState(0);
   const [lastMonthCustomers, setLastMonthCustomers] = useState(0);
   const [totalAdmins, setTotalAdmins] = useState(0);
@@ -19,6 +21,8 @@ export default function DashUsers() {
   const [totalUsers, setTotalUsers] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
   const [showAdminsOnly, setShowAdminsOnly] = useState(false); 
+  const [showAccessConfirmation, setShowAccessConfirmation] = useState(false);
+  const [showAccessDeclaration, setShowAccessDeclaration] = useState(false);
 
   useEffect(() => {
     if (showAdminsOnly) {
@@ -169,7 +173,49 @@ export default function DashUsers() {
   const handleCheckboxChange = (e) => {
     setShowAdminsOnly(e.target.checked);
   };
- 
+  const handleAssignAdmin = async () => {
+    try {
+      const res = await fetch(`/api/user/assignadmin/${userIdToAssignAdmin}`, {
+        method: 'PUT',
+      });
+      const data = await res.json();
+      if (res.ok) {
+       
+        setUsers((prevUsers) =>
+          prevUsers.map((user) =>
+            user._id === userIdToAssignAdmin ? { ...user, isAdmin: true } : user
+          )
+        );
+        setShowAccessConfirmation(false); 
+      } else {
+        console.log(data.message); 
+      }
+    } catch (error) {
+      console.log(error.message); 
+    }
+  };
+
+  const handleResignAdmin = async () => {
+    try {
+      const res = await fetch(`/api/user/resignadmin/${userIdToResignAdmin}`, {
+        method: 'PUT',
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setUsers((prevUsers) =>
+          prevUsers.map((user) =>
+            user._id === userIdToResignAdmin ? { ...user, isAdmin: false } : user
+          )
+        );
+        setShowAccessDeclaration(false); 
+      } else {
+        console.log(data.message); 
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
 
   return (
     <div className='p-3 md:mx-auto'>
@@ -268,6 +314,7 @@ export default function DashUsers() {
               <Table.HeadCell>Email</Table.HeadCell>
               <Table.HeadCell>Admin</Table.HeadCell>
               <Table.HeadCell>Remove</Table.HeadCell>
+              {currentUser.isOwner && <Table.HeadCell>Assign Admin</Table.HeadCell>}
             </Table.Head>
             {users.map((user) => (
               <Table.Body className='divide-y' key={user._id}>
@@ -285,11 +332,12 @@ export default function DashUsers() {
                   <Table.Cell>{user.username}</Table.Cell>
                   <Table.Cell>{user.email}</Table.Cell>
                   <Table.Cell>
-                    {user.isAdmin ? (
+                    {user.isAdmin  ? (
                       <FaCheck className='text-green-500' />
                     ) : (
                       <FaTimes className='text-red-500' />
                     )}
+                   
                   </Table.Cell>
                   <Table.Cell>
                     <span
@@ -302,6 +350,38 @@ export default function DashUsers() {
                       Remove
                     </span>
                   </Table.Cell>
+                 {currentUser.isOwner&& <Table.Cell>
+                  <span
+                    onClick={() => {
+                      if (!user.isAdmin) {
+                        setShowAccessConfirmation(true);
+                        setUserIdToAssignAdmin(user._id);
+                      }
+                    }}
+                    className={`font-medium text-green-500 hover:underline cursor-pointer mr-5 ${
+                      user.isAdmin ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                    disabled={user.isAdmin}
+                  >
+                    Assign
+                  </span>
+                  
+                  <span
+                    onClick={() => {
+                      if(user.isAdmin){
+                        setShowAccessDeclaration(true);
+                        setUserIdToResignAdmin(user._id);
+                      }
+                      
+                    }}
+                    className={`font-medium text-red-500 hover:underline cursor-pointer mr-5 ${
+                      !user.isAdmin ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                    disabled={!user.isAdmin}
+                  >
+                    Resign
+                  </span>
+                </Table.Cell>}
                 </Table.Row>
               </Table.Body>
             ))}
@@ -344,6 +424,55 @@ export default function DashUsers() {
         </div>
       </Modal.Body>
     </Modal>
+    <Modal
+      show={showAccessConfirmation}
+      onClose={() => setShowAccessConfirmation(false)}
+      popup
+      size='md'
+    >
+      <Modal.Header />
+      <Modal.Body>
+        <div className='text-center'>
+          <HiOutlineExclamationCircle className='h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto' />
+          <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'>
+            Are you sure you want to give access?
+          </h3>
+          <div className='flex justify-center gap-4'>
+            <Button color='success'  onClick={handleAssignAdmin}>
+              Yes, give access
+            </Button>
+            <Button color='gray' onClick={() => setShowAccessConfirmation(false)}>
+              No, cancel
+            </Button>
+          </div>
+        </div>
+      </Modal.Body>
+    </Modal>
+    <Modal
+      show={showAccessDeclaration}
+      onClose={() => setShowAccessDeclaration(false)}
+      popup
+      size='md'
+    >
+      <Modal.Header />
+      <Modal.Body>
+        <div className='text-center'>
+          <HiOutlineExclamationCircle className='h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto' />
+          <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'>
+            Are you sure you want to remove access?
+          </h3>
+          <div className='flex justify-center gap-4'>
+            <Button color='failure'  onClick={handleResignAdmin}>
+              Yes, remove access
+            </Button>
+            <Button color='gray' onClick={() => setShowAccessDeclaration(false)}>
+              No, cancel
+            </Button>
+          </div>
+        </div>
+      </Modal.Body>
+    </Modal>
+
   </div>
   );
 }
