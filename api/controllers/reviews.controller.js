@@ -130,8 +130,7 @@ export const deleteReview = async(req,res,next) => {
 }
 
 export const getReviews = async(req,res,next) => {
-    if(!req.user.isAdmin)
-        return next(errorHandler(403,'Your not allow to see all th reviews'));
+    
     try {
         const startIndex = parseInt(req.query.startIndex) || 0;
         const sortDirection = req.query.sort === 'asc' ? 1 : -1;
@@ -166,7 +165,7 @@ export const adminReply = async(req,res,next) =>{
             return next(errorHandler(403,'you are not allow to reply reviews'));
         }
         
-        const replyReview = await Review.updateOne(
+        const replyReview = await Review.findByIdAndUpdate(
             req.params.reviewId,
             {$set:{
                 reply:req.body.reply,

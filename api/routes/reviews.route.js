@@ -9,6 +9,6 @@ router.get('/getProductReview/:productId', getProductReview);
 router.put('/UpdateReview/:reviewId/:userId', verifyToken,UpdateReview);
 router.delete('/deleteReview/:reviewId', verifyToken,deleteReview);
 router.get('/getReviews',verifyToken, getReviews);
-router.put('/adminReply',verifyToken, adminReply);
+router.put('/adminReply/:reviewId',verifyToken, adminReply);
 router.get('/getModarateRating/:productId', getModarateRating);
 export default router;

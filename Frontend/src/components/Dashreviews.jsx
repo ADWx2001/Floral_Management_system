@@ -23,7 +23,7 @@ export default function Dashreviews({ productId}) {
   const [showModal, setshowModal] = useState(false);
   const [reviewToDelete, setreviewToDelete] = useState(null);
   const [showMore, setShowMore] = useState(true);
- 
+  const [publishError, setPublishError] = useState(null);
 
 
 
@@ -159,6 +159,16 @@ export default function Dashreviews({ productId}) {
         setReviewError(null);
         setReviews([data, ...reviews]);
         setRating([data, ...rating]);
+      }
+
+      if (!res.ok) {
+        setReviewError(data.message);
+        return;
+      }
+
+      if (res.ok) {
+        setReviewError(null);
+      
       }
 
       
@@ -318,8 +328,12 @@ const handleDelete = async(reviewId) => {
               {imageUploadError && (
                 <Alert color='failure'>{imageUploadError}</Alert>
               )}
+              
             </div>
             <button   type='submit' className="gap-8 m-2 dark:bg-slate-800 border bg-slate-300 border-teal-500 rounded-xl p-1">Submit</button>
+            {reviewError && (
+                <Alert color='failure'>{reviewError}</Alert>
+              )}
           </form>
         )
       }
