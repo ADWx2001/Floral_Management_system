@@ -28,7 +28,6 @@ import PostProduct from "./pages/PostProduct"
 import ScrollToTop from "./components/ScrollToTop"
 import UpdateReviews from "./pages/UpdateReviews"
 import ReplyReview from "./pages/ReplyReview"
-import Addsuppliers from "./pages/AddSuppliers"
 import Addstaff from "./pages/Addstaff"
 import Addevents from "./pages/AddEvents"
 import Updateevents from "./pages/updateevent"
@@ -39,6 +38,7 @@ import Addrestockrec from "./pages/addStockrecords"
 import ContactSup from "./pages/ContactSupplier"
 import CheckoutSuccess from "./pages/CheckoutSuccess"
 import PostEvent from "./pages/PostEvent"
+import Addsuppliers from "./pages/addsuppliers"
 
 export default function App() {
   return (
@@ -68,7 +68,6 @@ export default function App() {
             <Route path="/product/:productSlug" element={<PostProduct/>}/>
             <Route path="/event/:eventSlug" element={<PostEvent/>}/> 
             <Route path="/update-review/:reviewId" element={<UpdateReviews/>}/>  
-            <Route path="/add-suppliers" element={<Addsuppliers/>}/>
             <Route path="/add-staff" element={<Addstaff/>}/>
             <Route path="/add-srecords" element={<Addrestockrec/>}/>
             <Route path="/create-event" element={<Addevents/>}/>
@@ -87,6 +86,8 @@ export default function App() {
             <Route path="/checkout" element={<Checkout/>}/>
             <Route path="/order-pay-success" element={<CheckoutSuccess/>}/>
             <Route path="/contactsup/:id" element={<ContactSup/>}/>
+            <Route path="/add-suppliers" element={<Addsuppliers/>}/>
+
           </Routes>
         <Footer/>
       </>
