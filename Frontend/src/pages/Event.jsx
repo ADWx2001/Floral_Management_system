@@ -70,7 +70,11 @@ export default function Event() {
                     <div className="font-bold text-xl mb-2">{event.Eventname}</div>
                     <div className="flex justify-between gap-4 pt-4">
                       <Link to={`/event/${event.slug}`} className="p-2 bg-gray-300 hover:bg-gray-400 rounded-lg">More</Link>
-                      <button className="p-2 bg-blue-800 hover:bg-blue-900 rounded-lg text-white">Book Now</button>
+
+                      <Link to={`/event-book/${event.slug}`}>
+                        <button className="p-2 bg-blue-800 hover:bg-blue-900 rounded-lg text-white">Book Now</button>
+                      </Link>
+
                     </div>
                   </div>
                 </div>

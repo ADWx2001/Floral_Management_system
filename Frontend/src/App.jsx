@@ -39,6 +39,8 @@ import Addrestockrec from "./pages/addStockrecords"
 import ContactSup from "./pages/ContactSupplier"
 import CheckoutSuccess from "./pages/CheckoutSuccess"
 import PostEvent from "./pages/PostEvent"
+import BookEvent from "./pages/BookEvent"
+import EventReqSuccess from "./pages/EventReqSuccess"
 
 export default function App() {
   return (
@@ -79,7 +81,7 @@ export default function App() {
             <Route path="/update-order/:orderId" element={<UpdateOrder/>}/>
             <Route path="/forgetPassword" element={<ForgetPassword/>}/>
             <Route path="/resetpassword/:id/:token" element={<ResetPassword/>} />
-            <Route path = "/products" element={<Products/>}/>
+            <Route path ="/products" element={<Products/>}/>
             <Route path="/cart" element={<Cart/>}/>
             <Route path="/not-found" element={<NotFound/>} />
             <Route path="/products" element={<Products/>} />
@@ -87,6 +89,8 @@ export default function App() {
             <Route path="/checkout" element={<Checkout/>}/>
             <Route path="/order-pay-success" element={<CheckoutSuccess/>}/>
             <Route path="/contactsup/:id" element={<ContactSup/>}/>
+            <Route path="/event-book/:eventSlug" element={<BookEvent/>}/>
+            <Route path="/event-request-success" element={<EventReqSuccess/>}/>
           </Routes>
         <Footer/>
       </>
