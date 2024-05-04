@@ -36,11 +36,13 @@ export default function BookEvent() {
   const [formData, setFormData] = useState({
     phone: "",
     name: "",
+    description:"",
     date: "",
     time: "",
     venue: "",
     guestCount: "",
     themeColor: "",
+    arrangements:"default arrangement",
     budget: ""
 });
 
@@ -119,6 +121,13 @@ const handleSubmit = async (e) => {
                             <input id="name" onChange={(e) => setFormData({ ...formData, name: e.target.value })} type="text" className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" required placeholder="Your name" />
                         </div>
 
+                        <div className="w-full">
+                                <div className="mb-2 block pt-3">
+                                    <label htmlFor="subject" className="text-black">Description</label>
+                                </div>
+                                <textarea id="subject" type="text" onChange={(e) => setFormData({ ...formData, description: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" required placeholder="Small description about your event" />
+                          </div>
+
                         <div className="flex flex-wrap items-center pt-3">
                             <div className="w-full md:w-1/3">
                                 <div className="mb-2 block pt-3">
@@ -139,7 +148,7 @@ const handleSubmit = async (e) => {
                                 <input id="subject" type="text" onChange={(e) => setFormData({ ...formData, venue: e.target.value })}  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" required placeholder="Venue" />
                             </div>
                         </div>
-
+          
                         <div className="flex flex-wrap items-center pt-3">
                             <div className="w-full md:w-1/3">
                                 <div className="mb-2 block pt-3">
@@ -160,6 +169,7 @@ const handleSubmit = async (e) => {
                                 <input id="subject" type="number" onChange={(e) => setFormData({ ...formData, budget: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" required placeholder="Your Budget" />
                             </div>
                         </div>
+                            
                         
                         <button type="submit" onClick={handleSubmit} className="w-full mt-4 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300 ease-in-out">Send Request</button>                    
                     </form>

@@ -22,6 +22,10 @@ const eventBookingSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    description:{
+        type : String,
+        required:true
+    },
     guestCount: {
         type: Number,
         required: true
@@ -33,7 +37,12 @@ const eventBookingSchema = new mongoose.Schema({
     budget: {
         type: Number,
         required: true
-    }
+    },
+    arrangements: {
+        type: String,
+        
+       
+    },
 });
 
 // Create a model using the schema

@@ -113,22 +113,24 @@ export const getEventBySlug = async (req, res, next) => {
 
 //Event Requests functions
 export const CreateEventRequest = async (req,res,next)=>{
-  if (!req.body.phone || !req.body.name || !req.body.date || !req.body.time || !req.body.venue || !req.body.guestCount || !req.body.themeColor || !req.body.budget ) {
+  if (!req.body.phone || !req.body.name || !req.body.date || !req.body.time || !req.body.venue || !req.body.guestCount || !req.body.themeColor || !req.body.budget || !req.body.description || !req.body.arrangements ) {
     return next(errorHandler(400, 'Please provide all required fields'));
   }
 
   const phone = req.body.phone;
   const name = req.body.name;
+  const description = req.body.description;
   const date = req.body.date;
   const time = req.body.time;
   const venue = req.body.venue;
   const guestCount = req.body.guestCount;
   const themeColor = req.body.themeColor;
+  const arrangements = req.body.arrangements;
   const budget = req.body.budget;
 
 
   const newEventRequest = new EventBooking({
-    phone,name,date,time,venue,guestCount,themeColor,budget
+    phone,name,date,time,venue,description,guestCount,themeColor,budget,arrangements
   })
 
   try {
@@ -142,10 +144,10 @@ export const CreateEventRequest = async (req,res,next)=>{
 
 export const UpdateEventRequest = async (req,res,next)=>{
     let recordId = req.params.id;
-    const {phone,name,date,time,venue,guestCount,themeColor,budget} = req.body;
+    const {phone,name,date,time,venue,description,guestCount,themeColor,budget,arrangements} = req.body;
     
     const updateRecord = {
-      phone,name,date,time,venue,guestCount,themeColor,budget
+      phone,name,date,time,venue,description,guestCount,themeColor,budget,arrangements
     }
 
     try {

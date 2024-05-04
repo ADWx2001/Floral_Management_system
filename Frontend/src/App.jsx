@@ -41,6 +41,7 @@ import CheckoutSuccess from "./pages/CheckoutSuccess"
 import PostEvent from "./pages/PostEvent"
 import BookEvent from "./pages/BookEvent"
 import EventReqSuccess from "./pages/EventReqSuccess"
+import UpdateEventBooking from "./pages/UpdateEventBooking"
 
 export default function App() {
   return (
@@ -91,6 +92,7 @@ export default function App() {
             <Route path="/contactsup/:id" element={<ContactSup/>}/>
             <Route path="/event-book/:eventSlug" element={<BookEvent/>}/>
             <Route path="/event-request-success" element={<EventReqSuccess/>}/>
+            <Route path="/update-event-record/:recordId" element={<UpdateEventBooking/>}/>
           </Routes>
         <Footer/>
       </>
