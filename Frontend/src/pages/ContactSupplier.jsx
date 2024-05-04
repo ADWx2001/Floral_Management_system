@@ -43,7 +43,7 @@ export default function ContactSup() {
              setname(data.suppliername)
             setnumber(data.phonenumber)
             setemail(data.email)
-            setFormData({...formData,email:Email})
+            setFormData({...formData,email:data.email})
             console.log(formData);
         }
           };
@@ -52,7 +52,8 @@ export default function ContactSup() {
         } catch (error) {
           console.log(error.message[0]);
         }
-      }, [id]);
+      }, [id,Email]);
+      
      
 
       const handleSubmit = async (e) => {
@@ -77,7 +78,7 @@ export default function ContactSup() {
        
 
         setPublishError('Email Sent');
-        navigate(`/dashboard?tab=suppliers`);
+        //navigate(`/dashboard?tab=suppliers`);
             
        
           }
@@ -110,7 +111,7 @@ export default function ContactSup() {
           placeholder="Description..."
           className="h-52 mb-12"onChange={(value)=>{setFormData({...formData,massege:value})}}/>
         <Button type='submit' gradientDuoTone='purpleToBlue'>Send</Button>
-        <a href="https://www.youtube.com">Go to gmeail inbox</a>
+        <a href="https://mail.google.com/mail/u/3/#inbox" style={{ color: 'blue', textDecoration: 'none' }} >Go to gmail inbox</a>
         {publishError && (
           <Alert className='mt-5' color='success'>
             {publishError}

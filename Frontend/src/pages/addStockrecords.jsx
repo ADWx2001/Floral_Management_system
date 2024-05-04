@@ -84,7 +84,7 @@ export default function Addrestockrec() {
             { Suppliers.map(
         i=>{
           return(
-            <option value='bouquets'>{i.suppliername}</option>
+            <option value={i.suppliername}>{i.suppliername}</option>
             )
         }
        )}
@@ -110,9 +110,13 @@ export default function Addrestockrec() {
             <TextInput type='number'placeholder='Quantity'required id='Quantity'className='flex-1'  onChange={(e) =>
               setFormData({ ...formData, qan: e.target.value })
             }/>
-            <TextInput type='Date'placeholder='Date'required id='Date'className='flex-1'  onChange={(e) =>
-              setFormData({ ...formData, date: e.target.value })
-            }/>
+            <TextInput type='date'placeholder='Date'required id='Date'className='flex-1'  onChange={(e) =>{
+               const selectedDate = new Date(e.target.value);
+    
+               // Format the date to "YYYY-MM-DD" format
+               const formattedDate = selectedDate.toLocaleDateString('en-CA'); 
+              setFormData({ ...formData, date: formattedDate})
+            }}/>
            
         <Button type='submit' gradientDuoTone='purpleToBlue'>Add</Button>
         {publishError && (

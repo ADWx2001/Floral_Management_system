@@ -49,6 +49,9 @@ export default function Supplierperfromance() {
   const [customers, setCustomers] = useState(0);
   const [revenue, setRevenue] = useState(0);
   const[scount,setscount]=useState(0);
+  const[ocount,setocount]=useState(0);
+  const[dcount,setdcount]=useState(0);
+  const[totalost,settotalost]=useState(0);
   const [Suppliers,setsuppliers] = useState ([])
   const [reveneuData, setReveneuData] = useState({labels: [],datasets: [],});
   const [srecords,setrecords] = useState ([])
@@ -60,6 +63,8 @@ export default function Supplierperfromance() {
   const [date,setdate]= useState();
   const [cost,setcost]= useState();
   const [dstatsu,setdstatus]= useState();
+  
+  
   
    const options = {
     responsive: true,
@@ -179,7 +184,7 @@ const handleGenerateReport = async(id) => {
      setcost(data.cost)
      setdstatus(data.Deliverystatus)
      setquantity(data.quantity)
-     console.log(data.supplier)
+     //console.log(data.supplier)
      setdate(data.Date)
      generatePDFReport();
 
@@ -199,8 +204,14 @@ const handleGenerateReport = async(id) => {
         const data = await res.json();
         if (res.ok) {
            
-           setscount(data)
-            console.log(data);
+        setscount(data.supplierCount)
+        setocount(data.orderCount)
+        setdcount(data.dCount)
+        //console.log(ocount)
+        //console.log(scount)
+        //console.log(dcount)
+        settotalost(data.Totalcost)
+        //console.log(data.Totalcost)
           
              
         }
@@ -215,7 +226,7 @@ const handleGenerateReport = async(id) => {
         if (res.ok) {
            
           setrecords(data)
-            console.log(data);
+            //console.log(data);
           
              
         }
@@ -265,6 +276,7 @@ const handleGenerateReport = async(id) => {
               };
         
               setReveneuData(dataSource);
+              console.log(reveneuData);
              
         }
       } catch (error) {
@@ -276,7 +288,7 @@ const handleGenerateReport = async(id) => {
       fetchrecords();
     }
     
-  }, [currentUser._id]);
+  }, [currentUser._id,reveneuData]);
 
 
 
@@ -339,8 +351,8 @@ const handleGenerateReport = async(id) => {
               }}
             />
           }
-          title={"Total Orders"}
-          value={0}
+          title={"Total Orders from suppliers"}
+          value={ocount}
         />
         <DashboardCard
           icon={
@@ -355,7 +367,7 @@ const handleGenerateReport = async(id) => {
             />
           }
           title={"Late Deliveries"}
-          value={0}
+          value={dcount}
         />
         <DashboardCard
           icon={
@@ -384,8 +396,8 @@ const handleGenerateReport = async(id) => {
               }}
             />
           }
-          title={"Total cost"}
-          value={0}
+          title={"Total cost Rs:"}
+          value={totalost}
         />
      
       </Space>
@@ -398,18 +410,20 @@ const handleGenerateReport = async(id) => {
        <Space>
      
        <div class="outer-wrapper" style={{  paddingBottom:50,}}>
+       <h3><b>Supplier Stock Order Records</b></h3>
        <Link className='text-teal-500 hover:underline'to={`/add-srecords`} style={{
              marginLeft:500,
       
 
              
              }}>
+               
                       <span>Add Restock Records</span>
                     </Link>
   <div class="table-wrapper">
  
 <>
-      
+     
    
           <Table  className="shadow-md"     style={{
               width:1100,

@@ -76,6 +76,20 @@ const supplierSchema = new mongoose.Schema({
         default:0,
 
     },
+    bankaccnumber:{
+        type:Number,
+        required:true,
+   
+
+    },
+
+    Bankname:{
+        type:String,
+        required:true,
+    
+
+    },
+
 
 
 

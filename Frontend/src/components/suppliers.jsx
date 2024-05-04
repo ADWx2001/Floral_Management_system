@@ -73,7 +73,7 @@ export default function Suppliers() {
                         <span >View Supplier Performance </span>
                       </Link>
       <>
-      <TextInput type='text'placeholder='Search Supplier Name.....'required id='title'className='flex-1'  
+      <TextInput type='text'placeholder='Search Supplier Name or Company.....'required id='title'className='flex-1'  
                style={{
                 width:700,
                 marginTop:30,
@@ -108,7 +108,7 @@ export default function Suppliers() {
       { Suppliers.filter((i) => {
                 return search.toLowerCase() === ''
                   ? i
-                  : i.suppliername.toLowerCase().includes(search);
+                  : i.suppliername.toLowerCase().includes(search) || i.comapnyname.toLowerCase().includes(search);
               }).map(
         i=>{
           return(

@@ -32,6 +32,9 @@ export default function Updatesuppliers() {
 
     const[cmethod,setcmethod]=useState();
     const[image,setimage]=useState();
+    const[accnum,setaccnum]=useState();
+    const[bankname,setbankname]=useState();
+    const [isValid, setIsValid] = useState(true);
   
 
 
@@ -39,6 +42,17 @@ export default function Updatesuppliers() {
 
 
     const navigate = useNavigate();
+    const validateMobileNumber = (number) => {
+      const mobileRegex = /^(0|071|076|077|075|078|070|074|072)\d{7}$/;
+      return mobileRegex.test(number);
+  };
+
+  const handleChange = (e) => {
+    const newMobileNumber = e.target.value;
+    const isValidMobile = validateMobileNumber(newMobileNumber);
+    setIsValid(isValidMobile);
+   
+};
    
     const handleUploadImage = () =>{
       try {
@@ -110,18 +124,21 @@ export default function Updatesuppliers() {
              setpaytype(data.paymenttype)
              setemail(data.email)
              setimage(data.profilePicture)
+             setbankname(data.Bankname)
+             setaccnum(data.bankaccnumber)
+             console.log(number)
 
               setcount(data.damageditemcount)
 
              setFile(data.profilePicture)
              console.log(data.paymenttype)
-             console.log(formData.profilePicture)
+            
              console.log(data.category)
              console.log(data.communicationmethod)
 
-             console.log(file)
+        
              
-             
+            
            
             
             
@@ -137,6 +154,10 @@ export default function Updatesuppliers() {
 
       const handleSubmit = async (e) => {
         e.preventDefault();
+      
+    if(isValid==true){
+    setFormData({ ...formData, PhoneNumber: e.target.value })
+ 
         try {
             const res = await fetch(`/api/suppliers/updatesupplier/${id}`, {
                 method: 'PUT',
@@ -158,7 +179,10 @@ export default function Updatesuppliers() {
         } catch (error) {
           setPublishError('Something went wrong');
         }
-      };
+      }
+      else{
+        setPublishError('Invalid mobile number')
+      } };
 
 
 
@@ -172,24 +196,26 @@ export default function Updatesuppliers() {
         <h1 className="text-center text-3xl my-7 font-semibold">Update Supplier</h1>
         <form className="flex flex-col  gap-4" onSubmit={handleSubmit}>
         <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-          
+      <h5>Payment method:</h5>
           <Select  onChange={(e) =>setFormData({ ...formData, Paymentmethod: e.target.value })
-            } defaultValue={paymenttype}>
-            <option value='uncategorized'>Select a Payment method</option>
+            } defaultValue={paymenttype} >
+            <option value={paymenttype}>{paymenttype}</option>
             <option value='Bank transfer'>Bank transfer</option>
             <option value='Card'>Card</option>
             <option value='Check'>Check</option>
           </Select>
+          <h5>category:</h5>
           <Select  onChange={(e) =>setFormData({ ...formData, category: e.target.value })
             }  defaultValue={cat}>
-            <option value='uncategorized'>Select a category</option>
+            <option value={cat}>{cat}</option>
             <option value='arrangements'>Arrangements</option>
             <option value='bouquets'>Bouquets</option>
             <option value='singleflowers'>Single Flowers</option>
           </Select>
+          <h5>Communication Method:</h5>
           <Select  onChange={(e) =>setFormData({ ...formData, CommunicationMethod: e.target.value })
             }  defaultValue={cmethod}>
-            <option value='uncategorized'>Preferred Communication Method</option>
+            <option value={cmethod}>{cmethod}</option>
             <option value='Phone call'>Phone call</option>
             <option value='Email'>Email</option>
             
@@ -225,9 +251,7 @@ export default function Updatesuppliers() {
             <TextInput type='text'placeholder='Address'required id='Address'className='flex-1'  onChange={(e) =>
               setFormData({ ...formData, Address: e.target.value } )
             }  defaultValue={address}/>
-            <TextInput type='text'placeholder='Phone Number:'required id='Phone Number:'className='flex-1'  onChange={(e) =>
-              setFormData({ ...formData, PhoneNumber: e.target.value })
-            }  defaultValue={number}/>
+            <TextInput type='text'placeholder='Phone Number:' id='Phone Number'className='flex-1'   onChange={handleChange}  defaultValue={number}/>
 
             <TextInput type='email'placeholder='Email Address:'required id='Email Address:'className='flex-1'  onChange={(e) =>
               setFormData({ ...formData, EmailAddress: e.target.value })
@@ -239,6 +263,19 @@ export default function Updatesuppliers() {
             <TextInput type='email'placeholder='Email Address:'required id='Email Address:'className='flex-1'  onChange={(e) =>
               setFormData({ ...formData, EmailAddress: e.target.value })
             } defaultValue={Email}/>
+             <Select  onChange={(e) =>setFormData({ ...formData, bankname: e.target.value })
+            } required >
+            <option value={bankname}>{bankname}</option>
+            <option value='Bank of ceylon'>Bank of ceylon</option>
+            <option value='Peoples Bank'>Peoples Bank</option>
+            <option value='Commercial Bank'>Commercial Bank</option>
+            <option value='Sampath Bank'>Sampath Bank</option>
+            <option value='HNB Bank'>HNB Bank</option>
+            
+          </Select>
+          <TextInput type='number'placeholder='Acc number:'required id='Acc number:'className='flex-1'  onChange={(e) =>
+              setFormData({ ...formData, accnum: e.target.value })
+            } defaultValue={accnum}/>
 
         <Button type='submit' gradientDuoTone='purpleToBlue'>Update</Button>
         {publishError && (

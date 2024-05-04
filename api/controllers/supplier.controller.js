@@ -5,7 +5,7 @@ import Mailgen from 'mailgen';
 import Restocks from "../models/Restockrecords.model.js";
 
 export const add = async (req, res, next) => {
-  const { SupplierName, CompanyName, PhoneNumber, EmailAddress, Address, Paymentmethod, category, CommunicationMethod, image } = req.body;
+  const { SupplierName, CompanyName, PhoneNumber, EmailAddress, Address, Paymentmethod, category, CommunicationMethod, image,accnum,bankname } = req.body;
 
 
  
@@ -19,13 +19,15 @@ export const add = async (req, res, next) => {
 const newSupplier = new Supplier({
     suppliername: SupplierName,
     comapnyname: CompanyName,
-    phonenumber: Number(PhoneNumber),
+    phonenumber:PhoneNumber,
     email: EmailAddress,
     address: Address,
     category: category,
     paymenttype: Paymentmethod,
     communicationmethod: CommunicationMethod,
     profilePicture: image,
+    bankaccnumber:accnum,
+    Bankname:bankname,
   });
 
   try {
@@ -40,6 +42,7 @@ const newSupplier = new Supplier({
 
 export const addstocksrec = async (req, res, next) => {
   const { SupplierName, itemname, cost, dstatus, qan, date } = req.body;
+
 
   const newRecord = new Restocks({
     supplier: SupplierName,
@@ -90,7 +93,32 @@ export const get = async (req, res, next) => {
 export const getCount = async (req, res, next) => {
   try {
     const count = await Supplier.countDocuments();
-    res.json(count);
+    const ordercount= await Restocks.countDocuments();
+    const st="Late Delivery"
+    const latedeiverycount= await Restocks.countDocuments( { Deliverystatus: st });
+
+    const totalSum = await Restocks.aggregate([
+      {
+        $group: {
+          _id: null,
+          total: { $sum: '$cost' } // Replace 'numericAttribute' with the actual attribute name
+        }}, 
+        {
+          $project: {
+            _id: 0,
+            total: 1
+          }
+      }
+    ]);
+   
+    const counts = {
+      supplierCount: count,
+      orderCount: ordercount,
+      dCount:latedeiverycount,
+      Totalcost:totalSum.length > 0 ? totalSum[0].total : 0,
+    };
+
+    res.json(counts);
   } catch (error) {
     next(error);
   }
@@ -138,7 +166,7 @@ export const Sendmail = async (req, res, next) => {
 
     let message = {
       from: 'pesaraicc@gmail.com',
-      to:'pesara.us@gmail.com',
+      to:email,
       subject: subject,
       html: mail
     };
@@ -204,11 +232,10 @@ export const Getprintdetails= async(req,res,next)=>{
 
 
 export const updatesupplier = async (req, res, next) => {
-  const { SupplierName, CompanyName, PhoneNumber, EmailAddress, Address, Paymentmethod, category, CommunicationMethod, image, Damageditem } = req.body;
-  const mobileRegex = /^(071|076|077|075|078|070|074|072)\d{7}$/;
+  const { SupplierName, CompanyName, PhoneNumber, EmailAddress, Address, Paymentmethod, category, CommunicationMethod, image, Damageditem,accnum,bankname } = req.body;
+
  
-
-
+  
  
   try {
     const updatesupplier = await Supplier.findByIdAndUpdate(
@@ -217,7 +244,7 @@ export const updatesupplier = async (req, res, next) => {
         $set: {
           suppliername: SupplierName,
           comapnyname: CompanyName,
-          phonenumber: Number(PhoneNumber),
+          phonenumber: PhoneNumber,
           email: EmailAddress,
           address: Address,
           paymenttype: Paymentmethod,
@@ -225,6 +252,9 @@ export const updatesupplier = async (req, res, next) => {
           communicationmethod: CommunicationMethod,
           profilePicture: image,
           damageditemcount: Damageditem,
+          bankaccnumber:accnum,
+          Bankname:bankname,
+
         },
       },
       { new: true }
@@ -232,5 +262,5 @@ export const updatesupplier = async (req, res, next) => {
     res.status(200).json(updatesupplier);
   } catch (error) {
     next(error);
-  
-}};
+  }
+};
