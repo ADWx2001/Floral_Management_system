@@ -1,6 +1,7 @@
 import Stripe from 'stripe';
 import dotenv from "dotenv";
-import { createOrder } from './order.controller.js';
+import Order from "../models/order.model.js"
+
 
 dotenv.config();
 
@@ -120,49 +121,61 @@ export const createSession = async (req, res) => {
   res.send({ url: session.url });
 };
 
+//create order (save successful payments in databse)
+const createOrder = async (customer, data) => {
+  try {
+    const cartItems = JSON.parse(customer.metadata.cartItems);
+    const Items = cartItems.items.map(item => ({
+      _id: item._id,
+      title: item.title,
+      cartTotalQuantity: item.cartTotalQuantity,
+      // Add any other necessary fields from the item object
+    }));
+
+    const newOrder = new Order({
+      orderId: data.id,
+      userId: customer.metadata.userId,
+      productsId: Items.map(item => ({
+        id: item._id,
+        title: item.title,
+        quantity: item.cartTotalQuantity
+      })),
+      first_name: data.customer_details.name.split(' ')[0],
+      last_name: data.customer_details.name.split(' ')[1],
+      email: data.customer_details.email,
+      phone: data.customer_details.phone,
+
+      address: data.customer_details.address.line1,
+
+      city: data.customer_details.address.city,
+      zip: data.customer_details.address.postal_code,
+      subtotal: data.amount_subtotal / 100,
+      deliveryfee: 300,
+      totalcost: data.amount_total / 100,
+    });
+
+    const savedOrder = await newOrder.save();
+      //console.log("Processed Order:", savedOrder);
+  } catch (error) {
+    console.error("Error creating order:", error);
+    throw error; // Rethrow the error to be caught by the caller
+  }
+};
+
+
 
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
 let endpointSecret;
 
-//endpointSecret= "whsec_6c0972535b2f51c8b125039f0b17dae0f7db86e3d846040e34c5aba634d67879";
-
-// router.post('/webhook', express.raw({type: 'application/json'}), (request, response) => {
-//   const sig = request.headers['stripe-signature'];
-
-//   let event;
-
-//   try {
-//     event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
-//   } catch (err) {
-//     response.status(400).send(`Webhook Error: ${err.message}`);
-//     return;
-//   }
-
-//   // Handle the event
-//   switch (event.type) {
-//     case 'payment_intent.succeeded':
-//       const paymentIntentSucceeded = event.data.object;
-//       // Then define and call a function to handle the event payment_intent.succeeded
-//       break;
-//     // ... handle other event types
-//     default:
-//       console.log(`Unhandled event type ${event.type}`);
-//   }
-
-//   // Return a 200 response to acknowledge receipt of the event
-//   response.send();
-// });
-
 export const handleWebhook = async (req, res) => {
-  const sig = req.headers['stripe-signature'];
+  const sig = req.headers["stripe-signature"];
 
   let data;
   let eventType;
 
-  if(endpointSecret){
-
+  if (endpointSecret) {
     let event;
-  
+
     try {
       event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
       console.log("Webhook verified!!");
@@ -173,58 +186,30 @@ export const handleWebhook = async (req, res) => {
     }
     data = event.data.object;
     eventType = event.type;
-  }else{
+  } else {
     data = req.body.data.object;
     eventType = req.body.type;
   }
 
-
   // Handle the event
-  if(eventType === "checkout.session.completed"){
-    stripe.customers.retrieve(data.customer).then((customer)=>{
-      // console.log(customer);
-      console.log("data",data);
+  if (eventType === "checkout.session.completed") {
+    stripe.customers
+      .retrieve(data.customer)
+      .then((customer) => {
+        // console.log(customer);
+        // console.log("data", data);
+        createOrder(customer, data);
+        
+        //console.log("Order created successfully!");
 
-      // Extract required data for creating order
-      const {
-        userId,
-        productsId,
-        first_name,
-        last_name,
-        email,
-        phone,
-        shipping_details: { address, state, zip },
-        subtotal,
-        shipping_cost: { amount_total: deliveryfee },
-        total_details: { amount_total: totalcost }
-      } = data;
-
-      // Call createOrder with extracted data
-      createOrder({
-        userId,
-        productsId,
-        first_name,
-        last_name,
-        email,
-        phone,
-        address: address.line1,
-        state: address.state,
-        zip: address.postal_code,
-        subtotal,
-        deliveryfee,
-        totalcost
+        // createOrder(data);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-
-    console.log("Order created successfully!");
-
-      // createOrder(data);
-
-    }).catch((err)=>{
-      console.log(err);
-    })
   }
-  
 
   // Return a 200 response to acknowledge receipt of the event
   res.send().end();
 };
+

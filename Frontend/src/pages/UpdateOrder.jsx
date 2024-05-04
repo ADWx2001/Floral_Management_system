@@ -35,32 +35,6 @@ export default function UpdateOrder() {
             }
         }, [orderId]);
 
-      //handle form submit
-      // const handleSubmit = async (e) => {
-      //   e.preventDefault();
-      //   try {
-      //       const res = await fetch(`/api/order/updateorder/${orderId}`, {
-      //           method: 'PUT',
-      //           headers: {
-      //             'Content-Type': 'application/json',},
-      //       body: JSON.stringify(formData),
-      //     });
-
-      //     const data = await res.json();
-          
-      //     if (!res.ok) {
-      //       // setPublishError(data.message);
-      //       // return;
-      //       console.log(data);
-      //     }
-    
-      //     if (res.ok) {
-      //       navigate('/dashboard?tab=orders');
-      //     }
-      //   } catch (error) {
-      //     console.log(error.message);
-      //   }
-      // };
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {

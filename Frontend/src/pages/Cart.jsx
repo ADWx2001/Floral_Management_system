@@ -38,80 +38,7 @@ export default function Cart() {
   }
 
   return (
-    // <div className="text-center pt-10 pb-20">
-    //   <h1 className="text-2xl font-semibold">Shopping Cart</h1>
-    //   {cart.cartItems.length === 0 ? (
-    //     <div className="pt-4 text-center">
-    //       <p className="font-semibold ">Your cart is empty</p>
-    //       <div className="pt-10 pb-10">
-    //            <Link to="/">
-    //              <span className="p-2 bg-gray-200 rounded px-5 hover:bg-green-400 hover:text-white">
-    //                Start Shopping
-    //              </span>
-    //            </Link>
-    //          </div>
-    //     </div>
-    //   ) : (
-    //     <div className="mx-auto">
-    //       <table className="w-10/12 mt-10">
-    //         <thead className="text-center">
-    //           <tr className="border-b">
-    //             <th className="py-2">Product</th>
-    //             <th className="py-2">Price</th>
-    //             <th className="py-2">Quantity</th>
-    //             <th className="py-2">Total</th>
-    //           </tr>
-    //         </thead>
-    //         <tbody>
-    //           {cart.cartItems?.map((cartItem) => (
-    //             <tr key={cartItem._id} className="border-b">
 
-    //               <td className="py-2 flex gap-4 px-52">
-    //                 <img src={cartItem.images} alt={cartItem.name} className="max-w-24" />
-    //                 <div className="text-left max-w-52">
-    //                   <h3 className="font-semibold pb-1 text-rose-500">{cartItem.name}</h3>
-    //                   <p className="text-sm pb-3">{cartItem.description}</p>
-    //                   <button className="bg-gray-300 p-1 rounded px-4 hover:bg-red-600 hover:text-white text-xs" onClick={() => handleRemoveFromCart(cartItem)}>Remove</button>
-    //                 </div>
-    //               </td>
-
-    //               <td className="py-2">${cartItem.price}</td>
-                  
-    //               <td className="py-2 max-w-32">
-    //                 <button onClick={() => handleDecreaseCart(cartItem)}>-</button>
-    //                 <p>{cartItem.cartTotalQuantity}</p>
-    //                 <button onClick={() => handleIncreaseCart(cartItem)}>+</button>
-    //               </td>
-
-    //               <td className="py-2">${cartItem.price * cartItem.cartTotalQuantity}</td>
-                  
-    //             </tr>
-    //           ))}
-    //         </tbody>
-    //       </table>
-
-    //       <div className="flex flex-wrap justify-between gap-32 px-52 pt-10">
-    //         <div className="">
-    //           <button onClick={() => handleClearCart()} className="p-3 hover:bg-red-600 bg-gray-300 rounded-md text-sm text-black hover:text-white"> Clear Cart</button>
-    //         </div>
-
-    //         <div className="text-left">
-    //           <span className="text-xl font-semibold">Subtotal : Rs. {cart.cartTotalAmount}</span>
-    //           <p className="text-xs text-left pt-1 pb-2"><span className="text-red-700">*</span>Taxes and shipping calculated at checkout</p>
-    //           <div className="flex flex-wrap gap-3">
-    //             <Link to='/'>
-    //               <button className="bg-gray-200 p-3 rounded hover:bg-green-400 hover:text-white text-sm">Continue Shopping</button>
-    //             </Link>
-
-    //             <Link to='/checkout'>
-    //               <button className="bg-green-400 p-2.5 px-5  rounded hover:bg-green-500 hover:text-white text-md text-white">Checkout</button>
-    //             </Link>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   )}
-    // </div>
 
     <>
       <div className="flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
@@ -178,12 +105,11 @@ export default function Cart() {
                       className="flex items-center flex-col min-[550px]:flex-row gap-3 min-[550px]:gap-6 w-full max-xl:justify-center max-xl:max-w-xl max-xl:mx-auto">
                       <div className="img-box"><img src={cartItem.image} alt="" className="xl:w-[140px]"/></div>
                       <div className="pro-data w-full max-w-sm ">
-                          <h5 className="font-semibold text-xl leading-8 text-black max-[550px]:text-center">{cartItem.name}
-                          <p className="font-normal text-sm pb-3">{cartItem.description}</p>
-                          </h5>
+                          <h5 className="font-semibold text-xl leading-8 text-black max-[550px]:text-center ">{cartItem.title}</h5>
+                          <p className="font-normal text-sm text-center pb-3">Qty x{cartItem.cartTotalQuantity}</p>
                           <p
-                              className="font-normal text-lg leading-8 text-gray-500 my-2 min-[550px]:my-3 max-[550px]:text-center">
-                              {cartItem.category}</p>
+                              className="font-normal text-lg leading-8 text-gray-500 min-[550px]:my-3 max-[550px]:text-center">
+                              Type: {cartItem.category}</p>
                           <h6 className="font-medium text-lg leading-8 text-rose-600  max-[550px]:text-center">Rs.{cartItem.price}</h6>
                       </div>
                   </div>
@@ -265,17 +191,17 @@ export default function Cart() {
                     </button>
                   </Link>
                   <div >
-                    {/* <PayButton cartItems={cart.cartItems}/> */}
-                    <Link to='/ordersummary'>
-                    <button
-                        className="rounded-full py-4 px-6 w-full max-w-[280px]  flex items-center bg-indigo-50 justify-center transition-all duration-500 hover:bg-indigo-100">
-                        <span className="px-2 font-semibold text-lg leading-8 text-indigo-600">Continue shopping</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
-                            <path d="M8.25324 5.49609L13.7535 10.9963L8.25 16.4998" stroke="#4F46E5" strokeWidth="1.6"
-                                strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </button>
-                  </Link>
+                    <PayButton cartItems={cart.cartItems} />
+                    {/* <Link to='/ordersummary'>
+                      <button
+                          className="rounded-full py-4 px-6 w-full max-w-[280px]  flex items-center bg-indigo-50 justify-center transition-all duration-500 hover:bg-indigo-100">
+                          <span className="px-2 font-semibold text-lg leading-8 text-indigo-600">Continue Payment</span>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                              <path d="M8.25324 5.49609L13.7535 10.9963L8.25 16.4998" stroke="#4F46E5" strokeWidth="1.6"
+                                  strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                      </button>
+                    </Link> */}
                   </div>
               </div>
           </div>
