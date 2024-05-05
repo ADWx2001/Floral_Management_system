@@ -187,7 +187,7 @@ export default function Home() {
 
             </div>
 
-            <form className="w-full max-w-lg p-4  rounded-xl">
+            {/* <form className="w-full max-w-lg p-4  rounded-xl">
                 <div>
                     <div className="mb-2 block">
                         <label htmlFor="email1" className="font-bold text-white">Your email</label>
@@ -208,7 +208,7 @@ export default function Home() {
                 </div>
                 
                 <button type="submit" className="mt-4 bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 transition duration-300 ease-in-out">Submit</button>
-            </form>
+            </form> */}
 
         </div>
     </div>
