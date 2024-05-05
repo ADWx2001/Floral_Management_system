@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 
 
 export default function PostProduct() {
-  const { productSlug ,productId} = useParams();
+  const { productSlug } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [product, setProduct] = useState(null);
@@ -39,6 +39,10 @@ export default function PostProduct() {
         setProduct(data.products[0]);
         setLoading(false);
         setError(false);
+
+        if (data.products[0]) {
+          getModeratereviews(data.products[0]._id);
+        }
       
 
       } catch (error) {
@@ -49,29 +53,24 @@ export default function PostProduct() {
     fetchProducts();
   }, [productSlug]);
 
-  useEffect(() =>{
-    const getModeratereviews = async() => {
-      try{
-        const resStar = await fetch(`/api/reviews/getModarateRating/${productId}`);
-        
-        if(resStar.ok){
-          const starfilter = await resStar.json();
-          setFivestar(starfilter.Fivestar);
-          setFourstar(starfilter.Fourstar);
-          setThreestar(starfilter.Threestar);
-          setTwostar(starfilter.Twostar);
-          setOnestar(starfilter.Onestar);
-          setmoderateRating(starfilter.moderateRating);
-        }
-
+  const getModeratereviews = async (productId) => {
+    try {
+      const resStar = await fetch(`/api/reviews/getModarateRating/${productId}`);
+  
+      if (resStar.ok) {
+        const starfilter = await resStar.json();
+        setFivestar(starfilter.Fivestar);
+        setFourstar(starfilter.Fourstar);
+        setThreestar(starfilter.Threestar);
+        setTwostar(starfilter.Twostar);
+        setOnestar(starfilter.Onestar);
+        setmoderateRating(starfilter.moderateRating);
       }
-      catch(error){
-        console.log(error.message);
-      }
-    };
-    getModeratereviews();
-  },[productId])
-
+  
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   if (loading) {
     return (
@@ -81,7 +80,6 @@ export default function PostProduct() {
     );
   }
 
-  const productsArray = data.products;
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
   }
@@ -93,7 +91,6 @@ export default function PostProduct() {
           <div>Error occurred while fetching data.</div>
         ) : (
           <>
-          
             <h1 className='text-3xl mt-10 p-3 text-center font-cinzel max-w-2xl mx-auto lg:text-4xl'>{product && product.title}</h1>
             
             <div className='lg:flex lg:flex-row'>
@@ -156,7 +153,8 @@ export default function PostProduct() {
             </div>
             
 
-          <Dashreviews productId={product.title}/>
+            <Dashreviews productId={product && product._id} title={product && product.title} />
+
           <div className ='max-w-4xl mx-auto '>
             <CallToAction/>
 

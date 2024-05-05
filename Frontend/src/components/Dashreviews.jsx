@@ -10,7 +10,8 @@ import Review from '../../../api/models/review.model.js';
 import Reviews from './Reviews';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
-export default function Dashreviews({ productId}) {
+export default function Dashreviews({ productId , title}) {
+  console.log(title)
   const { currentUser} = useSelector(state => state.user);
   const [reviewError, setReviewError] = useState(null);
   const [file, setFile] = useState(null);
@@ -67,7 +68,8 @@ export default function Dashreviews({ productId}) {
           }
         );
       } else {
-        submitReview(formData);
+        submitReview({ ...formData, title });
+
       }
     } catch (error) {
       console.log(error);
@@ -150,7 +152,7 @@ export default function Dashreviews({ productId}) {
         headers: {
           'content-Type': 'application/json'
         },
-        body: JSON.stringify({ content: review,rating, productId, userId: currentUser._id, reviewimage: formData.reviewimage, username:currentUser.username}),
+        body: JSON.stringify({ content: review,rating, productId, userId: currentUser._id, reviewimage: formData.reviewimage, username:currentUser.username,title}),
       });
       const data = await res.json();
       if (res.status === 200) {
@@ -160,7 +162,7 @@ export default function Dashreviews({ productId}) {
         setReviews([data, ...reviews]);
         setRating([data, ...rating]);
       }
-
+      title
       if (!res.ok) {
         setReviewError(data.message);
         return;

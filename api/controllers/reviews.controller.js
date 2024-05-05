@@ -3,11 +3,12 @@ import { errorHandler } from "../utils/error.js";
 
 export const addreview = async (req, res, next) => {
     try {
-        const { content, productId,reviewId, userId, reviewimage ,productname,username,rating,reply} = req.body;
+        const { content, productId,reviewId, userId, reviewimage ,productname,username,rating,title} = req.body;
 
         if (userId !== req.user.id) {
             return next(errorHandler(403, 'You are not allowed to add reviews'));
         }
+        
 
         const newReview = new Review({
             content,
@@ -17,6 +18,7 @@ export const addreview = async (req, res, next) => {
             productname,
             username, 
             rating,
+            title
             
         });
 
@@ -29,6 +31,7 @@ export const addreview = async (req, res, next) => {
     }
 };
 
+//Get reviews into product details page
 export const getProductReview = async (req, res, next) => {
     try {
         const startIndex = parseInt(req.query.startIndex) || 0;
@@ -46,18 +49,20 @@ export const getProductReview = async (req, res, next) => {
     }
 };
 
-
+//calculate modarate rating
 export const getModarateRating = async (req, res, next) => {
     try {
-        
-        const reviews = await Review.find({ productId: req.params.productId })
-        const totalReviews = await Review.countDocuments();
-        const Fivestar = await Review.countDocuments({rating:5});
-        const Fourstar = await Review.countDocuments({rating:4});
-        const Threestar = await Review.countDocuments({rating:3});
-        const Twostar = await Review.countDocuments({rating:2});
-        const Onestar = await Review.countDocuments({rating:1});
+        const productId = req.params.productId;
+        // Count total reviews for the specific product
+        const totalReviews = await Review.countDocuments({ productId });
+        // Count reviews with each rating for the specific product
+        const Fivestar = await Review.countDocuments({ productId, rating: 5 });
+        const Fourstar = await Review.countDocuments({ productId, rating: 4 });
+        const Threestar = await Review.countDocuments({ productId, rating: 3 });
+        const Twostar = await Review.countDocuments({ productId, rating: 2 });
+        const Onestar = await Review.countDocuments({ productId, rating: 1 });
 
+        // Rating value mapping
         const ratingValue = {
             5: 5,
             4: 4,
@@ -75,13 +80,12 @@ export const getModarateRating = async (req, res, next) => {
         // Calculating the moderate rating
         const moderateRating = totalRatings !== 0 ? (totalratingValue / totalRatings).toFixed(1) : 0;
 
-      
-        res.status(200).json({reviews,totalReviews,Fivestar,Fourstar,Threestar,Twostar,Onestar,moderateRating});
+        res.status(200).json({ totalReviews, Fivestar, Fourstar, Threestar, Twostar, Onestar, moderateRating });
         
     } catch (error) {
         next(error);
     }
-};
+}
 
 export const UpdateReview = async(req,res,next) => {
     try{
@@ -120,7 +124,7 @@ export const deleteReview = async(req,res,next) => {
             return  next(errorHandler(404,'Review not found'));
         }
         if(review.userId !== req.user.id && !req.user.isAdmin){
-            return next(errorHandler(403,'Your are not allow to delte this review'));
+            return next(errorHandler(403,'Your are not allow to delete this review'));
         }
         await Review.findByIdAndDelete(req.params.reviewId);
         res.status(200).json('Review has been deleted');
@@ -129,6 +133,7 @@ export const deleteReview = async(req,res,next) => {
     }
 }
 
+//Get reviews into admin dashboard
 export const getReviews = async(req,res,next) => {
     
     try {
