@@ -129,7 +129,7 @@ export default function AddProducts() {
 
               }
             </Button>
-        </div>
+          </div>
         
         {imageUploadError && (
           <Alert color='failure'>{imageUploadError}</Alert>

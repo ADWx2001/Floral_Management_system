@@ -275,7 +275,16 @@ export const getAdmins = async (req, res, next) => {
     res.status(500).json({ status: 500, message: "Internal server error" });
   }
 };
-
+export const getCustomers = async (req, res, next) => {
+  try {
+    
+    const admins = await User.find({ isAdmin: false });
+    res.status(200).json({ admins });
+  } catch (error) {
+    console.error("Error in getAdmins controller:", error);
+    res.status(500).json({ status: 500, message: "Internal server error" });
+  }
+};
 export const assignAdmin = async (req, res, next) =>{
   const { id } = req.params;
   try {

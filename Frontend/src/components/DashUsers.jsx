@@ -21,6 +21,7 @@ export default function DashUsers() {
   const [totalUsers, setTotalUsers] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
   const [showAdminsOnly, setShowAdminsOnly] = useState(false); 
+  const [showCustomersOnly, setShowCustomersOnly] = useState(false); 
   const [showAccessConfirmation, setShowAccessConfirmation] = useState(false);
   const [showAccessDeclaration, setShowAccessDeclaration] = useState(false);
 
@@ -38,7 +39,20 @@ export default function DashUsers() {
         }
       };
       fetchAdmins();
-    } else {
+       } else if (showCustomersOnly) {
+      const fetchCustomers = async () => {
+        try {
+          const res = await fetch('/api/user/getcustomers');
+          const data = await res.json();
+          if (res.ok) {
+            setUsers(data.admins);
+          }
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
+      fetchCustomers();
+    }else {
       
       const fetchAllUsers = async () => {
         try {
@@ -65,7 +79,7 @@ export default function DashUsers() {
         fetchAllUsers();
       }
     }
-  }, [currentUser._id, searchTerm, showAdminsOnly]);
+  }, [currentUser._id, searchTerm, showAdminsOnly,showCustomersOnly]);
   
 
   
@@ -173,6 +187,11 @@ export default function DashUsers() {
   const handleCheckboxChange = (e) => {
     setShowAdminsOnly(e.target.checked);
   };
+  
+  const handleCheckboxChangeCus = (e) => {
+    setShowCustomersOnly(e.target.checked);
+  };
+
   const handleAssignAdmin = async () => {
     try {
       const res = await fetch(`/api/user/assignadmin/${userIdToAssignAdmin}`, {
@@ -227,14 +246,7 @@ export default function DashUsers() {
         onChange={handleSearch}
         className="px-3 py-2 w-150 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mr-2 h-10 dark:bg-slate-800  placeholder-gray-500"
       />
-       <Button
-        gradientDuoTone='purpleToBlue'
-        outline
-        onClick={handleGenerateReport}
-        className=""
-      >
-        Generate Report
-      </Button>
+       
       <div>
         <label>
           Show Admins Only:
@@ -246,6 +258,25 @@ export default function DashUsers() {
           />
         </label>
       </div>
+      <div>
+        <label>
+          Show Customers Only:
+          <input
+            type="checkbox"
+            checked={showCustomersOnly}
+            onChange={handleCheckboxChangeCus}
+            className="ml-2"
+          />
+        </label>
+      </div>
+      <Button
+        gradientDuoTone='purpleToBlue'
+        outline
+        onClick={handleGenerateReport}
+        className=""
+      >
+        Generate Report
+      </Button>
      
     </div>
 
