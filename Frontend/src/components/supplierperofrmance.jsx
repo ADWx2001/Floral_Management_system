@@ -82,13 +82,21 @@ export default function Supplierperfromance() {
   const generatePDFReport = () => {
     const content = `
       <style>
+   
     div{
       height:800px;
+      border: 2px solid #63ccf2;
     }
 
       h1{
-        padding-left:30%;
+        padding-left:25%;
         font-size:40px;
+        padding-bottum:50px;
+        color:#63ccf2;
+        
+      }
+      h3{
+        padding-left:40%;
         padding-bottum:50px;
       }
         table {
@@ -113,15 +121,19 @@ export default function Supplierperfromance() {
         }
         p{
           font-size: 14px;
+         
 
         }
 
 
       </style>
       <div>
-      <h1><b>Sonduru Mal Pvt ltd</b></h1>
-      <p>Supplier Name:${rsuppliername}</p>
-      <p>Owner name : Flower shop owner</p>
+      <h6>DATE:${new Date().toLocaleDateString()}</h6>
+      <h1><b>FLOWEWR SHOP Pvt ltd</b></h1><br>
+      <h3><b>Delivery Confirmation Receipt</b></h3>
+
+      <p><b>Supplier Name:</b>${rsuppliername}</p>
+      <p><b>Owner name : </b>MR. Jayawardhana</p>
     
       <br>
       <br>
@@ -131,7 +143,7 @@ export default function Supplierperfromance() {
        
             <th>Item name</th>
             <th>Quantity</th>
-            <th>Total cost</th>
+            <th>Total Cost</th>
             <th>Date</th>
             <th>Delivery status</th>
           </tr>
@@ -142,10 +154,11 @@ export default function Supplierperfromance() {
             
               <td>${itemname}</td>
               <td>${quantity}</td>
-              <td>${cost}</td>
-              <td>${date}</td>
+              <td>Rs:${cost}</td>
+              <td>${new Date(date).toLocaleDateString()}</td>
               <td>${dstatsu}</td>
             </tr>
+       
           
         </tbody>
       </table>
@@ -158,8 +171,15 @@ export default function Supplierperfromance() {
       <p>Owner signature</p><br>
       <h4>Sonduru Mal pvt ltd</h4>
       <p>Wanduragala, Kurunegala ,SL</p>
-      <p>+ 01 234 567 89</p>
-      <p>  flora@info.com</p>
+      <p>+ 078 709 4129</p>
+      <p> flora@info.com</p><br>
+      <P><b>IMPORTAINT:</b>Upon receipt of supplies, 
+      payment will be remitted within 7 days from the date of delivery. 
+      The invoice serves as confirmation of receipt of goods and payment. 
+      Any discrepancies or issues with the supplies must be reported within 2 
+      days of delivery for resolution. By accepting payment, the supplier acknowledges 
+      that the transaction is complete and the goods have been received in satisfactory 
+      condition, unless otherwise notified within the specified timeframe.</P>
   
 
       </div>
@@ -396,7 +416,7 @@ const handleGenerateReport = async(id) => {
               }}
             />
           }
-          title={"Total cost Rs:"}
+          title={"Total cost for stock orders Rs:"}
           value={totalost}
         />
      
@@ -443,7 +463,7 @@ const handleGenerateReport = async(id) => {
               <Table.HeadCell>Date </Table.HeadCell>
               <Table.HeadCell>Delivery status</Table.HeadCell>
               <Table.HeadCell>Remove</Table.HeadCell>
-              <Table.HeadCell>Print</Table.HeadCell>
+              <Table.HeadCell>Print Receipt</Table.HeadCell>
            
   
              
@@ -471,8 +491,8 @@ const handleGenerateReport = async(id) => {
                   <Table.Cell>{i.itemname}</Table.Cell>
                  
                   <Table.Cell>{i.quantity}</Table.Cell>
-                  <Table.Cell>{i.cost}</Table.Cell>
-                  <Table.Cell>{i.Date}</Table.Cell>
+                  <Table.Cell>Rs:{i.cost}</Table.Cell>
+                  <Table.Cell>{new Date(i.Date).toLocaleDateString()}</Table.Cell>
                   <Table.Cell>{i.Deliverystatus}</Table.Cell>
                   <Table.Cell><span className='font-medium text-red-500 hover:underline cursor-pointer'
                         onClick={() => {
