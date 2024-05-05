@@ -9,6 +9,7 @@ const PayButton = ({cartItems}) =>{
     // const cart = useSelector((state) => state.cart);
 
     const handleCheckout = async () => {
+        console.log(currentUser._id);
         try {
             const res = await fetch(`/api/stripe/create-checkout-session`, {
                 method: 'POST',
@@ -36,21 +37,12 @@ const PayButton = ({cartItems}) =>{
             console.log(error);
         }
 
-        // axios.post(`http://localhost:5173/api/stripe/create-checkout-session`, {
-        //     cartItems,
-        //     userId: currentUser._id,
-        // }).then((res) => {
-        //     if (res.data.url) {
-        //         navigate('/order-pay-success');
-        //     }
-        // }).catch((err) => console.log(err));
-
     };
     
 
     return(
         <>
-            <button className="rounded-full py-4 px-6 w-full max-w-[280px]  flex items-center bg-indigo-50 justify-center transition-all duration-500 hover:bg-indigo-100" onClick={()=>handleCheckout()}>Pay Now</button>
+            <button className="text-lg rounded-full font-semibold text-indigo-600 py-4 px-6 w-full max-w-[280px]  flex items-center bg-indigo-50 justify-center transition-all duration-500 hover:bg-indigo-100" onClick={()=>handleCheckout()}>Continue to Payment</button>
         </>
     )
 }
