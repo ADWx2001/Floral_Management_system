@@ -3,15 +3,12 @@ import { Link } from "react-router-dom";
 export default function EventReqSuccess() {
   return (
     <div>
-        <Link to="/">
-            <button>Return</button>
-        </Link>
 
         <div className="">
       <div className="text-center pt-28">
-        <h1 className="text-4xl font-semibold font-cinzel">Your order placed successfully</h1>
-        <h2 className="text-xl">Seller is preparing your package for delivery</h2>
-        <img src="/sample/barcode.gif" alt="package" className="w-64 mx-auto mt-10 "/>
+        <h1 className="text-4xl font-semibold font-cinzel">Your request recieved to us</h1>
+        <h2 className="text-xl">We will reach you soon!</h2>
+        <img src="/sample/balloons.gif" alt="package" className="w-64 mx-auto mt-10 "/>
       </div>
       
       <div className="flex flex-wrap justify-center gap-20 pb-56 pt-5">
