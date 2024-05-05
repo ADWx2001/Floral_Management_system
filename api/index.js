@@ -17,7 +17,6 @@ import paymentRoute from "./routes/payment.route.js";
 // test import products api Prducts.js
 import product from "./utils/Product.js";
 import stripe from "./routes/stripe.route.js";
-import path from 'path';
 
 dotenv.config();
 
@@ -26,14 +25,8 @@ mongoose.connect(process.env.MONGO).then(()=>{
 }).catch((err)=>{
     console.log(err)
 });
-const __dirname = path.resolve();
-const app = express();
 
-app.use(express.static(path.join(__dirname, '/Frontend/dist')));
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Frontend', 'dist', 'index.html'));
-  });
-  
+const app = express();
 app.use(cookieParser());
 app.use(express.json());
 

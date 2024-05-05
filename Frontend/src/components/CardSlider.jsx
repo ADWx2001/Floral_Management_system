@@ -34,7 +34,7 @@ export default function CardSlider() {
   return (
     <>
     <div className="h-56 sm:h-96 xl:h-96 2xl:h-96">
-      <Carousel slideInterval={5000}>
+      
         <div className='flex flex-wrap gap-5 justify-between font-cinzel'>
             {productsArray.map((singleProduct) => (
             <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key={singleProduct._id}>
@@ -51,7 +51,7 @@ export default function CardSlider() {
             </div>
             ))}
         </div>
-      </Carousel>
+
     </div>
         
     </>
