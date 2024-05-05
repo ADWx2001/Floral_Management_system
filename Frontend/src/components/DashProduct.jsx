@@ -12,11 +12,13 @@ export default function DashProduct() {
   const [productIdToDelete, setProductIdToDelete] = useState('');
   const [totalProducts, setTotalProducts] = useState(0);
   const [lastMonthProducts, setlastMonthProducts] = useState(0);
+  const [searchTerm, setSearchTerm] = useState('');
+  
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch(`/api/products/getproducts`);
+        const res = await fetch(`/api/products/getproducts?searchTerm=${searchTerm}`);
         const data = await res.json();
         if (res.ok) {
           setUserProduct(data.products);
@@ -29,7 +31,7 @@ export default function DashProduct() {
     };
 
     fetchProducts();
-  }, []);
+  }, [searchTerm]);
 
   const handleDeleteProduct = async () => {
     setShowModel(false);
@@ -51,6 +53,11 @@ export default function DashProduct() {
     } catch (error) {
       console.log(error.message);
     }
+  };
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+   
   };
 
   const generatePDFReport = () => {
@@ -117,7 +124,15 @@ export default function DashProduct() {
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
       <div className='flex justify-between'>
+      <input
+          type="text"
+          placeholder="Search Products.."
+          value={searchTerm}
+          onChange={handleSearch}
+          className="px-3 py-2 w-150 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mr-2 h-10 dark:bg-slate-800  placeholder-gray-500"
+        />
         <div></div>
+        
            <Button 
                 gradientDuoTone='purpleToBlue'
                 outline
