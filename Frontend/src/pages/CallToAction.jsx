@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import EventSlider from "../components/EventSlider";
 
 
 export default function CallToAction() {
@@ -14,8 +15,12 @@ export default function CallToAction() {
                     </button>
                 </Link>
             </div>
-            <div className='p-7'>
-                <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOMcViysB6aV-QIudcaJRKvP0uMwXHbFYXjjRfTCF68w&s' alt="Flora Event" />
+            <div id="default-carousel" className="p-3 flex flex-col flex-1  relative w-full dark:bg-gray-800">
+                <div className="relative h-50 overflow-hidden rounded-lg md:h-60 ">
+                    <div className="ease-in-out " data-carousel-item>
+                        <EventSlider />
+                    </div>
+                </div>
             </div>
         </div>
     </div>

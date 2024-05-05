@@ -100,7 +100,7 @@ export default function UpdateReviews() {
 
       if (res.ok) {
         setPublishError(null);
-        navigate('/dashboard?tab=products');
+        window.location.reload();
       }
     } catch (error) {
       setPublishError('Something went wrong');
@@ -109,7 +109,7 @@ export default function UpdateReviews() {
 
   const handleCancel = () => { 
     // Redirect to the product slug
-    navigate(`/product/${product.slug}`);
+    window.location.reload();
 };
 
 
@@ -119,9 +119,9 @@ export default function UpdateReviews() {
         <form className="flex flex-col  gap-4" onSubmit={handleSubmit}>
         <div className='flex flex-col gap-4 sm:flex-row justify-between'>
 
-        <div className='p-2'>
-            <label className='pr-1 text-gray-500'>Rating</label>
-            <select className='m-2 p-1 rounded-md text-gray-600 ' onChange={(e) =>setFormData({ ...formData, rating: e.target.value })} value={formData.rating}>    
+        <div className='p-2 light:bg-slate-800'>
+            <label className='pr-1 text-gray-500 '>Rating</label>
+            <select className='m-2 p-1 rounded-md  ' onChange={(e) =>setFormData({ ...formData, rating: e.target.value })} value={formData.rating}>    
                 <option value="">Select</option>
                 <option value="1">1- Bad</option>
                 <option value="2">2- Fair</option>
@@ -130,11 +130,15 @@ export default function UpdateReviews() {
                 <option value="5">5- Excelent</option>
                 </select>
           </div>
-          <TextInput type='text'placeholder='content'required id='content'  onChange={(e) =>
-              setFormData({ ...formData, content: e.target.value })
-            } value={formData.content}/>
+          
           
          </div>
+         <div className="">
+         <TextInput  type='text'placeholder='content'required id='content' rows="3" onChange={(e) =>
+              setFormData({ ...formData, content: e.target.value })
+            } value={formData.content}/>
+         </div>
+         
          <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
             <FileInput type='file'accept='image/*' onChange={(e)=>setFile(e.target.files[0])}/>
             <Button onClick={handleUploadImage} type='button'gradientDuoTone='purpleToBlue'size='sm' outline disabled={imageUploadProgress}>

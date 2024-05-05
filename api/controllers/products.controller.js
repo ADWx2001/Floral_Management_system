@@ -40,9 +40,14 @@ export const getProducts = async (req, res, next) => {
         $or: [
           { title: { $regex: req.query.searchTerm, $options: 'i' } },
           { description: { $regex: req.query.searchTerm, $options: 'i' } },
+          { supplier: { $regex:req.query. searchTerm, $options: 'i' } },
         ],
       }),
     };
+
+   
+
+    
 
     const products = await Product.find(queryOptions)
       .sort({ updatedAt: sortDirection })

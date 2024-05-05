@@ -23,7 +23,7 @@ export default function Dashreviews({ productId}) {
   const [showModal, setshowModal] = useState(false);
   const [reviewToDelete, setreviewToDelete] = useState(null);
   const [showMore, setShowMore] = useState(true);
- 
+  const [publishError, setPublishError] = useState(null);
 
 
 
@@ -161,6 +161,16 @@ export default function Dashreviews({ productId}) {
         setRating([data, ...rating]);
       }
 
+      if (!res.ok) {
+        setReviewError(data.message);
+        return;
+      }
+
+      if (res.ok) {
+        setReviewError(null);
+      
+      }
+
       
     } catch (error) {
       setReviewError(error.message);
@@ -218,10 +228,6 @@ export default function Dashreviews({ productId}) {
           
         }
 
-        if(resdash.ok){
-          const data5 = await resdash.json();
-          setFivestar(data5.Fivestar);
-        }
       }
       catch(error){
         console.log(error.message);
@@ -308,20 +314,26 @@ const handleDelete = async(reviewId) => {
               <div className='flex justify-between items-center mt-3'>
                 <div className='flex gap-10 border-4 border-teal-500 border-dotted p-3 w-full'>
                   <FileInput type='file' accept='image/*' onChange={(e) => setFile(e.target.files[0])} />
-                  <Button onClick={handleUploadImage} type='button' gradientDuoTone='purpleToBlue' size='sm' outline disabled={imageUploadProgress}>
-                    {imageUploadProgress ? (
-                      <div className="w-16 h-16">
-                        <CircularProgressbar value={imageUploadProgress} text={`${imageUploadProgress || 0}`} />
-                      </div>
-                    ) : ('Upload Image')}
-                  </Button>
+                  <div className='pl-40'>
+                    <Button onClick={handleUploadImage} type='button' gradientDuoTone='purpleToBlue' size='sm' outline disabled={imageUploadProgress}>
+                      {imageUploadProgress ? (
+                        <div className="w-16 h-16 ">
+                          <CircularProgressbar value={imageUploadProgress} text={`${imageUploadProgress || 0}`} />
+                        </div>
+                      ) : ('Upload Image')}
+                    </Button>
+                  </div>
                 </div>
               </div>
               {imageUploadError && (
                 <Alert color='failure'>{imageUploadError}</Alert>
               )}
+              
             </div>
             <button   type='submit' className="gap-8 m-2 dark:bg-slate-800 border bg-slate-300 border-teal-500 rounded-xl p-1">Submit</button>
+            {reviewError && (
+                <Alert color='failure'>{reviewError}</Alert>
+              )}
           </form>
         )
       }
@@ -349,8 +361,8 @@ const handleDelete = async(reviewId) => {
         }
          {showMore && (
           <button onClick={handleShowMore} className='w-full text-teal-500 self-center text-sm py-7'>
-          Show more
-      </button>
+             
+          </button>
         )}
         
         </>

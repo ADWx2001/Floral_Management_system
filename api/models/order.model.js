@@ -35,7 +35,7 @@ const orderSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    state:{
+    city:{
         type:String,
         required:true,
     },
@@ -55,13 +55,6 @@ const orderSchema = new mongoose.Schema({
        type: Number,
        required:true,
     },
-    // orderstatus:{
-    //     type: String,
-    //     enum:['pending','processing','completed', 'cancelled'],
-    // },
-    // paymentstatus:{
-    //     type: String,
-    // },
     }, {timestamps: true}
 
 );
