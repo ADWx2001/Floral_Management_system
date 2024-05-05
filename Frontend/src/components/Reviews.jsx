@@ -115,26 +115,17 @@ export default function Reviews({ review, onUpdate, onDelete }) {
             <div className="pl-16 ">
               {review.reply && (
                 <>
-                  <div className=" bg-slate-100 rounded-md p-1">
+                  <div className=" bg-slate-100 rounded-md p-1 m-1 w-80">
                     <div className="flex flex-wrap items-center mb-3 ">
-                    <div className="flex-shrink-0 mr-3">
-                        <img
-                        className="w-6 h-6 rounded-full bg-gray-300"
-                        src={user.profilePicture}
-                        alt={user.username}
-                        />
-                    </div>
-                      <span className="font-semibold mr-1 text-xs truncate">
-                        {user ? `@${user.username}` : "Anonymous user"}{" "}
-                      </span>
-                      <span className="text-xs font-semibold text-blue-600">
+                    
+                      <span className="text-xs font-semibold text-blue-600 pt-1 pl-1">
                         {" "}
                         ADMIN{" "}
                       </span>
                       <HiStar className="text-blue-700 text-lg" />
                     </div>
 
-                    <p className="text-justify pl-6 ">{review.reply}</p>
+                    <p className="text-justify pl-3 ">{review.reply}</p>
                   </div>
                 </>
               )}

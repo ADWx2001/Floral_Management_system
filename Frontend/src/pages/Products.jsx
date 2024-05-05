@@ -38,7 +38,7 @@ export default function Products() {
           <img className="w-96 h-48 object-cover rounded-2xl" src={singleProduct.image} alt="Sunset in the mountains" />
           <div className="px-6 py-4 text-center flex-grow">
             <div className="font-bold text-xl mb-2 text-rose-500">{singleProduct.title}</div>
-            {/* <span className="text-base text-gray-500">{singleProduct.description}</span><br /> */}
+            <span className="text-base text-gray-500">{singleProduct.description}</span><br />
             <span className="text-base text-rose-600">{singleProduct.category} day</span><br />
             <span className="text-base text-green-600">Delivery in {singleProduct.deliveryTime} day</span><br />
             <span className={`text-base ${singleProduct.quantity ? 'text-green-600' : 'text-red-600'}`}>

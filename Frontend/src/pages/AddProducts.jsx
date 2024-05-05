@@ -59,6 +59,7 @@ export default function AddProducts() {
          
         },
         () => {
+          //from the firebase
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>{
             setImageUploadProgress(null);
             setImageUploadError(null);
@@ -129,6 +130,7 @@ export default function AddProducts() {
               }
             </Button>
         </div>
+        
         {imageUploadError && (
           <Alert color='failure'>{imageUploadError}</Alert>
         )}

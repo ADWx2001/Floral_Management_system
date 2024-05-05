@@ -32,10 +32,11 @@ const eventSchema = new mongoose.Schema({
 
     },
 
-  
-   
-
-    
+    slug: {
+        type: String,
+        required: true,
+        unique: true,
+      },
 
    Picture:{
         type:String,

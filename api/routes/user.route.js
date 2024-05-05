@@ -1,6 +1,6 @@
 import express  from "express";
 
-import { deleteUser, forgetpassword, getUser, getUsers,  resetpassword,  signout, test, updateResetPassword, updateUser } from "../controllers/user.controller.js";
+import { assignAdmin, deleteUser, forgetpassword, getAdmins, getUser, getUsers,  resetpassword,  resignAdmin,  signout, test, updateResetPassword, updateUser } from "../controllers/user.controller.js";
 
 import { verifyToken } from "../utils/verifyUser.js";
 
@@ -9,8 +9,10 @@ const router = express.Router();
 router.get('/test',test);
 router.put("/update/:id" , verifyToken , updateUser);
 router.delete("/delete/:id" , verifyToken , deleteUser);
+router.put("/assignadmin/:id" , verifyToken , assignAdmin);
+router.put("/resignadmin/:id" , verifyToken , resignAdmin);
 router.get('/signout',signout);
-
+router.get('/getadmins', getAdmins);
 router.get('/getusers', verifyToken, getUsers);
 router.post('/forgetpassword',forgetpassword);
 router.get('/resetpassword/:id/:token',resetpassword);
