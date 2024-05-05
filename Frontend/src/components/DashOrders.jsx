@@ -22,36 +22,62 @@ export default function DashOrders() {
   //get total sales
   const calculateTotalSale = () => {
     const total = Orders.reduce((accumulator, currentOrder) => {
-      return accumulator + parseFloat(currentOrder.totalcost);
+      return accumulator + parseFloat(currentOrder.totalcost) ;
     }, 0);
     setTotalSale(total);
   };
   
    //fetch all the orders from database
+  // useEffect(() => {
+  //   const fetchOrders = async () => {
+  //     try {
+  //       const res = await fetch(`/api/order/getorders`);
+  //       const data = await res.json();
+  //       const length = data.length;
+  
+  //       setTotalOrders(length);
+  //       if (res.ok) {
+  //         setOrders(data);
+  //         if (data.length < 9) {  
+  //           setShowMore(false);
+  //         }
+  //         calculateTotalSale(); // Call calculateTotalSale here
+  //       }
+  //     } catch (error) {
+  //       console.log("error in fetching", error);
+  //     }
+  //   };
+    
+  //   if (currentUser) {
+  //     fetchOrders();
+  //   }
+  // }, [currentUser, Orders]); 
   useEffect(() => {
     const fetchOrders = async () => {
-      try {
-        const res = await fetch(`/api/order/getorders`);
-        const data = await res.json();
-        const length = data.length;
-  
-        setTotalOrders(length);
-        if (res.ok) {
-          setOrders(data);
-          if (data.length < 9) {  
-            setShowMore(false);
-          }
-          calculateTotalSale(); // Call calculateTotalSale here
+        try {
+            const res = await fetch(`/api/order/getorders`);
+            if (res.ok) {
+                const data = await res.json();
+                const newOrders = data.map(order => ({
+                    ...order,
+                    isNew: true // Assume all fetched orders are new initially
+                }));
+                newOrders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                setOrders(newOrders);
+                setTotalOrders(newOrders.length);
+                calculateTotalSale(newOrders);
+            }
+        } catch (error) {
+            console.log("error in fetching", error);
         }
-      } catch (error) {
-        console.log("error in fetching", error);
-      }
     };
     
     if (currentUser) {
-      fetchOrders();
+        fetchOrders();
     }
-  }, [currentUser, Orders]); 
+}, [currentUser]);
+
+
   
 
     //delete order by id
@@ -77,7 +103,21 @@ export default function DashOrders() {
       }
     };
 
+    const handleOrderClick = (orderId) => {
+      const updatedOrders = Orders.map(order => {
+          if (order._id === orderId) {
+              return { ...order, isNew: false }; // Mark the clicked order as viewed
+          }
+          return order;
+      });
+      setOrders(updatedOrders);
+  };
+
     const generatePDFReport = () => {
+     
+      const currentDate = new Date();
+     
+      const formattedDate = currentDate.toLocaleString();
       const content = `
         <style>
           table {
@@ -106,6 +146,11 @@ export default function DashOrders() {
             margin-left:30px;
 
           }
+          .report{
+            margin-left:30px;
+            font-size:10px;
+            margin-bottom:10px;
+          }
         </style>
 
         <h1 class="report-title"><b>Order Details Report</b></h1>
@@ -116,6 +161,7 @@ export default function DashOrders() {
         </div>
         <br>
         <br>
+       <!-- <p class="report">Report Date: ${formattedDate}</p>!-->
         <table>
           <thead>
             <tr>
@@ -125,9 +171,7 @@ export default function DashOrders() {
               <th>Phone</th>
               <th>Address</th>
               <th>Subtotal</th>
-              <th>Delivery Fee</th>
               <th>Payment</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -144,9 +188,7 @@ export default function DashOrders() {
                 <td>${order.phone}</td>
                 <td>${order.address}, ${order.state}, ${order.zip}</td>
                 <td>Rs. ${order.subtotal}.00</td>
-                <td>Rs. ${order.deliveryfee}.00</td>
                 <td>Rs. ${order.totalcost}.00</td>
-                <td>${order.isAdmin ? 'Yes' : 'No'}</td>
               </tr>
             `).join('')}
           </tbody>
@@ -306,7 +348,7 @@ export default function DashOrders() {
         }).map((orders) => (
 
         <Table.Body className='divide-y' key={orders._id}>
-          <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
+          <Table.Row className={`bg-white dark:border-gray-700 dark:bg-gray-800 ${orders.isNew ? 'font-bold' : ''}`} onClick={() => handleOrderClick(orders._id)} >
 
             {/* <Table.Cell>
               {orders._id}
