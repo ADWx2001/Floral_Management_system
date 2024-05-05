@@ -66,6 +66,11 @@ export default function DashEventBooking() {
     };
 
     const generatePDFReport = () => {
+    
+      const currentDate = new Date();
+
+      const formattedDate = currentDate.toLocaleString();
+    
       const content = `
         <style>
           table {
@@ -92,18 +97,25 @@ export default function DashEventBooking() {
           .details{
             margin-top:50px;
             margin-left:30px;
-
+    
+          }
+          .report{
+            margin-left:30px;
+            font-size:10px;
+            margin-bottom:10px;
           }
         </style>
-
+    
         <h1 class="report-title"><b>Event Booking Details Report</b></h1>
         <div class="details">
           
         </div>
         <br>
         <br>
+        
         <table>
           <thead>
+          <!--<p class="report">Report Date: ${formattedDate}</p>--!>
             <tr>
               <th>Client Name</th>
               <th>Phone</th>
@@ -123,16 +135,19 @@ export default function DashEventBooking() {
                 <td>${record.time}</td>
                 <td>${record.venue}</td>
                 <td>${record.guestCount}</td>
-                <td> ${record.budget}</td>
+                <td> Rs.${record.budget}.00</td>
                 <td>${record.arrangements}</td>
               </tr>
             `).join('')}
+            
           </tbody>
         </table>
+        
       `;
     
       html2pdf().from(content).set({ margin: 1, filename: 'event_bookings_report.pdf' }).save();
     };
+    
     
     
     const handleGenerateReport = () => {
@@ -202,7 +217,7 @@ export default function DashEventBooking() {
           <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
             <Table.Cell>{record.name}</Table.Cell>
             <Table.Cell >{record.phone}</Table.Cell>
-            <Table.Cell>{record.date}</Table.Cell>
+            <Table.Cell>{new Date(record.date).toLocaleDateString()}</Table.Cell>
             <Table.Cell>{record.description}</Table.Cell>
             <Table.Cell>{record.time}</Table.Cell>
             <Table.Cell>{record.venue}</Table.Cell>
