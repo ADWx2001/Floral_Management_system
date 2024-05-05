@@ -36,7 +36,7 @@ export const createOrder = async (req, res,next)=>{
       const orderId = idGen(phone);
 
       const newOrder = new Order({
-        orderId, userId,productsId,first_name,last_name,email,phone,
+        orderId,userId,productsId,first_name,last_name,email,phone,
         address,state,zip,subtotal,deliveryfee,totalcost
       })
 
@@ -47,6 +47,29 @@ export const createOrder = async (req, res,next)=>{
         next(error);
       }
 }
+
+// export const createOrder = async(customer, data)=>{
+//   const Items = JSON.parse(customer.metadata.cart);
+
+//   const newOrder = new Order({
+//     userId: customer.metadata.userId,
+//     customerId: data.customer,
+//     paymentIntentId: data.payment_intent,
+//     products:Items,
+//     subtotal:data.amount_subtotal,
+//     total: data.amount_total,
+//     shipping:data.customer_details,
+//     payment_status:data.payment_status,
+
+//   })
+
+//   try {
+//        const savedOrder = await newOrder.save();
+//        res.status(201).json(savedOrder);
+//       } catch (error) {
+//         next(error);
+//           }
+// }
 
 //get all orders
 export const  getAllOrders = async(req,res,next)=>{

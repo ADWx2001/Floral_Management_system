@@ -271,7 +271,7 @@ export default function DashOrders() {
     <div className="flex ">
       <TextInput
           type='text'
-          placeholder='Search a order by (Order ID or Name)'
+          placeholder='Search a order by (First Name or Last Name)'
           required
           id='title'
           className='flex-1'
@@ -283,7 +283,6 @@ export default function DashOrders() {
 
     <Table hoverable className='shadow-md'>
       <Table.Head>
-        <Table.HeadCell>Order ID</Table.HeadCell>
         <Table.HeadCell>Order Items</Table.HeadCell>
         <Table.HeadCell>First Name</Table.HeadCell>
         <Table.HeadCell>Last Name</Table.HeadCell>
@@ -292,7 +291,7 @@ export default function DashOrders() {
         <Table.HeadCell>Address</Table.HeadCell>
         <Table.HeadCell>Subtotal</Table.HeadCell>
         <Table.HeadCell>Delivery Fee</Table.HeadCell>
-        <Table.HeadCell>Payment</Table.HeadCell>
+        <Table.HeadCell>Payment</Table.HeadCell> 
         <Table.HeadCell>Action</Table.HeadCell>
       </Table.Head>
 
@@ -303,22 +302,18 @@ export default function DashOrders() {
         const orderId = orders._id.toLowerCase().includes(searchQuery);
 
         // Return true if any of the search criteria match
-        return firstName || lastName || orderId;
+        return firstName || lastName || orderId ;
         }).map((orders) => (
 
         <Table.Body className='divide-y' key={orders._id}>
           <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
 
-            <Table.Cell>
+            {/* <Table.Cell>
               {orders._id}
-            </Table.Cell>
+            </Table.Cell> */}
 
             <Table.Cell >
-              {/* <img
-                src={order.profilePicture}
-                alt={order.username}
-                className='w-10 h-10 object-cover bg-gray-500 rounded-full'
-              /> */}
+              
               {orders.productsId.map((product)=>(
                 <div key={product.title} className="w-40">
                   <p className="font-semibold">Name : {product.title}</p>
@@ -335,15 +330,7 @@ export default function DashOrders() {
             <Table.Cell>{orders.email}</Table.Cell>
 
             <Table.Cell>
-              {/* <span
-                onClick={() => {
-                  setShowModal(true);
-                  setOrderIdToDelete(order._id);
-                }}
-                className='font-medium text-red-500 hover:underline cursor-pointer'
-              >
-                Remove
-              </span> */}
+              
               {orders.phone}
             </Table.Cell>
             <Table.Cell>{orders.address},{orders.state},{orders.zip}</Table.Cell>

@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { Alert } from "flowbite-react";
 import { useSelector, useDispatch} from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { clearCart } from "../redux/cart/cartSlice";
 // import md5 from 'crypto-js/md5';
 
 export default function Ordersummary() {
@@ -52,9 +52,9 @@ export default function Ordersummary() {
           // If response is okay, clear any previous error state
           setPublishError(null);
           
-          // Redirect user to homepage 
-          dispatch(clearCart());
-          navigate('/');
+          // Redirect user to success page
+          
+          navigate('/order-pay-success');
         } catch (error) {
           
           setPublishError(error.message || 'Something went wrong');
@@ -221,9 +221,14 @@ export default function Ordersummary() {
               </div><br />
               
 
-              <button type="submit" onClick={handleSubmit} className="rounded-full w-full  py-3 px-6 text-center justify-center items-center bg-indigo-600 font-semibold text-lg text-white flex transition-all duration-500 hover:bg-indigo-700">Place Order</button>
-
+              <button type="submit"  onClick={handleSubmit} className="rounded-full w-full  py-3 px-6 text-center justify-center items-center bg-indigo-600 font-semibold text-lg text-white flex transition-all duration-500 hover:bg-indigo-700">Place Order</button>
+              {publishError && (
+                <Alert className='mt-5' color='failure'>
+                  {publishError}
+                </Alert>
+              )}
             </form>
+            
 
             <br /><br /><br /><br />
         </div>
