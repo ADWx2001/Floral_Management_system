@@ -49,6 +49,9 @@ export default function Supplierperfromance() {
   const [customers, setCustomers] = useState(0);
   const [revenue, setRevenue] = useState(0);
   const[scount,setscount]=useState(0);
+  const[ocount,setocount]=useState(0);
+  const[dcount,setdcount]=useState(0);
+  const[totalost,settotalost]=useState(0);
   const [Suppliers,setsuppliers] = useState ([])
   const [reveneuData, setReveneuData] = useState({labels: [],datasets: [],});
   const [srecords,setrecords] = useState ([])
@@ -63,10 +66,7 @@ export default function Supplierperfromance() {
   
   
   
-
-
-  
-  const options = {
+   const options = {
     responsive: true,
     plugins: {
       legend: {
@@ -82,11 +82,21 @@ export default function Supplierperfromance() {
   const generatePDFReport = () => {
     const content = `
       <style>
-    
+   
+    div{
+      height:800px;
+      border: 2px solid #63ccf2;
+    }
 
       h1{
-        padding-left:30%;
+        padding-left:25%;
         font-size:40px;
+        padding-bottum:50px;
+        color:#63ccf2;
+        
+      }
+      h3{
+        padding-left:40%;
         padding-bottum:50px;
       }
         table {
@@ -95,6 +105,7 @@ export default function Supplierperfromance() {
           padding-left:30px;
           padding-top:30px;
           padding-right:30px;
+          pading-bottom:80px;
         }
         th, td {
           padding: 8px;
@@ -108,11 +119,21 @@ export default function Supplierperfromance() {
         td {
           font-size: 12px; /* Adjust font size */
         }
+        p{
+          font-size: 14px;
+         
+
+        }
+
+
       </style>
       <div>
-      <h1><b>Sonduru Mal Pvt ltd</b></h1>
-      <p>Supplier Name:${rsuppliername}</p>
-      <p>Owner name : Flower shop owner</p>
+      <h6>DATE:${new Date().toLocaleDateString()}</h6>
+      <h1><b>FLOWEWR SHOP Pvt ltd</b></h1><br>
+      <h3><b>Delivery Confirmation Receipt</b></h3>
+
+      <p><b>Supplier Name:</b>${rsuppliername}</p>
+      <p><b>Owner name : </b>MR. Jayawardhana</p>
     
       <br>
       <br>
@@ -122,7 +143,7 @@ export default function Supplierperfromance() {
        
             <th>Item name</th>
             <th>Quantity</th>
-            <th>Total cost</th>
+            <th>Total Cost</th>
             <th>Date</th>
             <th>Delivery status</th>
           </tr>
@@ -133,18 +154,33 @@ export default function Supplierperfromance() {
             
               <td>${itemname}</td>
               <td>${quantity}</td>
-              <td>${cost}</td>
-              <td>${date}</td>
+              <td>Rs:${cost}</td>
+              <td>${new Date(date).toLocaleDateString()}</td>
               <td>${dstatsu}</td>
             </tr>
+       
           
         </tbody>
       </table>
-
-      <h4>Company Address</h4>
-      <p>xxxxxxxxxxxxxxxx</p>
-      <p>xxxxxxxxxxxxxxxx</p>
-      <p>xxxxxxxxx</p>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <p>- - - - - - - - - - - -</p>
+      <p>Owner signature</p><br>
+      <h4>Sonduru Mal pvt ltd</h4>
+      <p>Wanduragala, Kurunegala ,SL</p>
+      <p>+ 078 709 4129</p>
+      <p> flora@info.com</p><br>
+      <P><b>IMPORTAINT:</b>Upon receipt of supplies, 
+      payment will be remitted within 7 days from the date of delivery. 
+      The invoice serves as confirmation of receipt of goods and payment. 
+      Any discrepancies or issues with the supplies must be reported within 2 
+      days of delivery for resolution. By accepting payment, the supplier acknowledges 
+      that the transaction is complete and the goods have been received in satisfactory 
+      condition, unless otherwise notified within the specified timeframe.</P>
+  
 
       </div>
     `;
@@ -168,14 +204,13 @@ const handleGenerateReport = async(id) => {
      setcost(data.cost)
      setdstatus(data.Deliverystatus)
      setquantity(data.quantity)
-      console.log(data.supplier)
-      setdate(data.Date)
-      generatePDFReport();
+     //console.log(data.supplier)
+     setdate(data.Date)
+     generatePDFReport();
 
   }
     
-  
-  };
+   };
 
  
 
@@ -189,8 +224,14 @@ const handleGenerateReport = async(id) => {
         const data = await res.json();
         if (res.ok) {
            
-           setscount(data)
-            console.log(data);
+        setscount(data.supplierCount)
+        setocount(data.orderCount)
+        setdcount(data.dCount)
+        //console.log(ocount)
+        //console.log(scount)
+        //console.log(dcount)
+        settotalost(data.Totalcost)
+        //console.log(data.Totalcost)
           
              
         }
@@ -205,7 +246,7 @@ const handleGenerateReport = async(id) => {
         if (res.ok) {
            
           setrecords(data)
-            console.log(data);
+            //console.log(data);
           
              
         }
@@ -255,6 +296,7 @@ const handleGenerateReport = async(id) => {
               };
         
               setReveneuData(dataSource);
+              console.log(reveneuData);
              
         }
       } catch (error) {
@@ -266,7 +308,7 @@ const handleGenerateReport = async(id) => {
       fetchrecords();
     }
     
-  }, [currentUser._id]);
+  }, [currentUser._id,reveneuData]);
 
 
 
@@ -283,6 +325,10 @@ const handleGenerateReport = async(id) => {
       const data = await res.json();
       if (!res.ok) {
         console.log(data.message); 
+        window.location.href='/dashboard?tab=sperforamnce';
+      } 
+      if (res.ok) {
+    
         window.location.href='/dashboard?tab=sperforamnce';
       } 
     } catch (error) {
@@ -325,8 +371,8 @@ const handleGenerateReport = async(id) => {
               }}
             />
           }
-          title={"Total Orders"}
-          value={123}
+          title={"Total Orders from suppliers"}
+          value={ocount}
         />
         <DashboardCard
           icon={
@@ -341,7 +387,7 @@ const handleGenerateReport = async(id) => {
             />
           }
           title={"Late Deliveries"}
-          value={123}
+          value={dcount}
         />
         <DashboardCard
           icon={
@@ -370,8 +416,8 @@ const handleGenerateReport = async(id) => {
               }}
             />
           }
-          title={"Total cost"}
-          value={123}
+          title={"Total cost for stock orders Rs:"}
+          value={totalost}
         />
      
       </Space>
@@ -384,18 +430,20 @@ const handleGenerateReport = async(id) => {
        <Space>
      
        <div class="outer-wrapper" style={{  paddingBottom:50,}}>
+       <h3><b>Supplier Stock Order Records</b></h3>
        <Link className='text-teal-500 hover:underline'to={`/add-srecords`} style={{
              marginLeft:500,
       
 
              
              }}>
+               
                       <span>Add Restock Records</span>
                     </Link>
   <div class="table-wrapper">
  
 <>
-      
+     
    
           <Table  className="shadow-md"     style={{
               width:1100,
@@ -415,7 +463,7 @@ const handleGenerateReport = async(id) => {
               <Table.HeadCell>Date </Table.HeadCell>
               <Table.HeadCell>Delivery status</Table.HeadCell>
               <Table.HeadCell>Remove</Table.HeadCell>
-              <Table.HeadCell>Print</Table.HeadCell>
+              <Table.HeadCell>Print Receipt</Table.HeadCell>
            
   
              
@@ -443,8 +491,8 @@ const handleGenerateReport = async(id) => {
                   <Table.Cell>{i.itemname}</Table.Cell>
                  
                   <Table.Cell>{i.quantity}</Table.Cell>
-                  <Table.Cell>{i.cost}</Table.Cell>
-                  <Table.Cell>{i.Date}</Table.Cell>
+                  <Table.Cell>Rs:{i.cost}</Table.Cell>
+                  <Table.Cell>{new Date(i.Date).toLocaleDateString()}</Table.Cell>
                   <Table.Cell>{i.Deliverystatus}</Table.Cell>
                   <Table.Cell><span className='font-medium text-red-500 hover:underline cursor-pointer'
                         onClick={() => {
