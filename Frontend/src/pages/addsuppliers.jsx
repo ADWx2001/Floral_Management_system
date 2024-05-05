@@ -91,14 +91,14 @@ export default function Addsuppliers() {
         <div className='flex flex-col gap-4 sm:flex-row justify-between'>
           
           <Select  onChange={(e) =>setFormData({ ...formData, Paymentmethod: e.target.value })
-            } >
+            } required>
             <option value='uncategorized'>Select a Payment method</option>
             <option value='Bank transfer'>Bank transfer</option>
             <option value='Card'>Card</option>
             <option value='Check'>Check</option>
           </Select>
           <Select  onChange={(e) =>setFormData({ ...formData, category: e.target.value })
-            } >
+            } required>
             <option value='uncategorized'>Select a category</option>
             <option value='arrangements'>Arrangements</option>
             <option value='bouquets'>Bouquets</option>
