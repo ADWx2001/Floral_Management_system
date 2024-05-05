@@ -162,31 +162,35 @@ export default function DashProduct() {
               <Table.HeadCell>Product Title</Table.HeadCell>
               <Table.HeadCell>Category</Table.HeadCell>
               <Table.HeadCell>Supplier</Table.HeadCell>
+              <Table.HeadCell>Stock Level</Table.HeadCell>
               <Table.HeadCell>Delete</Table.HeadCell>
-              <Table.HeadCell>
-                <span>Edit</span>
-              </Table.HeadCell>
+              <Table.HeadCell>Edit</Table.HeadCell>
             </Table.Head>
             {userProduct.map((product) => (
               <Table.Body className='divide-y' key={product._id}>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                   <Table.Cell>{new Date(product.updatedAt).toLocaleDateString()}</Table.Cell>
                   <Table.Cell>
-                      <Link to={`/product/${product.slug}`}>
-                        <img
-                          src={product.image}
-                          alt={product.title}
-                          className="w-20 h-10 object-cover bg-gray-500"
-                        />
-                      </Link>
-                    </Table.Cell>
-                    <Table.Cell>
+                    <Link to={`/product/${product.slug}`}>
+                      <img
+                        src={product.image}
+                        alt={product.title}
+                        className="w-20 h-10 object-cover bg-gray-500"
+                      />
+                    </Link>
+                  </Table.Cell>
+                  <Table.Cell>
                     <Link className='font-medium text-gray-900 dark:text-white' to={`/product/${product.slug}`}>
                       {product.title}
                     </Link>
                   </Table.Cell>
                   <Table.Cell>{product.category}</Table.Cell>
                   <Table.Cell>{product.supplier}</Table.Cell>
+                  <Table.Cell>
+                    <span className={product.quantity < 10 ? 'text-red-500' : 'text-green-500'}>
+                      {product.quantity < 10 ? 'Low Stock' : 'In Stock'}
+                    </span>
+                  </Table.Cell>
                   <Table.Cell>
                     <span className='font-medium text-red-500 hover:underline cursor-pointer'
                       onClick={() => {
