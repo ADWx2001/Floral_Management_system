@@ -102,7 +102,13 @@ export const getUsers = async (req, res, next) => {
     const searchTerm = req.query.searchTerm || '';
 
     const usersQuery = User.find({
-      username: { $regex: searchTerm, $options: 'i' } 
+
+      $or: [
+        { username: { $regex: searchTerm, $options: 'i' } },
+        { email: { $regex: searchTerm, $options: 'i' } },
+       
+      ]
+     
     });
 
     const users = await usersQuery
@@ -259,4 +265,46 @@ export const getUser = async (req, res, next) => {
   }
 };
 
+export const getAdmins = async (req, res, next) => {
+  try {
+    
+    const admins = await User.find({ isAdmin: true });
+    res.status(200).json({ admins });
+  } catch (error) {
+    console.error("Error in getAdmins controller:", error);
+    res.status(500).json({ status: 500, message: "Internal server error" });
+  }
+};
 
+export const assignAdmin = async (req, res, next) =>{
+  const { id } = req.params;
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return next(errorHandler(404, 'User not found'));
+    }
+    user.isAdmin = true;
+    await user.save();
+    res.status(200).json({ message: 'User assigned admin privileges successfully' });
+  } catch (error) {
+    next(error);
+  }
+
+};
+export const resignAdmin = async (req, res, next) =>{
+
+  const { id } = req.params;
+
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return next(errorHandler(404, 'User not found'));
+    }
+    user.isAdmin = false;
+    await user.save();
+    res.status(200).json({ message: 'User resigned admin privileges successfully' });
+  } catch (error) {
+    next(error);
+  }
+  
+};

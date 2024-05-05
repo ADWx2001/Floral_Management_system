@@ -38,7 +38,7 @@ export default function DashProfile() {
     if (image) {
       uploadImage();
     }
-  }, [image]);
+  }, [image])
 
   const uploadImage = async () => {
     const storage = getStorage(app);

@@ -43,6 +43,11 @@ const userSchema = new mongoose.Schema({
         default:false
     },
 
+    isOwner:{
+        type:Boolean,
+        default:false
+    },
+
     verifytoken:{
         type:String
     },
