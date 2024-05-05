@@ -12,9 +12,9 @@ export default function Event() {
           const data = await res.json();
           if (res.ok) {
               // Slice the data array to include only the first 5 items
-              const limitedData = data.slice(0, 6);
-              console.log(limitedData);
-              setEvents(limitedData);
+              //const limitedData = data.slice(0, 9);
+              console.log(data);
+              setEvents(data);
           }
       } catch (error) {
           console.log(error.message);
@@ -84,7 +84,7 @@ export default function Event() {
           </div>
 
           <div>
-            <div className="flex h-screen w-full flex-col items-center justify-center gap-y-2 dark:bg-gray-800">
+            {/* <div className="flex h-screen w-full flex-col items-center justify-center gap-y-2 dark:bg-gray-800">
               <div className="w-[600px] rounded-xl border border-gray-200 bg-white py-4 px-2 shadow-md shadow-gray-100 dark:bg-gray-800">
                 <div className="flex items-center justify-between px-2 text-base font-medium text-gray-400">
                   <div>Event models</div>
@@ -171,7 +171,7 @@ export default function Event() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -204,7 +204,7 @@ export default function Event() {
       </div>
 
       <div>
-        <div className="flex justify-between ">
+        {/* <div className="flex justify-between ">
           <div className="w-3/4 ">
             <div className="flex items-center justify-center p-12 ">
               <div className="mx-auto w-full max-w-[550px] font-cinzel">
@@ -276,7 +276,7 @@ export default function Event() {
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
