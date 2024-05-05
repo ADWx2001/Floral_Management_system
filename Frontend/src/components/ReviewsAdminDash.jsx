@@ -112,7 +112,7 @@ export default function ReviewsAdminDash() {
               <td>"${review.content}"</td>
               <td>${review.rating}</td>
               <td>${review.username}</td>
-              <td>${review.productId}</td>
+              <td>${review.title}</td>
               
             </tr>
           `
@@ -224,7 +224,7 @@ export default function ReviewsAdminDash() {
                   return true;
                 }
                 else {
-                  const productIdMatch = review.productId
+                  const productIdMatch = review.title
                     .toLocaleLowerCase()
                     .includes(searching);
                   const usernameMatch = review.username
@@ -255,7 +255,7 @@ export default function ReviewsAdminDash() {
                     </Table.Cell>
                     <Table.Cell>{review.rating}</Table.Cell>
                     <Table.Cell>{review.username}</Table.Cell>
-                    <Table.Cell>{review.productId}</Table.Cell>
+                    <Table.Cell>{review.title}</Table.Cell>
                     <Table.Cell>
                       <Link
                         className="font-medium text-blue-500 hover:underline cursor-pointer"
