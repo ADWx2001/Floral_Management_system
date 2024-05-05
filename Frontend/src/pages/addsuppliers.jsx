@@ -91,14 +91,14 @@ export default function Addsuppliers() {
         <div className='flex flex-col gap-4 sm:flex-row justify-between'>
           
           <Select  onChange={(e) =>setFormData({ ...formData, Paymentmethod: e.target.value })
-            }>
+            } >
             <option value='uncategorized'>Select a Payment method</option>
             <option value='Bank transfer'>Bank transfer</option>
             <option value='Card'>Card</option>
             <option value='Check'>Check</option>
           </Select>
           <Select  onChange={(e) =>setFormData({ ...formData, category: e.target.value })
-            }>
+            } >
             <option value='uncategorized'>Select a category</option>
             <option value='arrangements'>Arrangements</option>
             <option value='bouquets'>Bouquets</option>
@@ -141,11 +141,24 @@ export default function Addsuppliers() {
             <TextInput type='text'placeholder='Address'required id='Address'className='flex-1'  onChange={(e) =>
               setFormData({ ...formData, Address: e.target.value })
             }/>
-            <TextInput type='text'placeholder='Phone Number:'required id='Phone Number:'className='flex-1'  onChange={(e) =>
+            <TextInput type='number'placeholder='Phone Number:'required id='Phone Number:'className='flex-1'  onChange={(e) =>
               setFormData({ ...formData, PhoneNumber: e.target.value })
             }/>
-            <TextInput type='text'placeholder='Email Address:'required id='Email Address:'className='flex-1'  onChange={(e) =>
+            <TextInput type='email'placeholder='Email Address:'required id='Email Address:'className='flex-1'  onChange={(e) =>
               setFormData({ ...formData, EmailAddress: e.target.value })
+            }/>
+              <Select  onChange={(e) =>setFormData({ ...formData, bankname: e.target.value })
+            } required>
+            <option value=''>Select Bank</option>
+            <option value='Bank of ceylon'>Bank of ceylon</option>
+            <option value='Peoples Bank'>Peoples Bank</option>
+            <option value='Commercial Bank'>Commercial Bank</option>
+            <option value='Sampath Bank'>Sampath Bank</option>
+            <option value='HNB Bank'>HNB Bank</option>
+            
+          </Select>
+          <TextInput type='number'placeholder='Acc number:'required id='Acc number:'className='flex-1'  onChange={(e) =>
+              setFormData({ ...formData, accnum: e.target.value })
             }/>
         <Button type='submit' gradientDuoTone='purpleToBlue'>Add</Button>
         {publishError && (

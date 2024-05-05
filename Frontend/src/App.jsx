@@ -39,6 +39,10 @@ import ContactSup from "./pages/ContactSupplier"
 import CheckoutSuccess from "./pages/CheckoutSuccess"
 import PostEvent from "./pages/PostEvent"
 import Addsuppliers from "./pages/addsuppliers"
+import BookEvent from "./pages/BookEvent"
+import EventReqSuccess from "./pages/EventReqSuccess"
+import UpdateEventBooking from "./pages/UpdateEventBooking"
+
 
 export default function App() {
   return (
@@ -87,7 +91,9 @@ export default function App() {
             <Route path="/order-pay-success" element={<CheckoutSuccess/>}/>
             <Route path="/contactsup/:id" element={<ContactSup/>}/>
             <Route path="/add-suppliers" element={<Addsuppliers/>}/>
-
+            <Route path="/event-book/:eventSlug" element={<BookEvent/>}/>
+            <Route path="/event-request-success" element={<EventReqSuccess/>}/>
+            <Route path="/update-event-record/:recordId" element={<UpdateEventBooking/>}/>
           </Routes>
         <Footer/>
       </>
