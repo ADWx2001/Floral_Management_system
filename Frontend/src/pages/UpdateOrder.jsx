@@ -69,18 +69,24 @@ export default function UpdateOrder() {
                     <TextInput type='text' required id='userId' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, _id: e.target.value })} value={formData._id} placeholder="id" />
                     <TextInput type='text' required id='userId' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, userId: e.target.value })} value={formData.userId} placeholder="User ID" readOnly/>
                     <TextInput type='text' required id='orderId' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, orderId: e.target.value })} value={formData.orderId} placeholder="Order ID" readOnly/>
+                    <label>First Name</label>
                     <TextInput type='text' required id='first_name' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, first_name: e.target.value })} value={formData.first_name} placeholder="First Name"/>
+                    <label>Last Name</label>
                     <TextInput type='text' required id='last_name' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, last_name: e.target.value })} value={formData.last_name} placeholder="Last Name"/>
+                    <label>Email</label>
                     <TextInput type='text' required id='email' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, email: e.target.value })} value={formData.email} placeholder="Email"/>
+                    <label>Phone</label>
                     <TextInput type='text' required id='phone' className='p-2' onChange={(e) => setFormData({ ...formData, phone: e.target.value })} value={formData.phone} placeholder="Phone"/>
                 </div>
                 <div >
+                <label>Address</label>
                     <TextInput type='text' required id='address' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, address: e.target.value })} value={formData.address} placeholder="Address"/>
-                    <TextInput type='text' required id='state' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, state: e.target.value })} value={formData.state} placeholder="State"/>
+                    {/* <TextInput type='text' required id='state' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, state: e.target.value })} value={formData.state} placeholder="State"/> */}
+                    <label>Zip</label>
                     <TextInput type='text' required id='zip' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, zip: e.target.value })} value={formData.zip} placeholder="ZIP"/>
-                    <TextInput type='text' required id='subtotal' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, subtotal: e.target.value })} value={formData.subtotal} placeholder="Subtotal" readOnly/>
+                    {/* <TextInput type='text' required id='subtotal' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, subtotal: e.target.value })} value={formData.subtotal} placeholder="Subtotal" readOnly/>
                     <TextInput type='text' required id='deliveryfee' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, deliveryfee: e.target.value })} value={formData.deliveryfee} placeholder="Delivery Fee" readOnly/>
-                    <TextInput type='text' required id='totalcost' className='p-2' onChange={(e) => setFormData({ ...formData, totalcost: e.target.value })} value={formData.totalcost} placeholder="Total Cost" readOnly/>
+                    <TextInput type='text' required id='totalcost' className='p-2' onChange={(e) => setFormData({ ...formData, totalcost: e.target.value })} value={formData.totalcost} placeholder="Total Cost" readOnly/> */}
                 </div>
             </div>
             <Button type='submit' gradientDuoTone='purpleToBlue'>Update</Button>

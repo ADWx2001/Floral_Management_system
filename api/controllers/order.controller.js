@@ -48,28 +48,7 @@ export const createOrder = async (req, res,next)=>{
       }
 }
 
-// export const createOrder = async(customer, data)=>{
-//   const Items = JSON.parse(customer.metadata.cart);
 
-//   const newOrder = new Order({
-//     userId: customer.metadata.userId,
-//     customerId: data.customer,
-//     paymentIntentId: data.payment_intent,
-//     products:Items,
-//     subtotal:data.amount_subtotal,
-//     total: data.amount_total,
-//     shipping:data.customer_details,
-//     payment_status:data.payment_status,
-
-//   })
-
-//   try {
-//        const savedOrder = await newOrder.save();
-//        res.status(201).json(savedOrder);
-//       } catch (error) {
-//         next(error);
-//           }
-// }
 
 //get all orders
 export const  getAllOrders = async(req,res,next)=>{
@@ -80,29 +59,7 @@ export const  getAllOrders = async(req,res,next)=>{
     })
 }
 
-//get single order
-// export const getOrder = async (req, res) => {
-//     try {
-//       const { id } = req.params.id;
-  
-//       // Validate the ObjectId
-//       if (!mongoose.Types.ObjectId.isValid(id)) {
-//         return res.status(400).json({ message: 'Invalid order ID' });
-//       }
-  
-//       // Query the database using the validated ObjectId
-//       const order = await Order.findById(id);
-  
-//       if (!order) {
-//         return res.status(404).json({ message: 'Order not found' });
-//       }
-  
-//       res.status(200).json(order);
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).json({ message: 'Internal server error' });
-//     }
-//   };
+
 export const getOrder = async (req, res, next) => {
     try {
         const orderId = req.params.id;
@@ -124,14 +81,16 @@ export const getOrder = async (req, res, next) => {
 //update order
 export const updateOrder = async(req, res, next)=>{
     let orderId = req.params.id;
-    const {first_name, last_name, email, address, state, zip} = req.body;
+    if ( !req.body.first_name || !req.body.last_name || !req.body.email || !req.body.address || !req.body.zip ) {
+      return next(errorHandler(400, 'Please provide all required fields'));
+    }
+    const {first_name, last_name, email, address, zip} = req.body;
     
     const updateOrder = {
         first_name,
         last_name,
         email,
         address,
-        state,
         zip
     }
 
