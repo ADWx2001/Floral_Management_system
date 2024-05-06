@@ -38,9 +38,9 @@ export default function ReviewsAdminDash() {
           setThreestar(data.Threestar);
           setTwostar(data.Twostar);
           setOnestar(data.Onestar);
-          if (data.reviews.length < 9) {
+          /*if (data.reviews.length < 9) {
             setShowMore(false);
-          }
+          }*/
         }
       } catch (error) {
         console.log(error.message);

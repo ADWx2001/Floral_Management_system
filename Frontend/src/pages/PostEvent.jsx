@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams,Link } from 'react-router-dom';
 import { Spinner } from 'flowbite-react';
+import Dashreviews from '../components/Dashreviews';
+
 
 export default function PostEvent() {
     const { eventSlug } = useParams(); 
@@ -56,12 +58,16 @@ export default function PostEvent() {
                                         </div>
                                     </div>
                                     <div className='lg:w-1/2 p-16'>
-                                        <div className='lg:flex lg:flex-row float-left'>
+                                        <div className='lg:flex lg:flex-row float-left pb-5'>
                                             <div className='flex flex-col'>
                                                 <h1 className='p-1 font-serif'><span className='font-bold text-lg font-cinzel'>Category :</span> {event.category || "N/A"}</h1>
                                                 <h1 className='p-1 font-serif'><span className='font-bold text-lg font-cinzel'>Description :</span> {event.descreption || "N/A"}</h1>
                                             </div>
+                                 
                                         </div>
+                                        <Link to={`/event-book/${event.slug}`} >
+                                            <button className="p-2 px-10 bg-blue-800 hover:bg-blue-900 rounded-lg text-white">Book Now</button>
+                                        </Link>
                                     </div>
                                 </div>
                             </>

@@ -104,7 +104,7 @@ export default function PostProduct() {
               <div className='lg:w-1/2 p-16 '>
                 <div className='lg:flex lg:flex-row float-left'> 
                   <div className='flex flex-col'>
-                    <h1 className='p-1 font-serif'><span className='font-bold text-lg  font-cinzel'>Price : Rs.</span> {product && product.price}</h1>
+                    <h1 className='p-1 text-xl'><span className='font-bold text-lg  font-cinzel'>Price : Rs.</span> {product && product.price}.00</h1>
                     <h1 className='p-1 font-serif'><span className='font-bold text-lg  font-cinzel'>Category :</span> {product && product.category}</h1>
                     <h1 className='p-1 font-serif'><span className='font-bold text-lg  font-cinzel'>Description :</span> {product && product.description}</h1>
                     <div className='flex flex-wrap border border-gray-200 mb-3  bg-gray-100  dark:bg-slate-800 w-24  p-2 m-2 rounded-md'>
