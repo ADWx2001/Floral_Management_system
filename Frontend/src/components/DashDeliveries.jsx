@@ -86,8 +86,6 @@ export default function DashDeliveries() {
     <>
     <Table hoverable className='shadow-md'>
       <Table.Head>
-        <Table.HeadCell>User ID</Table.HeadCell>
-        <Table.HeadCell>Order ID</Table.HeadCell>
         <Table.HeadCell>First Name</Table.HeadCell>
         <Table.HeadCell>Last Name</Table.HeadCell>
         <Table.HeadCell>Email</Table.HeadCell>
@@ -103,18 +101,13 @@ export default function DashDeliveries() {
         <Table.Body className='divide-y' key={delivery._id}>
           <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
 
-            <Table.Cell>
+            {/* <Table.Cell>
               {delivery.userId}
-            </Table.Cell>
+            </Table.Cell> */}
 
-            <Table.Cell>
-              {/* <img
-                src={order.profilePicture}
-                alt={order.username}
-                className='w-10 h-10 object-cover bg-gray-500 rounded-full'
-              /> */}
+            {/* <Table.Cell>
               {delivery.orderId}
-            </Table.Cell>
+            </Table.Cell> */}
 
             <Table.Cell>{delivery.first_name}</Table.Cell>
 

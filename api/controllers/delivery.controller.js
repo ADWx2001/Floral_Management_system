@@ -4,9 +4,9 @@ import { errorHandler } from "../utils/error.js";
 
 //create new deliery record
 export const createDeliverRecord = async (req, res,next)=>{
-    if (!req.body.userId || !req.body.orderId || !req.body.items|| !req.body.first_name || !req.body.last_name || !req.body.email || !req.body.phone || !req.body.address ||!req.body.state || !req.body.zip || !req.body.trackingnumber|| !req.body.status || !req.body. deliveryservice || !req.body.deliverycontactno ) {
+    if (!req.body.userId || !req.body.orderId || !req.body.items|| !req.body.first_name || !req.body.last_name || !req.body.email || !req.body.phone || !req.body.address || !req.body.zip || !req.body.trackingnumber|| !req.body.status || !req.body. deliveryservice || !req.body.deliverycontactno ) {
         console.log(req.body);
-        // return next(errorHandler(400, 'Please provide all required fields'));
+        return next(errorHandler(400, 'Please provide all required fields'));
       }
 
       const userId = req.body.userId;
@@ -17,7 +17,7 @@ export const createDeliverRecord = async (req, res,next)=>{
       const email = req.body.email;
       const phone = req.body.phone;
       const address = req.body.address;
-      const state = req.body.state;
+     
       const zip = req.body.zip;
       const trackingnumber = req.body.trackingnumber;
       const status = req.body.status;
@@ -26,7 +26,7 @@ export const createDeliverRecord = async (req, res,next)=>{
 
       const newDelivery = new Delivery({
         orderId,userId,items,first_name,last_name,email,phone,
-        address,state,zip,trackingnumber,status,deliveryservice,deliverycontactno
+        address,zip,trackingnumber,status,deliveryservice,deliverycontactno
       })
 
       try {

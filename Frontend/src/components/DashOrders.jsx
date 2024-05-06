@@ -27,32 +27,9 @@ export default function DashOrders() {
     setTotalSale(total);
   };
   
-   //fetch all the orders from database
-  // useEffect(() => {
-  //   const fetchOrders = async () => {
-  //     try {
-  //       const res = await fetch(`/api/order/getorders`);
-  //       const data = await res.json();
-  //       const length = data.length;
-  
-  //       setTotalOrders(length);
-  //       if (res.ok) {
-  //         setOrders(data);
-  //         if (data.length < 9) {  
-  //           setShowMore(false);
-  //         }
-  //         calculateTotalSale(); // Call calculateTotalSale here
-  //       }
-  //     } catch (error) {
-  //       console.log("error in fetching", error);
-  //     }
-  //   };
-    
-  //   if (currentUser) {
-  //     fetchOrders();
-  //   }
-  // }, [currentUser, Orders]); 
+
   useEffect(() => {
+    
     const fetchOrders = async () => {
         try {
             const res = await fetch(`/api/order/getorders`);
@@ -71,11 +48,13 @@ export default function DashOrders() {
             console.log("error in fetching", error);
         }
     };
+    calculateTotalSale(); 
     
     if (currentUser) {
         fetchOrders();
+        
     }
-}, [currentUser]);
+}, [Orders]);
 
 
   
@@ -219,7 +198,7 @@ export default function DashOrders() {
             Generate Report
         </Button>
       </div>
-
+          <br />
         <div className='flex-wrap flex gap-4 justify-center'>
           
           <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
@@ -282,26 +261,7 @@ export default function DashOrders() {
             </div>
           </div>
 
-          <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
-            <div className='flex justify-between'>
-              <div className=''>
-                <h3 className='text-gray-500 text-md uppercase'>
-                  Total Profit
-                </h3>
-                <p className='text-2xl'>{totalSale}.00 - 300 x {totalOrders}</p>
-              </div>
-
-              <HiOutlineCurrencyDollar className='bg-green-600 text-white rounded-full text-5xl p-3 shadow-lg' />
-
-            </div>
-            <div className='flex gap-2 text-sm'>
-              <span className='text-green-500 flex items-center'>
-                <HiOutlineCurrencyDollar />
-               {} {totalSale-deliveryfee * totalOrders}.00
-              </span>
-              <div className='text-gray-500'>All the time</div>
-            </div>
-          </div>
+          
 
           
           

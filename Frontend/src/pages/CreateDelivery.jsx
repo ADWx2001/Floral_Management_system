@@ -11,56 +11,34 @@ export default function CreateDelivery() {
     const { orderId } = useParams();
 
     const navigate = useNavigate();
-    // const { currentUser } = useSelector((state) => state.user);
 
     //fetch relevant order using id
-        useEffect(() => {
-            try {
-            const fetchOrder = async () => {
-                const res = await fetch(`/api/order/getorder/${orderId}`);
-                const data = await res.json();
-                if (!res.ok) {
-                console.log(res);
-                }
-                if (res.ok) {
-                    console.log(data);
-                //   setFormData(data.orders[0]);
-                setFormData(data);
-                }
-            };
-        
-            fetchOrder();
-            } catch (error) {
-            console.log(error.message);
-            }
-        }, [orderId]);
-
-      //handle form submit
-      // const handleSubmit = async (e) => {
-      //   e.preventDefault();
-      //   try {
-      //       const res = await fetch(`/api/order/updateorder/${orderId}`, {
-      //           method: 'PUT',
-      //           headers: {
-      //             'Content-Type': 'application/json',},
-      //       body: JSON.stringify(formData),
-      //     });
-
-      //     const data = await res.json();
+    useEffect(() => {
+      try {
+          const fetchOrder = async () => {
+              const res = await fetch(`/api/order/getorder/${orderId}`);
+              const data = await res.json();
+              if (!res.ok) {
+                  console.log(res);
+              }
+              if (res.ok) {
+                  console.log(data);
+                  const items = data.productsId.map(product => `${product.title} (${product.quantity})`).join(', ');
+                  console.log(items); // Log the items to check if it's correctly populated
+                  setFormData(prevFormData => ({ ...prevFormData, ...data, items }));
+                  console.log(formData); // Log the formData after setting items to check if it's correctly updated
+              }
+          };
           
-      //     if (!res.ok) {
-      //       // setPublishError(data.message);
-      //       // return;
-      //       console.log(data);
-      //     }
-    
-      //     if (res.ok) {
-      //       navigate('/dashboard?tab=orders');
-      //     }
-      //   } catch (error) {
-      //     console.log(error.message);
-      //   }
-      // };
+          fetchOrder();
+      } catch (error) {
+          console.log(error.message);
+      }
+  }, [orderId]);
+  
+  
+  
+
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -98,7 +76,7 @@ export default function CreateDelivery() {
                     <label>Order ID</label>
                     <TextInput type='text' required id='orderId' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, orderId: e.target.value })} value={formData._id} placeholder="Order ID" readOnly/>
                     <label>Items</label>
-                    <TextInput type='text' required id='items' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, items: e.target.value })}  placeholder="Items" />
+                    <TextInput type='text' required id='items' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, items: e.target.value })} value={formData.items} placeholder="Items" />
                     <label>First Name</label>
                     <TextInput type='text' required id='first_name' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, first_name: e.target.value })} value={formData.first_name} placeholder="First Name" readOnly/>
                     <label>Last Name</label>
@@ -111,8 +89,8 @@ export default function CreateDelivery() {
                 <div >
                     <label>Address</label>
                     <TextInput type='text' required id='address' className='p-2 mb-2 w-72' onChange={(e) => setFormData({ ...formData, address: e.target.value })} value={formData.address} placeholder="Address" readOnly/>
-                    <label>State</label>
-                    <TextInput type='text' required id='state' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, state: e.target.value })} value={formData.state} placeholder="State" readOnly/>
+                    {/* <label>State</label>
+                    <TextInput type='text' required id='state' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, state: e.target.value })} value={formData.state} placeholder="State" readOnly/> */}
                     <label>Zip</label>
                     <TextInput type='text' required id='zip' className='p-2 mb-2' onChange={(e) => setFormData({ ...formData, zip: e.target.value })} value={formData.zip} placeholder="ZIP" readOnly/>
                     <label>Tracking Number</label>
