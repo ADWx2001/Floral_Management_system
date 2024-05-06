@@ -34,6 +34,7 @@ export default function DashUsers() {
           if (res.ok) {
             setUsers(data.admins);
           }
+          setShowMore(false);
         } catch (error) {
           console.log(error.message);
         }
@@ -47,6 +48,7 @@ export default function DashUsers() {
           if (res.ok) {
             setUsers(data.admins);
           }
+          setShowMore(false);
         } catch (error) {
           console.log(error.message);
         }
@@ -66,6 +68,8 @@ export default function DashUsers() {
             setLastMonthAdmin(data.lastMonthAdmin);
             setLastMonthUsers(data.lastMonthUsers);
             setTotalUsers(data.totalUsers);
+
+            setShowMore(true);
   
             if (data.users.length < 9) {
               setShowMore(false);
@@ -186,10 +190,12 @@ export default function DashUsers() {
 
   const handleCheckboxChange = (e) => {
     setShowAdminsOnly(e.target.checked);
+   
   };
   
   const handleCheckboxChangeCus = (e) => {
     setShowCustomersOnly(e.target.checked);
+  
   };
 
   const handleAssignAdmin = async () => {
