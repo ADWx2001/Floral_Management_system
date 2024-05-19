@@ -26,14 +26,12 @@ mongoose.connect(process.env.MONGO).then(()=>{
 }).catch((err)=>{
     console.log(err)
 });
-const __dirname = path.resolve();
+
 
 const app = express();
-app.use(express.static(path.join(__dirname, '/Frontend/dist')));
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Frontend', 'dist', 'index.html'));
-  });
+
+
 
 app.use(cookieParser());
 app.use(express.json());
