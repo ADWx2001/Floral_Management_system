@@ -112,8 +112,8 @@ export default function Staffmembers() {
                     </Link>
                   </Table.Cell>
                   <Table.Cell>
-                    <Link className='text-teal-500 hover:underline'to={``}>
-                      <span>Pay Salary</span>
+                    <Link className='text-teal-500 hover:underline'to={`https://www.google.com/sheets/about/`}>
+                      <span>Attendence and salary details</span>
                     </Link>
                   </Table.Cell>
                   </Table.Row>
