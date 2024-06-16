@@ -17,6 +17,7 @@ import paymentRoute from "./routes/payment.route.js";
 // test import products api Prducts.js
 import product from "./utils/Product.js";
 import stripe from "./routes/stripe.route.js";
+import path from 'path';
 
 dotenv.config();
 
@@ -26,7 +27,12 @@ mongoose.connect(process.env.MONGO).then(()=>{
     console.log(err)
 });
 
+
 const app = express();
+
+
+
+
 app.use(cookieParser());
 app.use(express.json());
 

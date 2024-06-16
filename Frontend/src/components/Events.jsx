@@ -53,14 +53,7 @@ export default function Events() {
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-500'>
       <div className="">
-        <Button
-            gradientDuoTone='purpleToBlue'
-            outline
-            onClick
-            className=""
-          >
-            Generate Report
-        </Button>
+    
       </div>
 
       <div className="flex ">
