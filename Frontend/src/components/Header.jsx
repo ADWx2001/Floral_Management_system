@@ -46,7 +46,7 @@ export default function Header() {
     }
 
     return (
-        <Navbar className="border-b-2 font-extrabold">
+        <Navbar className="border-b-2 font-extrabold p-8" style={{backgroundColor:"#FFF5FB"}}>
             <Link to="/" className="self-center whitespace-nowrap text-3xl 3xl:text-xl font-semibold dark:text-white font-tangerine">
                 <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via purple-500 to-pink-500  text-white rounded-lg  size-10/12">Flora</span>Shop
             </Link>
@@ -90,17 +90,17 @@ export default function Header() {
                 )}
                 <Navbar.Toggle/>
             </div>
-            <Navbar.Collapse className="font-extrabold font-serif  text-neutral-950 dark:text-neutral-200">
-                <Navbar.Link active={path === '/'} as={'div'}>
+            <Navbar.Collapse className="font-extrabold font-cinzel  text-neutral-950 dark:text-neutral-200 text-3xl">
+                <Navbar.Link active={path === '/'} as={'div'} className="font-semibold">
                     <Link to="/">Home</Link>
                 </Navbar.Link>
-                <Navbar.Link active={path === '/about'} as={'div'}>
+                <Navbar.Link active={path === '/about'} as={'div'} className=" font-semibold">
                     <Link to="/about">About</Link>
                 </Navbar.Link>
-                <Navbar.Link active={path === '/events'} as={'div'}>
+                <Navbar.Link active={path === '/events'} as={'div'} className="font-semibold">
                     <Link to="/event-home">Events</Link>
                 </Navbar.Link>
-                <Navbar.Link active={path === '/products'} as={'div'}>
+                <Navbar.Link active={path === '/products'} as={'div'} className="font-semibold">
                     <Link to="/products">Products</Link>
                 </Navbar.Link>
                 {currentUser && (
@@ -108,7 +108,7 @@ export default function Header() {
                         <Link to="/cart">
                             <div className="flex relative">
                                 <box-icon type='solid' name='cart-alt' color='black' size='md'></box-icon>
-                                <span className="rounded-xl absolute  left-7 bottom-6 px-1 bg-pink-400 text-black text-xs">{cartTotalQuantity}</span>
+                                <span className="rounded-xl absolute  left-7 bottom-6 px-1 bg-green-500 text-xs text-white">{cartTotalQuantity}</span>
                             </div>
                         </Link>
                     </Navbar.Link>

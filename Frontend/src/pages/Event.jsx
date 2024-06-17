@@ -1,40 +1,42 @@
-import { Link} from "react-router-dom";
-import EventSlider from "../components/EventSlider";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Carousel } from "flowbite-react";
 export default function Event() {
-
-  const [events,setEvents] = useState ([])
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-          const res = await fetch('/api/events/get');
-          const data = await res.json();
-          if (res.ok) {
-              // Slice the data array to include only the first 5 items
-              //const limitedData = data.slice(0, 9);
-              console.log(data);
-              setEvents(data);
-          }
+        const res = await fetch("/api/events/get");
+        const data = await res.json();
+        if (res.ok) {
+          // Slice the data array to include only the first 5 items
+          //const limitedData = data.slice(0, 9);
+          console.log(data);
+          setEvents(data);
+        }
       } catch (error) {
-          console.log(error.message);
+        console.log(error.message);
       }
-  };
-  
+    };
 
     fetchPosts();
-}, []); 
-
-
-
+  }, []);
 
   return (
     <>
-      <div id="default-carousel" className="relative w-full dark:bg-gray-800">
-        <div className="relative h-64 overflow-hidden rounded-lg md:h-96 ">
-          <div className="ease-in-out " data-carousel-item>
-            <EventSlider />
-          </div>
+      <div className="mx-auto">
+        <div
+          className="mx-auto sm:h-96 xl:h-96 2xl:h-96"
+          style={{ height: "500px" }}
+        >
+          <Carousel className="w-full">
+            <img src="/img/1.png" alt="..."   />
+            <img src="/img/2.png" alt="..." />
+            <img src="/img/3.png" alt="..." />
+            <img src="/img/4.png" alt="..." />
+            <img src="/img/5.png" alt="..." />
+          </Carousel>
         </div>
       </div>
 
@@ -59,27 +61,37 @@ export default function Event() {
       <div className="flex justify-between dark:bg-gray-800">
         <div className="w-2/10 ">
           <div>
-            <h1 className="text-3xl text-black font-semibold font-cinzel mx-32 pt-10 uppercase text-purple-700">Our Popular Events</h1>
+            <h1 className="text-3xl font-semibold font-cinzel mx-32 pt-10 uppercase text-pink-700">
+              Our Popular Events
+            </h1>
 
             <div className="flex flex-wrap justify-center gap-10 mx-20 p-5">
+              
+              {events.map((singleItem) => (
+          <div className="flex justify-center py-8" key={singleItem._id}>
+            <div className="max-w-xs bg-white shadow-lg rounded-lg overflow-hidden">
+              <img className="w-full h-56 object-cover" src={singleItem.Picture} alt="" />
+              <div className="px-5 pt-2 text-start">
+                <h5 className="font-bold text-xl mb-2 text-black">{singleItem.Eventname}</h5>
+                <span className="text-base text-green-600">{singleItem.category} day</span>
+              </div>
+              <div className="px-4 pb-4">
+                <Link to={`/event/${singleItem.slug}`}>
+                  <button className="block w-full text-center py-2 mt-2 bg-white border border-green-400 text-green-700 hover:bg-green-50 rounded">
+                    More details
+                  </button>
+                </Link>
 
-            {events.map((event) => (
-                <div key={event.slug} className="max-w-sm rounded overflow-hidden shadow-lg w-72 h-96 m-4 font-cinzel">
-                  <img className="w-full h-56 object-cover" src={event.Picture} alt={event.title} />
-                  <div className="px-6 py-4">
-                    <div className="font-bold text-xl mb-2">{event.Eventname}</div>
-                    <div className="flex justify-between gap-4 pt-4">
-                      <Link to={`/event/${event.slug}`} className="p-2 bg-gray-300 hover:bg-gray-400 rounded-lg">More</Link>
+                <Link to={`/event-book/${singleItem.slug}`}>
+                  <button className="block w-full text-center py-2 mt-2 bg-white border border-rose-400 text-rose-400 hover:bg-rose-400 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
+                    Book
+                  </button>
+                </Link>
 
-                      <Link to={`/event-book/${event.slug}`}>
-                        <button className="p-2 bg-blue-800 hover:bg-blue-900 rounded-lg text-white">Book Now</button>
-                      </Link>
-
-                    </div>
-                  </div>
-                </div>
-              ))}
-
+              </div>
+            </div>
+          </div>
+        ))}
             </div>
           </div>
 
@@ -204,79 +216,6 @@ export default function Event() {
       </div>
 
       <div>
-        {/* <div className="flex justify-between ">
-          <div className="w-3/4 ">
-            <div className="flex items-center justify-center p-12 ">
-              <div className="mx-auto w-full max-w-[550px] font-cinzel">
-                <form action="https://formbold.com/s/FORM_ID" method="POST">
-                  <div className="mb-5">
-                    <h3 className="text-2xl text-gray-500 font-semibold p-1">
-                      Contact us
-                    </h3>
-
-                    <label
-                      htmlFor="name"
-                      className="mb-3 block text-base font-medium text-[#07074D]"
-                    >
-                      Your Name
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      placeholder="Enter your Name"
-                      className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md text-gray-500"
-                    />
-                  </div>
-                  <div className="mb-5">
-                    <label
-                      htmlFor="email"
-                      className="mb-3 block text-base font-medium text-[#07074D] text-gray-500"
-                    >
-                      Your Email Address
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      id="email"
-                      placeholder="example@domain.com"
-                      className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md text-gray-500"
-                    />
-                  </div>
-                  <div className="mb-5">
-                    <label
-                      htmlFor="message"
-                      className="mb-3 block text-base font-medium text-[#07074D] text-gray-500"
-                    >
-                      Description
-                    </label>
-                    <textarea
-                      rows="4"
-                      name="message"
-                      id="message"
-                      placeholder="Small description about your event"
-                      className="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md text-gray-500"
-                    ></textarea>
-                  </div>
-                  <div>
-                    <button className="bg-green-400 hover:bg-green-700 py-3 px-8 text-base font-semibold text-white outline-none">
-                      Submit
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div className="w-1/4">
-            <div className="grid justify-center md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-7 my-10">
-              <img
-                className="h-80 lg:h-200 w-full object-cover rounded-lg"
-                src="/gallery/6.jpg"
-                alt=""
-              />
-            </div>
-          </div>
-        </div> */}
       </div>
     </>
   );

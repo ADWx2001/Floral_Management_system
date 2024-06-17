@@ -8,11 +8,11 @@ export default function FooterCom() {
   return (
     <div>
         <footer
-        className=" bg-neutral-100 text-center text-neutral-600 dark:bg-neutral-600 dark:text-neutral-200 lg:text-left" >
+        className=" bg-neutral-100 text-center text-neutral-600 dark:bg-neutral-600 dark:text-neutral-200 lg:text-left" style={{backgroundColor:"#FFF5FB"}}>
         <div
             className="flex items-center justify-center border-b-2 border-neutral-200 p-6 dark:border-neutral-500 lg:justify-between">
             <div className="mr-12 hidden lg:block">
-            <span>Get connected with us on social networks:</span>
+            <span className='font-serif'>Get connected with us on social networks:</span>
             </div>
 
             <div className="flex justify-center">
@@ -116,13 +116,13 @@ export default function FooterCom() {
             </div>
         </div>
 
-        <div className="bg-neutral-200 p-6 text-center dark:bg-neutral-700">
-            <span>© 2024 Copyright: </span>
-            <a
-            className="font-semibold text-neutral-600 dark:text-neutral-400"
-            href=""
-            >ITP Project - T007</a>
+        <div className="bg-neutral-200 p-6 text-center dark:bg-neutral-700 flex justify-center items-center" style={{backgroundColor:"#FFF5FB"}}> 
+        <a href="https://www.payhere.lk" target="_blank" rel="noreferrer">
+            <img src="https://www.payhere.lk/downloads/images/payhere_short_banner.png" alt="PayHere" width="500"/>
+        </a>
         </div>
+
+
         </footer>
     </div>
 )}

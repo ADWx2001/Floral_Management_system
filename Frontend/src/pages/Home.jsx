@@ -1,168 +1,20 @@
-import Slider from "../components/Slider";
-import CardSlider from "../components/CardSlider";
-import {Card} from 'flowbite-react';
-import { addToCart } from "../redux/cart/cartSlice";
-import  { useDispatch } from "react-redux";
-
-
-// Test Sample Product API
-// import { useGetAllProductsQuery } from "../redux/product/productApi";
-
-
+import { Carousel } from "flowbite-react";
 
 export default function Home() {
-
-// import { useHistory } from 'react-router-dom';
-  const dispatch = useDispatch();
-
-  const handleAddToCart = (product) =>{
-    dispatch(addToCart(product));
-  }
-
-  // const {data, error, isLoading} = useGetAllProductsQuery();
-  
-
-  // if (isLoading) {
-  //   return <p>Loading...</p>;
-  // }
-  // if (error) {
-  //   return <p>Error: {error.message}</p>;
-  // }
-
-  // console.log(data);
 
   return (
     
     <div className="mx-auto">
-        <Slider/>
-      <div className="text-left pt-14 px-28">
-        <h1 className="text-3xl text-rose-700 uppercase font-semibold mb-2">Our top selling items</h1>
-        <CardSlider />
-      </div>
-
-      <div className="flex flex-wrap gap-10 max-w-screen-xl mx-auto mt-16 mb-10 justify-center">
-        
-      </div>
-
-      <div>
-
-        <h1 className="text-3xl text-rose-700 uppercase font-semibold mb-5 px-28">Why Us</h1>
-        <div className="flex flex-wrap justify-center gap-14 pt-5 pb-5 ">
-          <Card
-            className="max-w-sm border-none h-80" 
-          >
-            <img src="/why-us/spring.gif" className="mx-auto w-32" />
-            <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">
-              Farm fresh quality.
-            </h5>
-            <p className="font-normal text-gray-700 dark:text-gray-400 text-center">
-              Sourced from our very own farms, our flowers stay fesh longer.
-            </p>
-          </Card>
-
-          <Card
-            className="max-w-sm borde border-none h-80"
-            imgAlt="Meaningful alt text for an image that is not purely decorative"
-            
-          >
-             <img src="/why-us/truck.gif" className="mx-auto w-32" />
-            <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">
-              Fast delivery service.
-            </h5>
-            <p className="font-normal text-gray-700 dark:text-gray-400 text-center">
-            From last-minute celebrations to the most important moments of the year, we deliver flowers when it counts.
-            </p>
-          </Card>
-
-          <Card
-            className="max-w-sm border-none h-80"
-            imgAlt="Meaningful alt text for an image that is not purely decorative"
-            
-          >
-             <img src="/why-us/fresh.gif" className="mx-auto w-32" />
-            <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">
-              Artisan bouquets
-            </h5>
-            <p className="font-normal text-gray-700 dark:text-gray-400 text-center">
-            Our handcrafted creations feature exquisite flowers nurtured in our farms, designed to meet global floral standards.
-            </p>
-          </Card>
+        <div className="mx-auto sm:h-96 xl:h-96 2xl:h-96" style={{height:"600px"}}>
+          <Carousel className="w-full">
+            <img src="/img/1.png" alt="..."/>
+            <img src="/img/2.png"  alt="..." />
+            <img src="/img/3.png" alt="..." />
+            <img src="/img/4.png"  alt="..." />
+            <img src="/img/5.png"   alt="..." />
+          </Carousel>
         </div>
-
-      </div>
-
-      <div className="pb-10 pt-20">
-        <h1 className="text-3xl text-rose-700 uppercase font-semibold mb-5 px-28">Gallery</h1>
-        <div className="flex flex-wrap justify-center bg-white gap-12 pb-7 pt-8 dark:bg-slate-800">
-
-          <div className="w-52 ">
-            <div >
-              <img src="/gallery/2.jpg" alt="" className="rounded-xl"/>
-            </div>
-          </div>
-
-          <div className="w-52 ">
-            <div >
-              <img src="/gallery/3.jpg" alt="" className="rounded-xl"/>
-            </div>
-          </div>
-
-          <div className="w-52 ">
-            <div >
-              <img src="/gallery/5.jpg" alt="" className="rounded-xl"/>
-            </div>
-          </div>
-
-          <div className="w-52 ">
-            <div>
-              <img src="/gallery/1.jpg" alt="" className="rounded-xl"/>
-            </div>
-          </div>
-
-          <div className="w-52 ">
-            <div>
-              <img src="/gallery/9.jpg" alt="" className="rounded-xl"/>
-            </div>
-          </div>
-
-        </div> 
-
-        <div className="flex flex-wrap justify-center bg-white gap-12 dark:bg-slate-800">
-
-          <div className="w-52">
-            <div >
-              <img src="/gallery/10.jpg" alt="" className="rounded-xl"/>
-            </div>
-          </div>
-
-          <div className="w-52">
-            <div >
-              <img src="/gallery/11.jpg" alt="" className="rounded-xl"/>
-            </div>
-          </div>
-
-          <div className="w-52">
-            <div >
-              <img src="/gallery/3.jpg" alt="" className="rounded-xl"/>
-            </div>
-          </div>
-
-          <div className="w-52">
-            <div>
-              <img src="/gallery/2.jpg" alt="" className="rounded-xl"/>
-            </div>
-          </div>
-
-          <div className="w-52">
-            <div>
-              <img src="/gallery/3.jpg" alt="" className="rounded-xl"/>
-            </div>
-          </div>
-
-        </div> 
-      </div>
-
-      <div className="relative w-full bg-red-200 h-96 rounded-xl overflow-hidden pb-10">
+      {/* <div className="relative w-full bg-red-200 h-96 rounded-xl overflow-hidden pb-10">
         <img src="/sample/3.jpg" alt="" className="w-full h-full object-cover absolute inset-0" />
 
         <div className="absolute inset-0 bg-black opacity-30"></div>
@@ -195,10 +47,13 @@ export default function Home() {
                 </div>
                 
                 <button type="submit" className="mt-4 bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 transition duration-300 ease-in-out">Submit</button>
-            </form> */}
+            </form> 
 
-        </div>
-    </div>
+      </div>
+    
+    
+    
+      </div> */}
 
 
 
