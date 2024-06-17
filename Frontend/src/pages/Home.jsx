@@ -41,20 +41,7 @@ export default function Home() {
       </div>
 
       <div className="flex flex-wrap gap-10 max-w-screen-xl mx-auto mt-16 mb-10 justify-center">
-        {/* Image card */}
-        {/* {data.map((singleProduct) => (
-          <ProductTile
-            key={singleProduct._id} // Make sure to use a unique key for each product
-            img={singleProduct.images} // Assuming the first image in the array is the main image
-            productName={singleProduct.name}
-            deliveryTime="Delivery in 2 days"
-            availability={singleProduct.availability ? "In Stock" : "Out of Stock"}
-            price={`$${singleProduct.price}`}
-          />
-      ))} */}
-          {/* {productData.map((singleProduct) => (<ProductTile item={singleProduct} key={singleProduct._id}/>))} */}
-
-
+        
       </div>
 
       <div>

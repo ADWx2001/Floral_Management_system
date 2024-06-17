@@ -11,7 +11,7 @@ import Reviews from './Reviews';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
 export default function Dashreviews({ productId , title}) {
-  console.log(title)
+  //console.log(title)
   const { currentUser} = useSelector(state => state.user);
   const [reviewError, setReviewError] = useState(null);
   const [file, setFile] = useState(null);
@@ -332,7 +332,7 @@ const handleDelete = async(reviewId) => {
               )}
               
             </div>
-            <button   type='submit' className="gap-8 m-2 dark:bg-slate-800 border bg-slate-300 border-teal-500 rounded-xl p-1">Submit</button>
+            <button   type='submit' className="gap-8 m-2 dark:bg-slate-800 border bg-slate-300 border-teal-500 rounded-xl w-full py-2">Submit</button>
             {reviewError && (
                 <Alert color='failure'>{reviewError}</Alert>
               )}

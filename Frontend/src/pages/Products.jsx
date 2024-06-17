@@ -1,7 +1,7 @@
 import { useGetAllProductsQuery } from "../redux/product/productApi";
 import { addToCart } from "../redux/cart/cartSlice";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Products() {
@@ -9,19 +9,29 @@ export default function Products() {
   const navigate = useNavigate();
   const { data, error, isLoading, refetch } = useGetAllProductsQuery();
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(20); // Number of products per page
+
   useEffect(() => {
     refetch();
-  }, []); 
+  }, []);
 
   if (isLoading) {
     return <p>Loading...</p>;
   }
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <p>Error in fetching products: {error.message}</p>;
   }
 
-  console.log(data);
   const productsArray = data.products;
+
+  // Calculate the indices of the products to display on the current page
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = productsArray.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
@@ -32,27 +42,111 @@ export default function Products() {
   }
 
   return (
-    <div className="flex flex-wrap gap-10 max-w-screen-xl mx-auto mt-16 mb-10 justify-center">
-      {productsArray.map((singleProduct) => (
-        <div key={singleProduct._id} className="max-w-96 w-full rounded overflow-hidden shadow-lg hover:border flex flex-col dark:bg-slate-800">
-          <img className="w-96 h-48 object-cover rounded-2xl" src={singleProduct.image} alt="Sunset in the mountains" />
-          <div className="px-6 py-4 text-center flex-grow">
-            <div className="font-bold text-xl mb-2 text-rose-500">{singleProduct.title}</div>
-            {/* <span className="text-base text-gray-500">{singleProduct.description}</span><br /> */}
-            <span className="text-base text-rose-600">{singleProduct.category} day</span><br />
-            <span className="text-base text-green-600">Delivery in {singleProduct.deliveryTime} day</span><br />
-            <span className={`text-base ${singleProduct.quantity ? 'text-green-600' : 'text-red-600'}`}>
-              {singleProduct.quantity ? 'In Stock' : 'Out of Stock'}
-            </span><br />
-            <span className="text-base text-slate-400">from</span><br />
-            <span className="text-lg text-red-600 font-semibold">Rs. {singleProduct.price}.00</span>
+    <div className="max-w-screen-xl mx-auto mt-16 mb-10">
+      <div className="flex flex-wrap gap-10 justify-center">
+        {currentProducts.map((singleItem) => (
+          <div className="flex justify-center py-8" key={singleItem._id}>
+            <div className="max-w-xs bg-white shadow-lg rounded-lg overflow-hidden">
+              <span className="absolute m-2 bg-green-600 p-1 text-white rounded text-sm">{singleItem.price}%</span>
+              <img className="w-full h-56 object-cover" src={singleItem.image} alt="" />
+              <div className="px-5 pt-2 text-start">
+                <h5 className="font-bold text-xl mb-2 text-black">{singleItem.title}</h5>
+                <span className="text-xl text-pink-600 font-semibold">Rs. {singleItem.price}.00</span>
+                <s className="text-sm px-2">Rs.{singleItem.price}.00</s><br />
+                <span className="text-base text-green-600">{singleItem.category} day</span>
+              </div>
+              <div className="px-4 pb-4">
+                <button className="block w-full text-center py-2 mt-2 bg-white border border-green-400 text-green-700 hover:bg-green-50 rounded"
+                  onClick={() => handleDetailsClick(singleItem.slug)}>
+                  Details
+                </button>
+                <button className="block w-full text-center py-2 mt-2 bg-white border border-rose-400 text-rose-400 hover:bg-rose-400 rounded hover:border-rose-300 hover:text-white hover:font-semibold"
+                  onClick={() => handleAddToCart(singleItem)}>
+                  Add to Cart
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="flex p-3 justify-between">
-            <button className="p-3 bg-black mx-3 rounded-lg text-white hover:bg-rose-500" onClick={() => handleDetailsClick(singleProduct.slug)}>Details</button>
-            <button className="p-3 bg-green-500 mx-3 rounded-lg text-white hover:bg-green-600" onClick={() => handleAddToCart(singleProduct)}>Add to Cart</button>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
+      <Pagination
+        productsPerPage={productsPerPage}
+        totalProducts={productsArray.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
     </div>
-  )
+  );
 }
+
+//pagination component
+const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) => {
+  const pageNumbers = [];
+  const totalPages = Math.ceil(totalProducts / productsPerPage);
+
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
+
+  const maxPageNumbersToShow = 5;
+  const startPage = Math.max(1, currentPage - Math.floor(maxPageNumbersToShow / 2));
+  const endPage = Math.min(totalPages, startPage + maxPageNumbersToShow - 1);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) paginate(currentPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) paginate(currentPage - 1);
+  };
+
+  // const handleNextSet = () => {
+  //   paginate(Math.min(totalPages, endPage + 1));
+  // };
+
+  // const handlePrevSet = () => {
+  //   paginate(Math.max(1, startPage - 1));
+  // };
+
+  return (
+    <nav className="flex justify-center mt-10">
+      <ul className="flex list-none">
+        {/* {startPage > 1 && (
+          <li className="mx-1">
+            <button onClick={handlePrevSet} className="px-3 py-1 border border-rose-300 rounded hover:bg-rose-50">
+              &lt;
+            </button>
+          </li>
+        )} */}
+        {startPage > 1 && (
+          <li className="mx-1">
+            <button onClick={handlePrevPage} className="px-3 py-1 border border-rose-300 rounded hover:bg-rose-50">
+              Prev
+            </button>
+          </li>
+        )}
+        {pageNumbers.slice(startPage - 1, endPage).map(number => (
+          <li key={number} className={`mx-1 ${currentPage === number ? 'font-bold' : ''}`}>
+            <button onClick={() => paginate(number)} className="px-3 py-1 border border-rose-300 rounded hover:bg-rose-50">
+              {number}
+            </button>
+          </li>
+        ))}
+        {endPage < totalPages && (
+          <li className="mx-1">
+            <button onClick={handleNextPage} className="px-3 py-1 border border-rose-300 rounded hover:bg-rose-50">
+              Next
+            </button>
+          </li>
+        )}
+        {/* {endPage < totalPages && (
+          <li className="mx-1">
+            <button onClick={handleNextSet} className="px-3 py-1 border border-rose-300 rounded hover:bg-rose-50">
+              &gt;
+            </button>
+          </li>
+        )} */}
+      </ul>
+    </nav>
+  );
+};

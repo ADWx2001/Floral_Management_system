@@ -91,7 +91,9 @@ export default function PostProduct() {
           <div>Error occurred while fetching data.</div>
         ) : (
           <>
-            <h1 className='text-3xl mt-10 p-3 text-center font-cinzel max-w-2xl mx-auto lg:text-4xl'>{product && product.title}</h1>
+            <h1 className='text-3xl mt-10 p-3 justify-start items-start font-serif max-w-2xl lg:text-4xl '>{product && product.title}</h1>
+            <span className='justify-start items-start font-serif mx-3'>SKU: N/A</span>
+            <hr />
             
             <div className='lg:flex lg:flex-row'>
   
@@ -104,17 +106,24 @@ export default function PostProduct() {
               <div className='lg:w-1/2 p-16 '>
                 <div className='lg:flex lg:flex-row float-left'> 
                   <div className='flex flex-col'>
-                    <h1 className='p-1 text-xl'><span className='font-bold text-lg  font-cinzel'>Price : Rs.</span> {product && product.price}.00</h1>
-                    <h1 className='p-1 font-serif'><span className='font-bold text-lg  font-cinzel'>Category :</span> {product && product.category}</h1>
-                    <h1 className='p-1 font-serif'><span className='font-bold text-lg  font-cinzel'>Description :</span> {product && product.description}</h1>
-                    <div className='flex flex-wrap border border-gray-200 mb-3  bg-gray-100  dark:bg-slate-800 w-24  p-2 m-2 rounded-md'>
+                  
+                    <h1 className='p-1 font-bold font-sans text-green-700 text-3xl'>Rs. {product && product.price}.00</h1><hr />
+                    <h1 className='p-1 underline font-serif lg:text-4xl text-lg mt-5'>{product && product.title}</h1>
+                    <h1 className='p-1 text-md  font-sans'>{product && product.description}</h1>
+                    <h1 className='p-1 '><span className='font-semibold text-md  font-sans'>Category :</span> {product && product.category}</h1>
+                    <h1 className='p-1 font-semibold mb-2'>Delivery in :<span className='text-green-500'> {product && product.deliveryTime} Days.</span></h1>
+                    {/* <div className='flex flex-wrap border border-gray-200 mb-3  bg-gray-100  dark:bg-slate-800 w-24  p-2 m-2 rounded-md'>
                       <HiStar className='text-yellow-300  text-4xl'/>
-                      <p className ='pl-2 text-2xl '><span className='font-bold text-lg  font-cinzel'> </span> {moderateRating}</p>
-                    </div>
-                    <div className='flex flex-wrap'>
+                      <p className ='pl-2'><span className='font-semibold text-lg  font-sans'> </span> {moderateRating}</p>
+                    </div> */}
+                    <hr />
+                    <div className=''>
                       {product && (
                           <div className="flex justify-center mt-4">
-                            <button className="p-3 bg-green-500 mx-3 rounded-lg text-white hover:bg-green-600" onClick={() => handleAddToCart(product)}>Add to Cart</button>
+                            <button className="block w-full text-center py-2 mt-2 bg-white border border-rose-400 text-rose-400 hover:bg-rose-400 rounded hover:border-rose-300 hover:text-white hover:font-semibold"
+                              onClick={() => handleAddToCart(product)}>
+                                Add to Cart
+                            </button>
                           </div> 
                       )}
                     </div>
@@ -125,7 +134,7 @@ export default function PostProduct() {
            </div>
             
             
-            <div className='flex-wrap flex gap-1  p-2'>
+            {/* <div className='flex-wrap flex gap-1  p-2'>
               <div className='flex flex-wrap justify-between bg-gray-100  dark:bg-slate-800 w-15 items-center p-1 m-1 rounded-md border border-gray-200'>
                   <HiStar className='text-yellow-300 text-2xl'/>
                   <div className='text-lg pl-1'>5[{Fivestar}]</div>
@@ -150,7 +159,7 @@ export default function PostProduct() {
                   <HiStar className='text-yellow-300 text-2xl'/>
                   <div className='text-lg pl-1'>1[{Onestar}]</div>
               </div>
-            </div>
+            </div> */}
             
 
             <Dashreviews productId={product && product._id} title={product && product.title} />
