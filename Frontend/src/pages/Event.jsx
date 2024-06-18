@@ -42,8 +42,9 @@ export default function Event() {
 
       <div className="text-center pt-4 sm:pt-8 dark:bg-gray-800">
         <h1 className="text-2xl sm:text-3xl md:text-4xl text-black-600 font-bold dark:bg-gray-800 font-cinzel">
-          Let Your Events Bloom with Floral Elegance!
+        Creating That One-Of-A-Kind Experience
         </h1>
+        <p className="text-4xl font-tangerine font-semibold text-gray-700 mt-2">Luxury Celebrations, Lifetime Memories..</p>
         <br />
       </div>
 
