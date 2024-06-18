@@ -12,7 +12,7 @@ export default function Event() {
         if (res.ok) {
           // Slice the data array to include only the first 5 items
           //const limitedData = data.slice(0, 9);
-          console.log(data);
+         // console.log(data);
           setEvents(data);
         }
       } catch (error) {
@@ -25,7 +25,7 @@ export default function Event() {
 
   return (
     <>
-      <div classNameName="mx-auto">
+      <div className="mx-auto">
         <div
           className="mx-auto sm:h-96 xl:h-96 2xl:h-96"
           style={{ height: "600px" }}
@@ -80,13 +80,12 @@ export default function Event() {
                     <a href="#">
                         <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white font-cinzel">WEDDING & HOME COMING</h5>
                     </a>
-                    <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Go to this step by step guideline process on how to certify for your weekly benefits:</p>
-                    <a href="#" className="inline-flex font-medium items-center text-blue-600 hover:underline">
-                        See our guideline
-                        <svg className="w-3 h-3 ms-2.5 rtl:rotate-[270deg]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
-                        </svg>
-                    </a>
+                    <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Transform your special day into a fairytale with our expert wedding and homecoming planning services. From stunning flower decorations to seamless coordination, we ensure every detail is perfect, so you can enjoy your magical moment.</p>
+                    <Link >
+                        <button className="block w-full text-center py-2  mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
+                          Contact
+                        </button>
+                      </Link>
                 </div>
 
                 <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -96,13 +95,12 @@ export default function Event() {
                     <a href="#">
                         <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white font-cinzel">BIRTHDAY PARTY</h5>
                     </a>
-                    <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Go to this step by step guideline process on how to certify for your weekly benefits:</p>
-                    <a href="#" className="inline-flex font-medium items-center text-blue-600 hover:underline">
-                        See our guideline
-                        <svg className="w-3 h-3 ms-2.5 rtl:rotate-[270deg]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
-                        </svg>
-                    </a>
+                    <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Celebrate your birthday in style with our bespoke party planning services. We craft unforgettable experiences with vibrant themes, exquisite decorations, and meticulous planning to make your day truly special and hassle-free.</p>
+                    <Link >
+                        <button className=" block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
+                          Contact
+                        </button>
+                      </Link>
                 </div>
 
                 <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -112,13 +110,12 @@ export default function Event() {
                     <a href="#">
                         <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white font-cinzel">BABY SHOWER</h5>
                     </a>
-                    <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Go to this step by step guideline process on how to certify for your weekly benefits:</p>
-                    <a href="#" className="inline-flex font-medium items-center text-blue-600 hover:underline">
-                        See our guideline
-                        <svg className="w-3 h-3 ms-2.5 rtl:rotate-[270deg]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
-                        </svg>
-                    </a>
+                    <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Welcome your little one with a charming baby shower. Our team creates heartwarming celebrations with delicate decorations, personalized themes, and meticulous planning, ensuring a joyful and memorable event.</p>
+                    <Link >
+                        <button className="block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
+                          Contact
+                        </button>
+                      </Link>
                 </div>
 
                 <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
@@ -128,13 +125,12 @@ export default function Event() {
                     <a href="#">
                         <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white font-cinzel">RELIIGIOUS EVENTS</h5>
                     </a>
-                    <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Go to this step by step guideline process on how to certify for your weekly benefits:</p>
-                    <a href="#" className="inline-flex font-medium items-center text-blue-600 hover:underline">
-                        See our guideline
-                        <svg className="w-3 h-3 ms-2.5 rtl:rotate-[270deg]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
-                        </svg>
-                    </a>
+                    <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Honor your traditions with grace and elegance. Our dedicated team will handle all aspects of your religious event, from serene decorations to flawless execution, ensuring a respectful and memorable occasion.</p>
+                    <Link >
+                        <button className="block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
+                          Contact
+                        </button>
+                      </Link>
                 </div>
 
                 <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
@@ -144,13 +140,12 @@ export default function Event() {
                     <a href="#">
                         <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white font-cinzel">COMMERCIAL EVENTS</h5>
                     </a>
-                    <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Go to this step by step guideline process on how to certify for your weekly benefits:</p>
-                    <a href="#" className="inline-flex font-medium items-center text-blue-600 hover:underline">
-                        See our guideline
-                        <svg className="w-3 h-3 ms-2.5 rtl:rotate-[270deg]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
-                        </svg>
-                    </a>
+                    <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Impress clients and colleagues with our professional commercial event management. We provide comprehensive services including innovative decor, precise logistics, and smooth execution, making your event a standout success.</p>
+                    <Link >
+                        <button className="block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
+                          Contact
+                        </button>
+                      </Link>
                 </div>
 
                 <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -160,13 +155,12 @@ export default function Event() {
                     <a href="#">
                         <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white font-cinzel">CUSTOM EVENTS</h5>
                     </a>
-                    <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Go to this step by step guideline process on how to certify for your weekly benefits:</p>
-                    <a href="#" className="inline-flex font-medium items-center text-blue-600 hover:underline">
-                        See our guideline
-                        <svg className="w-3 h-3 ms-2.5 rtl:rotate-[270deg]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
-                        </svg>
-                    </a>
+                    <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Bring your unique vision to life with our custom event services. Whether it's a themed party, milestone celebration, or any special occasion, we provide creative solutions and flawless execution to make your event unforgettable.</p>
+                    <Link>
+                        <button className="block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
+                          Contact
+                        </button>
+                      </Link>
                 </div>
 
             </div>
@@ -197,13 +191,13 @@ export default function Event() {
                     <div className="px-4 pb-4">
                       <Link to={`/event/${singleItem.slug}`}>
                         <button className="block w-full text-center py-2 mt-2 bg-white border border-green-400 text-green-700 hover:bg-green-50 rounded">
-                          More details
+                          Contact details
                         </button>
                       </Link>
 
                       <Link to={`/event-book/${singleItem.slug}`}>
-                        <button className="block w-full text-center py-2 mt-2 bg-white border border-rose-400 text-rose-400 hover:bg-rose-400 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
-                          Book
+                        <button className="block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
+                          Contact
                         </button>
                       </Link>
                     </div>

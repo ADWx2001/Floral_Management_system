@@ -89,7 +89,7 @@ export default function BookEvent() {
             <>
               {event && (
                 <>
-                  <h1 className="text-md mt-10 p-3 font-cinzel  lg:text-4xl">
+                  <h1 className="text-md mt-10 p-3 font-cinzel  lg:text-4xl font-semibold" style={{color:"#D63096"}}>
                     Fill your details and we'll get with you soon!!!
                   </h1>
                   <div className="lg:flex lg:flex-row">
@@ -106,8 +106,8 @@ export default function BookEvent() {
                     <form className="w-full max-w-lg p-4 mt-5 rounded-xl">
                       <div>
                         <div className="mb-2 block">
-                          <label htmlFor="phone" className="text-black">
-                            Your phone
+                          <label htmlFor="phone" className="text-black" style={{color:"#D63096"}}>
+                            Your Phone
                           </label>
                         </div>
                         <input
@@ -124,8 +124,8 @@ export default function BookEvent() {
 
                       <div>
                         <div className="mb-2 block pt-3">
-                          <label htmlFor="password1" className="text-black">
-                            Your name
+                          <label htmlFor="password1" className="text-black" style={{color:"#D63096"}}>
+                            Your Name
                           </label>
                         </div>
                         <input
@@ -142,7 +142,7 @@ export default function BookEvent() {
 
                       <div className="w-full">
                         <div className="mb-2 block pt-3">
-                          <label htmlFor="subject" className="text-black">
+                          <label htmlFor="subject" className="text-black" style={{color:"#D63096"}}>
                             Description
                           </label>
                         </div>
@@ -164,7 +164,7 @@ export default function BookEvent() {
                       <div className="flex flex-wrap items-center pt-3">
                         <div className="w-full md:w-1/3">
                           <div className="mb-2 block pt-3">
-                            <label htmlFor="subject" className="text-black">
+                            <label htmlFor="subject" className="text-black" style={{color:"#D63096"}}>
                               Date
                             </label>
                           </div>
@@ -180,7 +180,7 @@ export default function BookEvent() {
                         </div>
                         <div className="w-full md:w-1/3 px-2">
                           <div className="mb-2 block pt-3">
-                            <label htmlFor="subject" className="text-black">
+                            <label htmlFor="subject" className="text-black" style={{color:"#D63096"}}>
                               Time
                             </label>
                           </div>
@@ -196,7 +196,7 @@ export default function BookEvent() {
                         </div>
                         <div className="w-full md:w-1/3">
                           <div className="mb-2 block pt-3">
-                            <label htmlFor="subject" className="text-black">
+                            <label htmlFor="subject" className="text-black" style={{color:"#D63096"}}>
                               Venue
                             </label>
                           </div>
@@ -219,7 +219,7 @@ export default function BookEvent() {
                       <div className="flex flex-wrap items-center pt-3">
                         <div className="w-full md:w-1/3">
                           <div className="mb-2 block pt-3">
-                            <label htmlFor="number" className="text-black">
+                            <label htmlFor="number" className="text-black" style={{color:"#D63096"}}>
                               Guest count
                             </label>
                           </div>
@@ -239,7 +239,7 @@ export default function BookEvent() {
                         </div>
                         <div className="w-full md:w-1/3 px-2">
                           <div className="mb-2 block pt-3">
-                            <label htmlFor="subject" className="text-black">
+                            <label htmlFor="subject" className="text-black" style={{color:"#D63096"}}>
                               Theme/Color
                             </label>
                           </div>
@@ -259,8 +259,8 @@ export default function BookEvent() {
                         </div>
                         <div className="w-full md:w-1/3">
                           <div className="mb-2 block pt-3">
-                            <label htmlFor="subject" className="text-black">
-                              Your budget
+                            <label htmlFor="subject" className="text-black" style={{color:"#D63096"}}>
+                              Your Budget
                             </label>
                           </div>
                           <input
@@ -272,9 +272,9 @@ export default function BookEvent() {
                                 budget: e.target.value,
                               })
                             }
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+                            className="w-full  px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
                             required
-                            placeholder="Your Budget"
+                            placeholder="Your Budget" style={{color:"#D63096"}}
                           />
                         </div>
                       </div>
@@ -282,7 +282,7 @@ export default function BookEvent() {
                       <button
                         type="submit"
                         onClick={handleSubmit}
-                        className="block w-full text-center py-2 mt-2 bg-white border border-rose-400 text-rose-400 hover:bg-rose-400 rounded hover:border-rose-300 hover:text-white transition duration-300 ease-in-out"
+                        className="block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white transition duration-300 ease-in-out"
                       >
                         Send Request
                       </button>
