@@ -47,9 +47,13 @@ export default function Header() {
 
     return (
         <Navbar className="border-b-2 font-extrabold p-8" style={{backgroundColor:"#FFF5FB"}}>
-            <Link to="/" className="self-center whitespace-nowrap text-3xl 3xl:text-xl font-semibold dark:text-white font-tangerine">
-                <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via purple-500 to-pink-500  text-white rounded-lg  size-10/12">Flora</span>Shop
-            </Link>
+            <Link to="/" className="self-center">
+                <img 
+                    src={"/logo/1.1.png"} 
+                    alt="FloraShop Logo" 
+                    className="w-24 h-auto md:w-48 lg:w-64"
+                />
+                </Link>
             <form onSubmit={handleSubmit} className="font-cinzel">
                 <TextInput
                     type="text"

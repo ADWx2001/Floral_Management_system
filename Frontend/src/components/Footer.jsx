@@ -37,14 +37,14 @@ export default function FooterCom() {
         <div className="mx-6 py-10 text-center md:text-left">
             <div className="grid-1 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
 
-            <div className="">
-                <h6 className="self-center whitespace-nowrap text-4xl 4xl:text-xl font-semibold dark:text-white font-tangerine">
-                 <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via purple-500 to-pink-500  text-white rounded-lg  size-10/12" >Flora</span>Shop
-                </h6>
-                <p>
-                
-                </p>
+            <div className="flex justify-center items-center">
+                <img
+                    src="/logo/1.1.png"
+                    alt="FloraShop Logo"
+                    className="h-16 w-auto sm:h-20 md:h-24 lg:h-28 xl:h-32 2xl:h-36"
+                />
             </div>
+
 
             <div className="font-serif">
                 <h6
