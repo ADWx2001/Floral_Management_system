@@ -100,12 +100,12 @@ export default function Header() {
             </Navbar.Link>
             
           </Navbar.Collapse>
-          <form onSubmit={handleSubmit} className="w-full mt-4 lg:w-auto">
+          <form onSubmit={handleSubmit} className="w-full mt-2 lg:w-auto">
             <TextInput
               type="text"
               placeholder=""
               rightIcon={AiOutlineSearch}
-              className="w-full lg:w-auto text-lg"
+              className="w-full lg:w-auto "
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
