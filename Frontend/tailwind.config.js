@@ -12,6 +12,9 @@
     ],
     theme: {
       extend: {
+        colors:{
+          'primary':'#D63096'
+        },
         fontFamily:{
           tangerine:['Tangerine'],
           cinzel:['Cinzel'],

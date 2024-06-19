@@ -47,24 +47,24 @@ export default function Cart() {
               <div className="relative">
               <ul className="relative flex w-full items-center justify-between space-x-2 sm:space-x-4">
                   <li className="flex items-center space-x-3 text-left sm:space-x-4">
-                  <a className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-200 text-xs font-semibold text-emerald-700" >
+                  <a className="flex h-6 w-6 items-center justify-center rounded-full bg-pink-200 text-xs font-semibold text-pink-700" >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg></a>
-                  <span className="font-semibold text-gray-900">Cart</span>
+                  <span className="font-semibold text-gray-900 font-cinzel">Cart</span>
                   </li>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                   </svg>
                   <li className="flex items-center space-x-3 text-left sm:space-x-4">
                   <a className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-400 text-xs font-semibold text-white" href="/ordersummary">2</a>
-                  <span className="font-semibold text-gray-500">Order Summary</span>
+                  <span className="font-semibold text-gray-500 font-cinzel">Order Summary</span>
                   </li>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                   </svg>
                   <li className="flex items-center space-x-3 text-left sm:space-x-4">
                   <a className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-400 text-xs font-semibold text-white" href="#">3</a>
-                  <span className="font-semibold text-gray-500">Payment</span>
+                  <span className="font-semibold text-gray-500 font-cinzel">Payment</span>
                   </li>
               </ul>
               </div>
@@ -72,12 +72,12 @@ export default function Cart() {
       </div>
     {cart.cartItems.length === 0 ? (
       <div className="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
-         <h2 className="title font-manrope font-bold text-4xl leading-10 mb-8 text-center text-black">Shopping Cart
+         <h2 className="title font-manrope font-bold text-4xl leading-10 mb-8 text-center text-black font-cinzel">Shopping Cart
               </h2>
-          <p className="font-semibold text-center  ">Your cart is empty</p>
+          <p className="font-semibold text-center font-cinzel ">Your cart is empty</p>
           <div className="text-center mt-5 mb-10">
                <Link to="/products">
-                 <span className="px-4 py-3 bg-gradient-to-r from-indigo-500 via purple-500 to-pink-500  text-white rounded-lg  size-10/12">
+                 <span className="px-4 py-3  text-white rounded-lg  size-10/12">
                    Start Shopping
                  </span>
                </Link>
@@ -86,16 +86,16 @@ export default function Cart() {
         
       ) :(
         <section className="py-16 relative">
-          <div className="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
+          <div className="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto font-cinzel text-black">
 
-              <h2 className="title font-manrope font-bold text-4xl leading-10 mb-8 text-center text-black">Shopping Cart
+              <h2 className="title font-manrope font-bold text-4xl leading-10 mb-8 text-center text-black font-cinzel" style={{color:"#D63096"}}>Shopping Cart
               </h2>
               <div className="hidden lg:grid grid-cols-2 py-6">
-                  <div className="font-normal text-xl leading-8 text-gray-500">Product</div>
-                  <p className="font-normal text-xl leading-8 text-gray-500 flex items-center justify-between">
-                      <span className="w-full max-w-[200px] text-center">Price</span>
-                      <span className="w-full max-w-[260px] text-center">Quantity</span>
-                      <span className="w-full max-w-[200px] text-center">Total</span>
+                  <div className=" text-xl leading-8 text-gray-500" >Product</div>
+                  <p className=" text-xl leading-8 text-gray-500 flex items-center justify-between">
+                      <span className="w-full max-w-[200px] text-center" >Price</span>
+                      <span className="w-full max-w-[260px] text-center" >Quantity</span>
+                      <span className="w-full max-w-[200px] text-center" >Total</span>
                   </p>
               </div>
               {cart.cartItems?.map((cartItem) => (
@@ -105,12 +105,12 @@ export default function Cart() {
                       className="flex items-center flex-col min-[550px]:flex-row gap-3 min-[550px]:gap-6 w-full max-xl:justify-center max-xl:max-w-xl max-xl:mx-auto">
                       <div className="img-box"><img src={cartItem.image} alt="" className="xl:w-[140px]"/></div>
                       <div className="pro-data w-full max-w-sm ">
-                          <h5 className="font-semibold text-xl leading-8 text-black max-[550px]:text-center ">{cartItem.title}</h5>
-                          <p className="font-normal text-sm text-center pb-3">Qty x{cartItem.cartTotalQuantity}</p>
+                          <h5 className="font-semibold text-xl leading-8 text-black max-[550px]:text-center font-cinzel" >{cartItem.title}</h5>
+                          <p className="font-normal text-sm pb-3">Qty x{cartItem.cartTotalQuantity}</p>
                           <p
                               className="font-normal text-lg leading-8 text-gray-500 min-[550px]:my-3 max-[550px]:text-center">
                               Type: {cartItem.category}</p>
-                          <h6 className="font-medium text-lg leading-8 text-rose-600  max-[550px]:text-center">Rs.{cartItem.price}</h6>
+                          <h6 className="font-medium text-lg leading-8 text-black  max-[550px]:text-center">Rs.{cartItem.price}</h6>
                       </div>
                   </div>
                   <div
@@ -150,7 +150,7 @@ export default function Cart() {
                           </button>
                       </div>
                       <h6
-                          className="text-indigo-600 font-manrope font-bold text-2xl leading-9 w-full max-w-[176px] text-center">
+                          className="text-black font-manrope font-bold text-2xl leading-9 w-full max-w-[176px] text-center">
                           Rs.{cartItem.price * cartItem.cartTotalQuantity}</h6>
                   </div>
               
@@ -164,44 +164,38 @@ export default function Cart() {
                       <h6 className="font-semibold text-xl leading-8 text-gray-900">Rs.{cart.cartTotalAmount}</h6>
                   </div>
                   <div className="flex items-center justify-between w-full pb-6 border-b border-gray-200">
-                      <p className="font-normal text-xl leading-8 text-gray-400">Delivery Charge</p>
+                      <p className="font-normal text-xl leading-8 text-gray-400 ">Delivery Charge</p>
                       <h6 className="font-semibold text-xl leading-8 text-gray-900">Rs.300.00</h6>
                   </div>
                   <div className="flex items-center justify-between w-full py-6">
-                      <p className="font-manrope font-medium text-2xl leading-9 text-gray-900">Total</p>
-                      <h6 className="font-manrope font-medium text-2xl leading-9 text-indigo-500">Rs.{cart.cartTotalAmount + deliveryFee}</h6>
+                      <p className="font-manrope text-xl leading-9 text-gray-900 font-semibold">Total</p>
+                      <h6 className="font-manrope text-2xl leading-9 text-black font-bold">Rs.{cart.cartTotalAmount + deliveryFee}.00</h6>
                   </div>
               </div>
               <div className="flex items-center flex-col sm:flex-row justify-center gap-3 mt-8">
                   <Link to=''>
                     <button onClick={() => handleClearCart()}
-                        className="rounded-full py-4 px-6 w-full max-w-[280px]  flex items-center bg-red-50 justify-center transition-all duration-500 hover:bg-red-600">
-                        <span className="px-2 font-semibold text-lg leading-8 text-indigo-600 hover:text-white">Clear cart</span>
+                        className="rounded-full py-4 px-6 w-full max-w-[280px]  flex items-center bg-pink-50 justify-center transition-all duration-500 hover:bg-pink-100 font-semibold text-lg leading-8 hover:text-white" style={{color:"#D63096"}}>
+                        Clear cart
                     </button>
                   </Link>
 
                   <Link to='/'>
                     <button
-                        className="rounded-full py-4 px-6 w-full max-w-[280px]  flex items-center bg-indigo-50 justify-center transition-all duration-500 hover:bg-indigo-100">
-                        <span className="px-2 font-semibold text-lg leading-8 text-indigo-600">Continue shopping</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
-                            <path d="M8.25324 5.49609L13.7535 10.9963L8.25 16.4998" stroke="#4F46E5" strokeWidth="1.6"
-                                strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                        className="rounded-full py-4 px-6 w-full max-w-[280px]  flex items-center bg-pink-50 justify-center transition-all duration-500 hover:bg-pink-100">
+                        <span className="px-2 font-semibold text-lg leading-8 " style={{color:"#D63096"}}>Continue shopping</span>
+                        
                     </button>
                   </Link>
                   <div >
-                    <PayButton cartItems={cart.cartItems} />
-                    {/* <Link to='/ordersummary'>
+                    {/* <PayButton cartItems={cart.cartItems} /> */}
+                    <Link to='/ordersummary'>
                       <button
-                          className="rounded-full py-4 px-6 w-full max-w-[280px]  flex items-center bg-indigo-50 justify-center transition-all duration-500 hover:bg-indigo-100">
-                          <span className="px-2 font-semibold text-lg leading-8 text-indigo-600">Continue Payment</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
-                              <path d="M8.25324 5.49609L13.7535 10.9963L8.25 16.4998" stroke="#4F46E5" strokeWidth="1.6"
-                                  strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
+                          className="rounded-full py-4 px-6 w-full max-w-[280px]  flex items-center bg-pink-50 justify-center transition-all duration-500 hover:bg-pink-100">
+                          <span className="px-2 font-semibold text-lg leading-8 " style={{color:"#D63096"}}>Continue Payment </span>
+                          
                       </button>
-                    </Link> */}
+                    </Link>
                   </div>
               </div>
           </div>
