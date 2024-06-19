@@ -52,9 +52,9 @@ export default function Event() {
         </div>
 
         <div className="absolute top-16 left-0 w-full h-full flex items-center justify-center">
-          <div className="text-white text-center" >
-            <h2 className="text-5xl font-semibold mb-4 font-cinzel " style={{color:"#D63096"}}>SONDURUMA EVENTS</h2>
-            <p className="font-tangerine text-4xl leading-loose" >Luxury Celebrations, Lifetime Memories..</p>
+          <div className="text-white text-center mt-52" >
+            <h2 className="text-5xl font-extrabold mb-4 font-cinzel " style={{color:"#f238aa"}}>SONDURUMA EVENTS</h2>
+            <p className="font-tangerine text-5xl leading-loose" >Luxury Celebrations, Lifetime Memories..</p>
           </div>
         </div>
 
@@ -82,7 +82,7 @@ export default function Event() {
                     </a>
                     <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Transform your special day into a fairytale with our expert wedding and homecoming planning services. From stunning flower decorations to seamless coordination, we ensure every detail is perfect, so you can enjoy your magical moment.</p>
                     <Link >
-                        <button className="block w-full text-center py-2  mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
+                        <button className="font-cinzel font-semibold block w-full text-center py-2  mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
                           Contact
                         </button>
                       </Link>
@@ -97,7 +97,7 @@ export default function Event() {
                     </a>
                     <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Celebrate your birthday in style with our bespoke party planning services. We craft unforgettable experiences with vibrant themes, exquisite decorations, and meticulous planning to make your day truly special and hassle-free.</p>
                     <Link >
-                        <button className=" block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
+                        <button className="font-cinzel font-semibold block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
                           Contact
                         </button>
                       </Link>
@@ -112,7 +112,7 @@ export default function Event() {
                     </a>
                     <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Welcome your little one with a charming baby shower. Our team creates heartwarming celebrations with delicate decorations, personalized themes, and meticulous planning, ensuring a joyful and memorable event.</p>
                     <Link >
-                        <button className="block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
+                        <button className="font-cinzel font-semibold block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
                           Contact
                         </button>
                       </Link>
@@ -127,7 +127,7 @@ export default function Event() {
                     </a>
                     <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Honor your traditions with grace and elegance. Our dedicated team will handle all aspects of your religious event, from serene decorations to flawless execution, ensuring a respectful and memorable occasion.</p>
                     <Link >
-                        <button className="block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
+                        <button className="font-cinzel font-semibold block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
                           Contact
                         </button>
                       </Link>
@@ -142,7 +142,7 @@ export default function Event() {
                     </a>
                     <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Impress clients and colleagues with our professional commercial event management. We provide comprehensive services including innovative decor, precise logistics, and smooth execution, making your event a standout success.</p>
                     <Link >
-                        <button className="block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
+                        <button className="font-cinzel font-semibold block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
                           Contact
                         </button>
                       </Link>
@@ -157,7 +157,7 @@ export default function Event() {
                     </a>
                     <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Bring your unique vision to life with our custom event services. Whether it's a themed party, milestone celebration, or any special occasion, we provide creative solutions and flawless execution to make your event unforgettable.</p>
                     <Link>
-                        <button className="block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
+                        <button className="font-cinzel font-semibold block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
                           Contact
                         </button>
                       </Link>
@@ -190,13 +190,13 @@ export default function Event() {
                     </div>
                     <div className="px-4 pb-4">
                       <Link to={`/event/${singleItem.slug}`}>
-                        <button className="block w-full text-center py-2 mt-2 bg-white border border-green-400 text-green-700 hover:bg-green-50 rounded">
+                        <button className="font-semibold block w-full text-center py-2 mt-2 bg-white border border-green-400 text-green-700 hover:bg-green-100 rounded">
                           Contact details
                         </button>
                       </Link>
 
                       <Link to={`/event-book/${singleItem.slug}`}>
-                        <button className="block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
+                        <button className="font-semibold block w-full text-center py-2 mt-2 bg-white border border-rose-500 text-rose-500 hover:bg-rose-500 rounded hover:border-rose-300 hover:text-white hover:font-semibold">
                           Contact
                         </button>
                       </Link>
@@ -217,21 +217,21 @@ export default function Event() {
                 <div>
                   <img
                     className="h-auto max-w-full rounded-lg object-cover object-center"
-                    src="https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1950&amp;q=80"
+                    src="/gallery/8.jpg"
                     alt="gallery-photo"
                   />
                 </div>
                 <div>
                   <img
                     className="h-auto max-w-full rounded-lg object-cover object-center "
-                    src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=927&amp;q=80"
+                    src="/gallery/5.jpg"
                     alt="gallery-photo"
                   />
                 </div>
                 <div>
                   <img
                     className="h-auto max-w-full rounded-lg object-cover object-center"
-                    src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=2940&amp;q=80"
+                    src="/gallery/13.jpg"
                     alt="gallery-photo"
                   />
                 </div>
@@ -240,21 +240,21 @@ export default function Event() {
                 <div>
                   <img
                     className="h-auto max-w-full rounded-lg object-cover object-center"
-                    src="https://images.unsplash.com/photo-1552960562-daf630e9278b?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=687&amp;q=80"
+                    src="/gallery/9.jpg"
                     alt="gallery-photo"
                   />
                 </div>
                 <div>
                   <img
                     className="h-auto max-w-full rounded-lg object-cover object-center"
-                    src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                    src="/gallery/4.jpg"
                     alt="gallery-photo"
                   />
                 </div>
                 <div>
                   <img
                     className="h-auto max-w-full rounded-lg object-cover object-center "
-                    src="https://docs.material-tailwind.com/img/team-3.jpg"
+                    src="/gallery/2.jpg"
                     alt="gallery-photo"
                   />
                 </div>
@@ -263,21 +263,21 @@ export default function Event() {
                 <div>
                   <img
                     className="h-auto max-w-full rounded-lg object-cover object-center"
-                    src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=2940&amp;q=80"
+                    src="/gallery/3.jpg"
                     alt="gallery-photo"
                   />
                 </div>
                 <div>
                   <img
                     className="h-auto max-w-full rounded-lg object-cover object-center "
-                    src="https://docs.material-tailwind.com/img/team-3.jpg"
+                    src="/gallery/11.jpg"
                     alt="gallery-photo"
                   />
                 </div>
                 <div>
                   <img
                     className="h-auto max-w-full rounded-lg object-cover object-center"
-                    src="https://images.unsplash.com/photo-1552960562-daf630e9278b?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=687&amp;q=80"
+                    src="/gallery/6.jpg"
                     alt="gallery-photo"
                   />
                 </div>
@@ -286,14 +286,14 @@ export default function Event() {
                 <div>
                   <img
                     className="h-auto max-w-full rounded-lg object-cover object-center"
-                    src="https://images.unsplash.com/photo-1552960562-daf630e9278b?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=687&amp;q=80"
+                    src="/gallery/10.jpg"
                     alt="gallery-photo"
                   />
                 </div>
                 <div>
                   <img
                     className="h-auto max-w-full rounded-lg object-cover object-center"
-                    src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=927&amp;q=80"
+                    src="/gallery/5.jpg"
                     alt="gallery-photo"
                   />
                 </div>

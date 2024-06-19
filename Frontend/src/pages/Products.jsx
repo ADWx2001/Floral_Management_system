@@ -43,6 +43,14 @@ export default function Products() {
 
   return (
     <div className="max-w-screen-xl mx-auto mt-16 mb-10">
+      <div className="font-serif">
+        <select name="" id="" className=" rounded-xl" >
+          <option value="">Sort</option>
+          <option value="new" >Newest</option>
+          <option value="high">Price High to Low</option>
+          <option value="low">Low to High</option>
+        </select>
+      </div>
       <div className="flex flex-wrap gap-10 justify-center">
         {currentProducts.map((singleItem) => (
           <div className="flex justify-center py-8" key={singleItem._id}>
@@ -100,24 +108,12 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) =
     if (currentPage > 1) paginate(currentPage - 1);
   };
 
-  // const handleNextSet = () => {
-  //   paginate(Math.min(totalPages, endPage + 1));
-  // };
-
-  // const handlePrevSet = () => {
-  //   paginate(Math.max(1, startPage - 1));
-  // };
+ 
 
   return (
     <nav className="flex justify-center mt-10">
       <ul className="flex list-none">
-        {/* {startPage > 1 && (
-          <li className="mx-1">
-            <button onClick={handlePrevSet} className="px-3 py-1 border border-rose-300 rounded hover:bg-rose-50">
-              &lt;
-            </button>
-          </li>
-        )} */}
+        
         {startPage > 1 && (
           <li className="mx-1">
             <button onClick={handlePrevPage} className="px-3 py-1 border border-rose-300 rounded hover:bg-rose-50">
@@ -139,13 +135,7 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) =
             </button>
           </li>
         )}
-        {/* {endPage < totalPages && (
-          <li className="mx-1">
-            <button onClick={handleNextSet} className="px-3 py-1 border border-rose-300 rounded hover:bg-rose-50">
-              &gt;
-            </button>
-          </li>
-        )} */}
+        
       </ul>
     </nav>
   );
