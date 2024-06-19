@@ -53,18 +53,18 @@ export default function Event() {
 
         <div className="absolute top-16 left-0 w-full h-full flex items-center justify-center">
           <div className="text-white text-center mt-52" >
-            <h2 className="text-5xl font-extrabold mb-4 font-cinzel " style={{color:"#f238aa"}}>SONDURUMA EVENTS</h2>
-            <p className="font-tangerine text-5xl leading-loose" >Luxury Celebrations, Lifetime Memories..</p>
+            <h2 className="text-5xl font-extrabold mb-4 font-cinzel animate-fadeInLeft" style={{color:"#f238aa"}}>SONDURUMA EVENTS</h2>
+            <p className="font-tangerine text-5xl leading-loose animate-fadeInRight" >Luxury Celebrations, Lifetime Memories..</p>
           </div>
         </div>
 
       </div>
 
       <div className="text-center pt-4 sm:pt-8 dark:bg-gray-800">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl text-black-600 font-bold dark:bg-gray-800 font-cinzel" style={{color:"#D63096"}}>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl text-black-600 font-bold dark:bg-gray-800 font-cinzel animate-fadeInBottom" style={{color:"#D63096"}}>
         Creating That One-Of-A-Kind Experience
         </h1>
-        <p className="text-4xl font-tangerine font-semibold text-gray-700 mt-2">Luxury Celebrations, Lifetime Memories..</p>
+        <p className="text-4xl font-tangerine font-semibold text-gray-700 mt-2 animate-fadeInBottom">Luxury Celebrations, Lifetime Memories..</p>
         <br />
       </div>
 
