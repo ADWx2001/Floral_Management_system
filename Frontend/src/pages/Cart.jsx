@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart, clearCart, decreaseCart, getCartTotal, removeFromCart } from "../redux/cart/cartSlice";
-import PayButton from './../components/PayButton';
+
 
 export default function Cart() {
   const cart = useSelector((state) => state.cart);

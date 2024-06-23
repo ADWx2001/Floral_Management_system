@@ -2,6 +2,9 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import bodyParser from "body-parser";
+import crypto from "crypto-js";
+
 import userRoute from "./routes/user.route.js"
 import authRoute from "./routes/auth.route.js"
 import productRoute from "./routes/products.route.js"
@@ -12,12 +15,8 @@ import Eventroute from "./routes/Events.route.js"
 import Staffroute from "./routes/Staff.route.js"
 import orderRoute from "./routes/order.route.js"
 import deliveryRoute from "./routes/delivery.route.js"
-import paymentRoute from "./routes/payment.route.js";
-//import productRoute from "./routes/product.route.js"
-// test import products api Prducts.js
-import product from "./utils/Product.js";
 import stripe from "./routes/stripe.route.js";
-import path from 'path';
+
 
 dotenv.config();
 
@@ -29,17 +28,12 @@ mongoose.connect(process.env.MONGO).then(()=>{
 
 
 const app = express();
-
-
-
-
 app.use(cookieParser());
 app.use(express.json());
 
 const corsOptions = {
     origin: 'http://localhost:5173',
   };
-
 app.use(cors(corsOptions));
 
 app.listen(3000 ,() =>{
@@ -52,20 +46,10 @@ app.use("/api/products",productRoute);
 app.use("/api/order",orderRoute);
 app.use("/api/stripe",stripe);
 app.use("/api/delivery",deliveryRoute);
-
-// test product route
-// app.get("/products", (req, res) =>{
-//     res.send(product);
-// })
-
 app.use("/api/reviews",reviewRoute);
-
 app.use("/api/suppliers",supplierroute)
 app.use("/api/events",Eventroute)
 app.use("/api/staff",Staffroute)
-
-
-
 
 
 app.use((err,req,res,next)=>{
@@ -77,3 +61,20 @@ app.use((err,req,res,next)=>{
         statusCode
     });
 })
+
+//payhere hash generate
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+const merchantSecret = 'HQ72KMONSLlkJi8UDIJRQIY9KSkai';
+const merchantId = '1222161';
+
+app.post('/generate-hash', (req, res) => {
+    const { order_id, amount, currency } = req.body;
+
+    const hashedSecret = crypto.MD5(merchantSecret).toString().toUpperCase();
+    const amountFormatted = parseFloat(amount).toLocaleString('en-us', { minimumFractionDigits: 2 }).replaceAll(',', '');
+    const hash = crypto.MD5(merchantId + order_id + amountFormatted + currency + hashedSecret).toString().toUpperCase();
+
+    res.json({ hash,merchantId });
+});

@@ -1,0 +1,8 @@
+/* custom-styles.css */
+.custom-navbar-link:hover {
+    color: #fa78c8 !important;
+  }
+  
+.custom-navbar-link.active {
+    color: #fa78c8 !important;
+  }

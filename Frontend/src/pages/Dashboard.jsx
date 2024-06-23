@@ -6,7 +6,6 @@ import DashProduct from "../components/DashProduct";
 import DashUsers from "../components/DashUsers";
 import ReviewsAdminDash from "../components/ReviewsAdminDash";
 import Events from "../components/Events";
-import DashDeliveries from "../components/DashDeliveries";
 import DashOrders from "../components/DashOrders";
 import DashMyOrders from "../components/DashMyOrders";
 import DashEventBooking from "../components/DashEventBooking";
@@ -35,7 +34,6 @@ export default function DashBoard() {
       {tab === 'users' && <DashUsers/>}
       {tab === 'reviews' && <ReviewsAdminDash/>}
       {tab === 'events' && <Events/>}
-      {tab == 'delivery' && <DashDeliveries/>}
       {tab == 'orders' && <DashOrders/>}
       {tab === 'myorders' && <DashMyOrders/>}
       {tab === 'eventbooking' && <DashEventBooking/>}
