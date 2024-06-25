@@ -240,10 +240,10 @@ export default function PostProduct({productId,title}) {
               totalRatings={totalRatings} 
             />
             
-            <Dashreviews productId={product && product._id} title={product && product.title} />
+            {/*<Dashreviews productId={product && product._id} title={product && product.title} />*/}
             <ReviewDisplay productId={product && product._id} />
             <div className='max-w-4xl mx-auto'>
-              <CallToAction />
+             
             </div>
           </>
         )}
