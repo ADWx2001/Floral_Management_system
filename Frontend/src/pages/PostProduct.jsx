@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Spinner } from 'flowbite-react';
-import CallToAction from './CallToAction';
+// import CallToAction from './CallToAction';
 import Dashreviews from '../components/Dashreviews';
 import { HiStar } from 'react-icons/hi';
 import { addToCart } from "../redux/cart/cartSlice";

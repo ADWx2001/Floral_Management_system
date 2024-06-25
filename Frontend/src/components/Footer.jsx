@@ -4,7 +4,7 @@ import "boxicons/css/boxicons.min.css";
 
 export default function FooterCom() {
   return (
-    <div>
+    <div style={{ backgroundColor: "#151515" }}>
       <footer
         className=" bg-neutral-100 text-center text-neutral-600 dark:bg-neutral-600 dark:text-neutral-200 lg:text-left"
         style={{ backgroundColor: "#151515" }}

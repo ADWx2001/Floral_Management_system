@@ -91,7 +91,7 @@ export default function DashSideBar() {
                 </Sidebar.Item>
               </Link>
 
-              <Link to='/dashboard?tab=staff' key="staff">
+              {/* <Link to='/dashboard?tab=staff' key="staff">
                 <Sidebar.Item
                   active={tab === 'staff'}
                   icon={HiOutlineUserGroup}
@@ -99,7 +99,7 @@ export default function DashSideBar() {
                 >
                   Staff members
                 </Sidebar.Item>
-              </Link>
+              </Link> */}
 
               <Link to='/dashboard?tab=reviews' key="reviews">
                 <Sidebar.Item
@@ -111,7 +111,7 @@ export default function DashSideBar() {
                 </Sidebar.Item>
               </Link>
 
-              <Link to='/dashboard?tab=suppliers' key="suppliers">
+              {/* <Link to='/dashboard?tab=suppliers' key="suppliers">
                 <Sidebar.Item
                   active={tab === 'suppliers'}
                   icon={HiGift}
@@ -119,7 +119,7 @@ export default function DashSideBar() {
                 >
                   Suppliers
                 </Sidebar.Item>
-              </Link>
+              </Link> */}
 
               <Link to='/dashboard?tab=orders' key="orders">
                 <Sidebar.Item
@@ -131,7 +131,7 @@ export default function DashSideBar() {
                 </Sidebar.Item>
               </Link>
 
-              <Link to='/dashboard?tab=restock' key="restock">
+              {/* <Link to='/dashboard?tab=restock' key="restock">
                 <Sidebar.Item
                   active={tab === 'restock'}
                   icon={HiBookmark}
@@ -139,9 +139,9 @@ export default function DashSideBar() {
                 >
                   Restock
                 </Sidebar.Item>
-              </Link>
+              </Link> */}
 
-              <Link to='/dashboard?tab=delivery' key="delivery">
+              {/* <Link to='/dashboard?tab=delivery' key="delivery">
                 <Sidebar.Item
                   active={tab === 'delivery'}
                   icon={HiTruck}
@@ -149,7 +149,7 @@ export default function DashSideBar() {
                 >
                   Delivery
                 </Sidebar.Item>
-              </Link>
+              </Link> */}
              
             </>
           )}
