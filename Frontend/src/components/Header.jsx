@@ -23,7 +23,7 @@ export default function Header() {
         if(searchTermFromUrl) {
             setSearchTerm(searchTermFromUrl);
         }
-        // Dispatch getCartTotal action to update cart total
+     
         dispatch(getCartTotal());
     }, [dispatch, location.search]);
 
@@ -64,9 +64,9 @@ export default function Header() {
                 <AiOutlineSearch/>
             </Button>
             <div className="flex gap-2 md:order-2 font-cinzel">
-            <Button className='w-12 h-10 hidden sm:inline'color='gray'pill onClick={() => dispatch(toggleTheme())}>
-             {theme === 'light' ? <FaSun /> : <FaMoon />}
-            </Button>
+                <Button className='w-12 h-10 hidden sm:inline'color='gray'pill onClick={() => dispatch(toggleTheme())}>
+                {theme === 'light' ? <FaSun /> : <FaMoon />}
+                </Button>
                 {currentUser ? (
                     <Dropdown arrowIcon={false} inline label={
                         <Avatar alt="user" img={currentUser.profilePicture} rounded />

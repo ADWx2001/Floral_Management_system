@@ -27,10 +27,7 @@ mongoose.connect(process.env.MONGO).then(()=>{
     console.log(err)
 });
 
-
 const app = express();
-
-
 
 
 app.use(cookieParser());
