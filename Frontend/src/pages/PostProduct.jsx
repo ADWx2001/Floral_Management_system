@@ -7,9 +7,10 @@ import { HiStar } from 'react-icons/hi';
 import { addToCart } from "../redux/cart/cartSlice";
 import { useGetAllProductsQuery } from "../redux/product/productApi";
 import { useDispatch } from "react-redux";
+import ReviewForm from '../components/ReviewForm';
+import ReviewDisplay from '../components/ReviewsDisplay';
 
-
-export default function PostProduct() {
+export default function PostProduct({productId,title}) {
   const { productSlug } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -43,7 +44,6 @@ export default function PostProduct() {
         if (data.products[0]) {
           getModeratereviews(data.products[0]._id);
         }
-      
 
       } catch (error) {
         setError(true);
@@ -84,6 +84,107 @@ export default function PostProduct() {
     dispatch(addToCart(product));
   }
 
+  const StarRatingDisplay = ({ Fivestar, Fourstar, Threestar, Twostar, Onestar, totalRatings }) => {
+    const calculateWidth = (starCount) => {
+      return totalRatings > 0 ? (starCount / totalRatings) * 100 : 0;
+    }
+
+    return (
+      <div className='lg:flex lg:flex-row '>
+      
+        <div className='lg:w-1/8 justify-items-end  pt-3  w-24 p-2 m-2 rounded-md flex flex-col items-center'>
+          <p className='text-3xl font-semibold text-center pt-8'>
+             {moderateRating >= 4.4 ? <p className='text-sm bg-yellow-300  text-white  p- rounded-xl flex'><HiStar className='text-white text-lg'/>TopRated </p> : " "}
+          </p>
+          <p className='text-3xl font-semibold text-center'><span className='font-semibold text-5xl font-sans'></span> {moderateRating}</p>      
+          <HiStar className='text-yellow-300 text-6xl text-center'/>  
+          <p className='text-center'>{totalRatings} ratings</p>     
+        </div>
+
+        <div className='flex flex-wrap  lg:w-0 mr-2 ml-3 rounded-md border border-gray-200'></div>
+        
+        <div className='flex flex-wrap  p-8 lg:w-2/4 rounded-md '>
+          <div className='flex flex-wrap justify-between  w-full items-center  m-1 rounded-md '>
+            <HiStar className='text-yellow-300 text-2xl' />
+            <HiStar className='text-yellow-300 text-2xl' />
+            <HiStar className='text-yellow-300 text-2xl' />
+            <HiStar className='text-yellow-300 text-2xl' />
+            <HiStar className='text-yellow-300 text-2xl' />
+            <div className='relative bg-gray-300 h-2 rounded-full flex-1 mx-2 overflow-hidden'>
+              <div
+                className='absolute top-0 left-0 h-full bg-yellow-400 rounded-full'
+                style={{ width: `${calculateWidth(Fivestar)}%` }}
+              ></div>
+            </div>
+            <div className='text-sm pl-1'> {Fivestar}</div>
+          </div>
+
+          <div className='flex flex-wrap justify-between  w-full items-center  m-1 rounded-md '>
+            <HiStar className='text-yellow-300 text-2xl' />
+            <HiStar className='text-yellow-300 text-2xl' />
+            <HiStar className='text-yellow-300 text-2xl' />
+            <HiStar className='text-yellow-300 text-2xl' />
+            <HiStar className='text-gray-200 text-2xl  border-gray-300' />
+            <div className='relative bg-gray-300 h-2 rounded-full flex-1 mx-2 overflow-hidden'>
+              <div
+                className='absolute top-0 left-0 h-full bg-yellow-400 rounded-full'
+                style={{ width: `${calculateWidth(Fourstar)}%` }}
+              ></div>
+            </div>
+            <div className='text-sm pl-1'>{Fourstar}</div>
+          </div>
+
+          <div className='flex flex-wrap justify-between  w-full items-center  m-1 rounded-md '>
+            <HiStar className='text-yellow-300 text-2xl' />
+            <HiStar className='text-yellow-300 text-2xl' />
+            <HiStar className='text-yellow-300 text-2xl' />
+            <HiStar className='text-gray-200 text-2xl  border-gray-300' />
+            <HiStar className='text-gray-200 text-2xl  border-gray-300' />
+            <div className='relative bg-gray-300 h-2 rounded-full flex-1 mx-2 overflow-hidden'>
+              <div
+                className='absolute top-0 left-0 h-full bg-yellow-400 rounded-full'
+                style={{ width: `${calculateWidth(Threestar)}%` }}
+              ></div>
+            </div>
+            <div className='text-sm pl-1'>{Threestar}</div>
+          </div>
+
+          <div className='flex flex-wrap justify-between  w-full items-center  m-1 rounded-md '>
+            <HiStar className='text-yellow-300 text-2xl' />
+            <HiStar className='text-yellow-300 text-2xl' />
+            <HiStar className='text-gray-200 text-2xl  border-gray-300' />
+            <HiStar className='text-gray-200 text-2xl  border-gray-300' />
+            <HiStar className='text-gray-200 text-2xl  border-gray-300' />
+            <div className='relative bg-gray-300 h-2 rounded-full flex-1 mx-2 overflow-hidden'>
+              <div
+                className='absolute top-0 left-0 h-full bg-yellow-400 rounded-full'
+                style={{ width: `${calculateWidth(Twostar)}%` }}
+              ></div>
+            </div>
+            <div className='text-sm pl-1'>{Twostar}</div>
+          </div>
+
+          <div className='flex flex-wrap justify-between  w-full items-center  m-1 rounded-md '>
+            <HiStar className='text-yellow-300 text-2xl' />
+            <HiStar className='text-gray-200 text-2xl  border-gray-300' />
+            <HiStar className='text-gray-200 text-2xl  border-gray-300' />
+            <HiStar className='text-gray-200 text-2xl  border-gray-300' />
+            <HiStar className='text-gray-200 text-2xl  border-gray-300' />
+            <div className='relative bg-gray-300 h-2 rounded-full flex-1 mx-2 overflow-hidden'>
+              <div
+                className='absolute top-0 left-0 h-full bg-yellow-400 rounded-full'
+                style={{ width: `${calculateWidth(Onestar)}%` }}
+              ></div>
+            </div>
+            <div className='text-sm pl-1'>{Onestar}</div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const totalRatings = Fivestar + Fourstar + Threestar + Twostar + Onestar;
+
   return (
     <div>
       <main className='p-3 flex flex-col max-w-6xl mx-auto min-h-screen'>
@@ -109,22 +210,19 @@ export default function PostProduct() {
                   
                     <h1 className='p-1 font-bold font-sans text-green-700 text-3xl'>Rs. {product && product.price}.00</h1><hr />
                     <h1 className='p-1 underline font-serif lg:text-4xl text-lg mt-5'>{product && product.title}</h1>
-                    <h1 className='p-1 text-md  font-sans'>{product && product.description}</h1>
-                    <h1 className='p-1 '><span className='font-semibold text-md  font-sans'>Category :</span> {product && product.category}</h1>
+                    <h1 className='p-1 text-md font-sans'>{product && product.description}</h1>
+                    <h1 className='p-1 '><span className='font-semibold text-md font-sans'>Category :</span> {product && product.category}</h1>
                     <h1 className='p-1 font-semibold mb-2'>Delivery in :<span className='text-green-500'> {product && product.deliveryTime} Days.</span></h1>
-                    {/* <div className='flex flex-wrap border border-gray-200 mb-3  bg-gray-100  dark:bg-slate-800 w-24  p-2 m-2 rounded-md'>
-                      <HiStar className='text-yellow-300  text-4xl'/>
-                      <p className ='pl-2'><span className='font-semibold text-lg  font-sans'> </span> {moderateRating}</p>
-                    </div> */}
+                    
                     <hr />
                     <div className=''>
                       {product && (
-                          <div className="flex justify-center mt-4">
-                            <button className="block w-full text-center py-2 mt-2 bg-white border border-rose-400 text-rose-400 hover:bg-rose-400 rounded hover:border-rose-300 hover:text-white hover:font-semibold"
-                              onClick={() => handleAddToCart(product)}>
-                                Add to Cart
-                            </button>
-                          </div> 
+                        <div className="flex justify-center mt-4">
+                          <button className="block w-full text-center py-2 mt-2 bg-white border border-rose-400 text-rose-400 hover:bg-rose-400 rounded hover:border-rose-300 hover:text-white hover:font-semibold"
+                            onClick={() => handleAddToCart(product)}>
+                              Add to Cart
+                          </button>
+                        </div> 
                       )}
                     </div>
                   </div>
@@ -132,52 +230,26 @@ export default function PostProduct() {
                 </div>
               </div>
            </div>
+           
+            <StarRatingDisplay 
+              Fivestar={Fivestar} 
+              Fourstar={Fourstar} 
+              Threestar={Threestar} 
+              Twostar={Twostar} 
+              Onestar={Onestar} 
+              totalRatings={totalRatings} 
+            />
             
-            
-            {/* <div className='flex-wrap flex gap-1  p-2'>
-              <div className='flex flex-wrap justify-between bg-gray-100  dark:bg-slate-800 w-15 items-center p-1 m-1 rounded-md border border-gray-200'>
-                  <HiStar className='text-yellow-300 text-2xl'/>
-                  <div className='text-lg pl-1'>5[{Fivestar}]</div>
-              </div>
-
-              <div className='flex flex-wrap justify-between bg-gray-100  dark:bg-slate-800 w-15 items-center p-1 m-1 rounded-md border border-gray-200'>
-                  <HiStar className='text-yellow-300 text-2xl'/>
-                  <div className='text-lg pl-1'>4[{Fourstar}]</div>
-              </div>
-
-              <div className='flex flex-wrap justify-between bg-gray-100  dark:bg-slate-800 w-15 items-center p-1 m-1 rounded-md border border-gray-200'>
-                  <HiStar className='text-yellow-300 text-2xl'/>
-                  <div className='text-lg pl-1'>3[{Threestar}]</div>
-              </div>
-
-              <div className='flex flex-wrap justify-between bg-gray-100  dark:bg-slate-800 w-15 items-center p-1 m-1 rounded-md border border-gray-200'>
-                  <HiStar className='text-yellow-300 text-2xl'/>
-                  <div className='text-lg pl-1'>2[{Twostar}]</div>
-              </div>
-
-              <div className='flex flex-wrap justify-between bg-gray-100  dark:bg-slate-800 w-15 items-center p-1 m-1 rounded-md border border-gray-200'>
-                  <HiStar className='text-yellow-300 text-2xl'/>
-                  <div className='text-lg pl-1'>1[{Onestar}]</div>
-              </div>
-            </div> */}
-            
-
-            <Dashreviews productId={product && product._id} title={product && product.title} />
-
-          <div className ='max-w-4xl mx-auto '>
-            <CallToAction/>
-
-          </div >
-         
+            {/*<Dashreviews productId={product && product._id} title={product && product.title} />*/}
+            <ReviewDisplay productId={product && product._id} />
+            <div className='max-w-4xl mx-auto'>
+             
+            </div>
           </>
-          
         )}
         <div className='flex flex-col'>
-           
         </div>
-        
       </main>
-     
     </div>
   );
 }
