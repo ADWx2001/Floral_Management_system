@@ -57,9 +57,14 @@ export default function SignIn() {
 
 
   return (
-    <div className="min-h-screen mt-20">
+    <div className="min-h-screen "  style={{
+        backgroundImage: `url('https://cdn0.weddingwire.ca/vendor/6737/3_2/960/jpg/et-event-management-4_50_26737.webp')`,
+        backgroundSize: 'cover',
+        backgroundPosition: '',
+        backgroundRepeat: 'no-repeat',
+    }}>
         
-        <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-20">
+        <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-20 ">
             {/* left */}
             <div className="flex-1">
                 <Link to ="/" className="text-5xl font-bold dark:text-white font-tangerine">
@@ -68,7 +73,7 @@ export default function SignIn() {
                 <p className="text-sm mt-5 font-cinzel font-gray font-semibold">Join with us to get beautiful flowers to your door step and let us to decorate you from your favourite flowers</p>
             </div>
             {/* right */}
-            <div className="flex-1">
+            <div className="flex-1 mt-20">
                 <p className="text-center text-2xl font-cinzel font-semibold ">Sign In</p>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-5">
                    

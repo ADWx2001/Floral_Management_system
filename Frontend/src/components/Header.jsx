@@ -310,40 +310,30 @@ export default function Header() {
             </Link>
           )}
           {currentUser ? (
-            <Dropdown
-              arrowIcon={false}
-              inline
-              label={
-                <box-icon
-                  type="solid"
-                  name="user"
-                  color="#E437A1"
-                  size="md"
-                ></box-icon>
-              }
-            >
-              <DropdownHeader>
-                <span className="block text-sm">{currentUser.username}</span>
-                <span className="block text-sm font-medium truncate">
-                  {currentUser.email}
-                </span>
-              </DropdownHeader>
-              <Link to={"/dashboard?tab=profile"}>
-                <DropdownItem>Profile</DropdownItem>
-              </Link>
-              <DropdownDivider />
-              <DropdownItem onClick={handleSignOut}>Sign Out</DropdownItem>
-            </Dropdown>
-          ) : (
-            <Link to="/sign-in">
-              <Button gradientDuoTone="purpleToBlue" outline>
-                Sign In
-              </Button>
-            </Link>
-          )}
+                    <Dropdown arrowIcon={false} inline label={
+                        <Avatar alt="user" img={currentUser.profilePicture} rounded />
+                    }>
+                        <DropdownHeader>
+                            <span className="block text-sm">{currentUser.username}</span>
+                            <span className="block text-sm font-medium truncate">{currentUser.email}</span>
+                        </DropdownHeader>
+                        <Link to={'/dashboard?tab=profile'}>
+                            <DropdownItem>Profile</DropdownItem>
+                        </Link>
+                        <DropdownDivider/>
+                        <DropdownItem onClick={handleSignOut}>Sign Out</DropdownItem>
+                    </Dropdown>
+                ) : (
+                  <Link to="/sign-in">
+                  <Button gradientDuoTone="purpleToBlue" outline>
+                  Sign In
+                  </Button>
+                  </Link>
+                )}
           <Navbar.Toggle />
         </div>
       </div>
     </Navbar>
   );
 }
+

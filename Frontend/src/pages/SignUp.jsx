@@ -51,29 +51,22 @@ export default function SignUp() {
     };
 
     return (
-        <div className="min-h-screen mt-20">
+        <div className="min-h-screen " style={{
+            backgroundImage: `url('https://cdn0.weddingwire.ca/vendor/6737/3_2/960/jpg/et-event-management-4_50_26737.webp')`,
+            backgroundSize: 'cover',
+            backgroundPosition: '',
+            backgroundRepeat: 'no-repeat',
+        }}>
             <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-20">
                 {/* left */}
-                <div className="flex-1 w-100 screen mt-35" >
-                    <div className="h-150 sm:h-96 xl:h-96 2xl:h-200">
-                        <Carousel
-                            autoplay={true}
-                            autoplaySpeed={2000}
-                            showDots={true}
-                            infinite={true}
-                            slidesToShow={1}
-                            slidesToScroll={1}
-                        >
-                            <img className="w-full h-full object-cover" src="https://www.marthastewart.com/thmb/XNtl-ybaFAiVz6RvU6ORwlYcrM0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/best-planners-tara-guerard-gayle-brooker-1120-13ec6eea36ae4b2e99d970aaeafa952f.jpg" alt="Photo 1" />
-                            <img className="w-full h-full object-cover" src="https://pizzazzerie.com/wp-content/uploads/2021/04/enchanted-gardening-party-01.jpg" alt="Photo 2" />
-                            <img className="w-full h-full object-cover" src="https://images.ctfassets.net/6m9bd13t776q/2BaFhJ3BKg2McW2OAU2MW2/8ea81f814abcfa35a05d5242fffeb754/baby-shower-etiquette-food-display-950x1152.jpg?h=979" alt="Photo 3" />
-                            <img className="w-full h-full object-cover" src="https://www.bhg.com/thmb/QmH33Aup6SRpqdv_XcsAh1yYOLY=/1244x0/filters:no_upscale():strip_icc()/tall-pink-red-flower-arrangement-white-vase-dc7b0794-f385af55d23e47e4b4d954ee98ec6d21.jpg" alt="Photo 4" />
-                            <img className="w-full h-full object-cover" src="https://images.squarespace-cdn.com/content/v1/60a473fd57b5c705f28888ff/1693088485377-94SXBLTF0HGO67CKYO5Q/IMG_8007.jpg" alt="Photo 5" />
-                        </Carousel>
-                    </div>
-                </div>
-                {/* right */}
                 <div className="flex-1">
+                <Link to ="/" className="text-5xl font-bold dark:text-white font-tangerine">
+                    <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via purple-500 to-pink-500  text-white rounded-lg  size-10/12" >Flora</span>Shop
+                </Link>
+                <p className="text-sm mt-5 font-cinzel text-black font-extrabold">Join with us to get beautiful flowers to your door step and let us to decorate you from your favourite flowers</p>
+            </div>
+                {/* right */}
+                <div className="flex-1 mt-20">
                     <p className="text-center text-2xl font-cinzel font-semibold ">Sign Up</p>
                     <form className="flex flex-col gap-4 mt-5" onSubmit={handleSubmit}>
                         <div>
