@@ -51,6 +51,19 @@ export default function Reviews({ review, onUpdate, onDelete }) {
     }
   };
 
+
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+      if (i < rating) {
+        stars.push(<HiStar key={i} className="text-yellow-300 text-xl" />);
+      } else {
+        stars.push(<HiStar key={i} className="text-gray-300 text-xl" />);
+      }
+    }
+    return stars;
+  };
+
   return (
     <div className="text-sm flex p-4 border-b dark border-gray-400">
       <div className="flex-shrink-0 mr-3">
@@ -79,8 +92,7 @@ export default function Reviews({ review, onUpdate, onDelete }) {
         ) : (
           <>
             <div className="text-gray-500 pb-2 text-xl flex flex-wrap items-center">
-              <HiStar className="text-yellow-300 text-xl" />
-              <span className="text-xl pl-2 "> {review.rating} </span>
+              {renderStars(review.rating)}
             </div>
             <p className="text-gray-500 pb-2">{review.content}</p>
             <div className="mt-2 p-1">

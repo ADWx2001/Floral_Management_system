@@ -41,6 +41,7 @@ export default function Products() {
     navigate(`/product/${slug}`);
   }
 
+
   return (
     <div className="max-w-screen-xl mx-auto mt-16 mb-10">
       <div className="font-serif">

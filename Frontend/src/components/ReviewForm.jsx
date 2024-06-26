@@ -175,7 +175,7 @@ export default function ReviewForm({ productId, title }) {
         <label className='pr-1 text-gray-500'>Rating</label>
         <select className='m-2 p-1 rounded-md text-gray-600 dark:bg-slate-800 ' required onChange={(e) => setRating(e.target.value)} value={rating}>
           <option value="">Select</option>
-          <option value="1">1- Bad</option>
+          <option value="1">1- Poor</option>
           <option value="2">2- Fair</option>
           <option value="3">3- Good</option>
           <option value="4">4- Very good</option>

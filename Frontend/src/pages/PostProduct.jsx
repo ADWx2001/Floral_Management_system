@@ -9,6 +9,8 @@ import { useGetAllProductsQuery } from "../redux/product/productApi";
 import { useDispatch } from "react-redux";
 import ReviewForm from '../components/ReviewForm';
 import ReviewDisplay from '../components/ReviewsDisplay';
+import MODRating from './MODRating';
+
 
 export default function PostProduct({productId,title}) {
   const { productSlug } = useParams();
@@ -84,6 +86,25 @@ export default function PostProduct({productId,title}) {
     dispatch(addToCart(product));
   }
 
+
+  /*const MODStarRating = ({ rating }) => {
+    const totalStars = 5;
+    const filledStars = Math.round(rating);
+    const emptyStars = totalStars - filledStars;
+  
+    return (
+      <div className="flex items-center justify-center p-2">
+        {[...Array(filledStars)].map((_, index) => (
+          <HiStar key={index} className='text-yellow-300 text-3xl' />
+        ))}
+        {[...Array(emptyStars)].map((_, index) => (
+          <HiStar key={index} className='text-gray-300 text-3xl'/>
+        ))}
+      </div>
+    );
+  };*/
+
+
   const StarRatingDisplay = ({ Fivestar, Fourstar, Threestar, Twostar, Onestar, totalRatings }) => {
     const calculateWidth = (starCount) => {
       return totalRatings > 0 ? (starCount / totalRatings) * 100 : 0;
@@ -94,14 +115,14 @@ export default function PostProduct({productId,title}) {
       
         <div className='lg:w-1/8 justify-items-end  pt-3  w-24 p-2 m-2 rounded-md flex flex-col items-center'>
           <p className='text-3xl font-semibold text-center pt-8'>
-             {moderateRating >= 4.4 ? <p className='text-sm bg-yellow-300  text-white  p- rounded-xl flex'><HiStar className='text-white text-lg'/>TopRated </p> : " "}
+             {moderateRating >= 4.4 ? <p className='text-sm bg-yellow-300  text-white  p-1 rounded-lg flex'><HiStar className='text-white text-lg'/>TopRated </p> : " "}
           </p>
           <p className='text-3xl font-semibold text-center'><span className='font-semibold text-5xl font-sans'></span> {moderateRating}</p>      
-          <HiStar className='text-yellow-300 text-6xl text-center'/>  
-          <p className='text-center'>{totalRatings} ratings</p>     
+          <MODRating  rating={moderateRating}/>   
+          <p className='text-center'>{totalRatings} ratings</p>   
         </div>
 
-        <div className='flex flex-wrap  lg:w-0 mr-2 ml-3 rounded-md border border-gray-200'></div>
+        <div className='flex flex-wrap  lg:w-0 mr-2 ml-6 rounded-md border border-gray-200'></div>
         
         <div className='flex flex-wrap  p-8 lg:w-2/4 rounded-md '>
           <div className='flex flex-wrap justify-between  w-full items-center  m-1 rounded-md '>
@@ -240,7 +261,7 @@ export default function PostProduct({productId,title}) {
               totalRatings={totalRatings} 
             />
             
-            {/*<Dashreviews productId={product && product._id} title={product && product.title} />*/}
+            <Dashreviews productId={product && product._id} title={product && product.title} />
             <ReviewDisplay productId={product && product._id} />
             <div className='max-w-4xl mx-auto'>
              
