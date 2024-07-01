@@ -342,18 +342,13 @@ export default function DashOrders() {
             <Table.Cell>
               <div className="flex flex-row gap-2">
                 <Link to={`/update-order/${orders._id}`}>
-                  <button><box-icon name='edit-alt' color='#65B741'></box-icon></button>
+                  <Button className="text-black">Edit Order</Button>
                 </Link>
                 
-
-                <Link to={`/create-delivery-record/${orders._id}`}>
-                  <button><box-icon name='package' color='#5755FE'></box-icon></button>
-                </Link>
-
-                <button onClick={() => {
+                <Button onClick={() => {
                           setShowModel(true);
                           setOrderIdToDelete(orders._id);
-                        }} ><box-icon name='x-circle' color='#D20062'></box-icon></button>
+                        }} ><box-icon name='x-circle' color='#D20062'></box-icon></Button>
               </div>
             </Table.Cell>
           </Table.Row>
