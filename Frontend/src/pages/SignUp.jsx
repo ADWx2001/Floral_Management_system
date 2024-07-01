@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert, Button, Label, TextInput ,Spinner, Carousel } from "flowbite-react";
+import { Alert, Button, Label, TextInput ,Spinner} from "flowbite-react";
 import { Link , useNavigate } from "react-router-dom";
 import OAuthenticate from "../components/OAuthenticate";
 
